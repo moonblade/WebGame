@@ -5,7 +5,7 @@
   "name": "web-game",
   "version": "1.0.0",
   "description": "A game that can run on the browser",
-  "main": "index.js",
+  "main": "dist/index.js",
   "devDependencies": {},
   "scripts": {
     "test": "test"
