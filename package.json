@@ -1,14 +1,21 @@
 {
   "dependencies": {
-    "excalibur": "^0.19.1"
+    "excalibur": "^0.19.1",
+    "systemjs": "^2.1.1"
   },
   "name": "web-game",
   "version": "1.0.0",
   "description": "A game that can run on the browser",
   "main": "dist/index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "ts-loader": "^5.3.0",
+    "typescript": "^3.1.6",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
+  },
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "webpack --watch --config webpack.config.js"
   },
   "repository": {
     "type": "git",
