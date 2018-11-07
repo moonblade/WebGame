@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "excalibur": "^0.19.1"
+  },
+  "name": "web-game",
+  "version": "1.0.0",
+  "description": "A game that can run on the browser",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moonblade/WebGame.git"
+  },
+  "keywords": [
+    "web",
+    "game",
+    "html5"
+  ],
+  "author": "mnishamk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moonblade/WebGame/issues"
+  },
+  "homepage": "https://github.com/moonblade/WebGame#readme"
+}
