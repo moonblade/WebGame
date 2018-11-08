@@ -1,18 +1,14 @@
-import * as ex from 'excalibur';
+import { Engine } from 'excalibur';
 import Player from './player';
-class Game {
-    game: ex.Engine;
+class Game extends Engine{
     player: Player;
     constructor() {
-        this.game = new ex.Engine();
+        super();
 
         this.player = new Player();
-        this.game.add(this.player);
+        this.add(this.player);
     }
 
-    start() {
-        this.game.start()
-    }
 }
 
 export default Game;

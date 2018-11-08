@@ -1,5 +1,5 @@
-import * as ex from 'excalibur';
-class Player extends ex.Actor{
+import { Actor } from 'excalibur';
+class Player extends Actor{
     constructor() {
         super();
     }
