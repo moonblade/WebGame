@@ -1,4 +1,5 @@
 node_modules
 dist/*
+!dist/index.js
 *.map
 src/node_modules
