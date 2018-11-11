@@ -12,6 +12,7 @@ class Player extends Actor {
     }
     
     clicked(coordinates:any) {
+        this.actions.clearActions();
         this.actions.moveTo(coordinates.x, coordinates.y, this.speed);
     }
 
