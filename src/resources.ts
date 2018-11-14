@@ -6,7 +6,7 @@ class Resources {
     static instance: Resources = null;
 
     constructor() {
-        this.walkTexture = new Texture("./src/resources/walk_sprite.png"); 
+        this.walkTexture = new Texture("./src/resources/player/sprite.png"); 
     }
 
     

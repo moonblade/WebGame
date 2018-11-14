@@ -12,12 +12,13 @@ class Player extends Actor {
     }
     
     clicked(coordinates:any) {
+        // Move the player to coordinate
         this.actions.clearActions();
         this.actions.moveTo(coordinates.x, coordinates.y, this.speed);
     }
 
     public onInitialize(engine: Engine) {
-        this.sprite = new Sprite(Resources.getInstance().walkTexture, 0, 0, 120, 120);
+        this.sprite = new Sprite(Resources.getInstance().walkTexture, 7, 8, 14, 21);
         this.addDrawing(this.sprite)
         this.enableCapturePointer = true;
         // respond to click events
