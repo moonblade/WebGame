@@ -1,0 +1,22 @@
+{
+    "textures": {
+        "playerWalkDown": "./src/resources/player/walk_down.png",
+        "playerWalkUp": "./src/resources/player/walk_up.png",
+        "playerWalkRight": "./src/resources/player/walk_right.png",
+        "playerWalkLeft": "./src/resources/player/walk_left.png"
+    },
+    "animations": {
+        "playerWalkDown": ["playerWalkDown", 3, 1, 14, 21],
+        "playerWalkUp": ["playerWalkUp", 3, 1, 14, 21],
+        "playerWalkRight": ["playerWalkRight", 3, 1, 14, 21],
+        "playerWalkLeft": ["playerWalkLeft", 3, 1, 14, 21]
+ 
+    },
+    "sprites": {
+        "playerIdleUp" : ["playerWalkUp", 0, 0, 14, 21],
+        "playerIdleDown" : ["playerWalkDown", 0, 0, 14, 21],
+        "playerIdleRight" : ["playerWalkRight", 0, 0, 14, 21],
+        "playerIdleLeft" : ["playerWalkLeft", 0, 0, 14, 21]
+    }
+            
+}

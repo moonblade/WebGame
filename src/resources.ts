@@ -1,6 +1,5 @@
 import { Texture, ILoader, ILoadable, Loader, Animation, SpriteSheet, Engine, Vector, Sprite } from "excalibur";
-import Game from "./game";
-import * as textures from './resources/textures.json';
+import * as graphics from './resources/graphics.json';
 class Resources {
     textures: any = {};
     animations: any = {};
@@ -10,8 +9,8 @@ class Resources {
     frameSpeed: number = 100;
 
     constructor() {
-        for (let key in textures) {
-            this.textures[key] = new Texture(textures[key]);
+        for (let key in graphics.textures) {
+            this.textures[key] = new Texture(graphics.textures[key]);
         }
     }
     
@@ -29,15 +28,15 @@ class Resources {
     }
     
     initResources(engine: Engine) {
-        this.animations['playerWalkDown'] = new SpriteSheet(this.getTexture('playerWalkDown'), 3, 1, 14, 21).getAnimationForAll(engine, this.frameSpeed);
-        this.animations['playerWalkUp'] = new SpriteSheet(this.getTexture('playerWalkUp'), 3, 1, 14, 21).getAnimationForAll(engine, this.frameSpeed);
-        this.animations['playerWalkRight'] = new SpriteSheet(this.getTexture('playerWalkRight'), 3, 1, 14, 21).getAnimationForAll(engine, this.frameSpeed);
-        this.animations['playerWalkLeft'] = new SpriteSheet(this.getTexture('playerWalkLeft'), 3, 1, 14, 21).getAnimationForAll(engine, this.frameSpeed);
-    
-        this.sprites['playerIdleUp'] = new Sprite(this.getTexture('playerWalkUp'), 0, 0, 14, 21);
-        this.sprites['playerIdleDown'] = new Sprite(this.getTexture('playerWalkDown'), 0, 0, 14, 21);
-        this.sprites['playerIdleRight'] = new Sprite(this.getTexture('playerWalkRight'), 0, 0, 14, 21);
-        this.sprites['playerIdleLeft'] = new Sprite(this.getTexture('playerWalkLeft'), 0, 0, 14, 21);
+        for (let key in graphics.animations) {
+            let a = graphics.animations[key]
+            this.animations[key] = new SpriteSheet(this.getTexture(a[0]), a[1], a[2], a[3], a[4]).getAnimationForAll(engine, this.frameSpeed);
+        }
+
+        for (let key in graphics.sprites) {
+            let a = graphics.sprites[key]
+            this.sprites[key] = new Sprite(this.getTexture(a[0]), a[1], a[2], a[3], a[4]);
+        }
     }
 
     onInitialize(engine: Engine) {

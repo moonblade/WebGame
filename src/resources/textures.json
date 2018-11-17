@@ -1,7 +1,0 @@
-{
-    "playerWalkDown" : "./src/resources/player/walk_down.png",
-    "playerWalkUp" : "./src/resources/player/walk_up.png",
-    "playerWalkRight" : "./src/resources/player/walk_right.png",
-    "playerWalkLeft" : "./src/resources/player/walk_left.png"
-
-}
