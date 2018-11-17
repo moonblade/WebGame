@@ -46,7 +46,7 @@ class Player extends Actor {
         });
     }
 
-    async moveTo(coordinate:any) {
+    async moveTo(coordinate:any, pathFind:boolean = true) {
         // TODO: Path finding algorithm required to move around obstacles in the room
         this.actions.clearActions();
         if (this.pos.x < coordinate.x) {
@@ -70,16 +70,16 @@ class Player extends Actor {
     update(engine: Engine, delta: number) {
         super.update(engine, delta);
         if (engine.input.keyboard.isHeld(Input.Keys.W) || engine.input.keyboard.isHeld(Input.Keys.Up)) {
-            this.moveTo(new Vector(this.pos.x, this.pos.y - this.keyboardSpeed));
+            this.moveTo(new Vector(this.pos.x, this.pos.y - this.keyboardSpeed), false);
         }
         if (engine.input.keyboard.isHeld(Input.Keys.A) || engine.input.keyboard.isHeld(Input.Keys.Left)) {
-            this.moveTo(new Vector(this.pos.x - this.keyboardSpeed, this.pos.y));
+            this.moveTo(new Vector(this.pos.x - this.keyboardSpeed, this.pos.y), false);
         }
         if (engine.input.keyboard.isHeld(Input.Keys.S) || engine.input.keyboard.isHeld(Input.Keys.Down)) {
-            this.moveTo(new Vector(this.pos.x, this.pos.y + this.keyboardSpeed));
+            this.moveTo(new Vector(this.pos.x, this.pos.y + this.keyboardSpeed), false);
         }
         if (engine.input.keyboard.isHeld(Input.Keys.D) || engine.input.keyboard.isHeld(Input.Keys.Right)) {
-            this.moveTo(new Vector(this.pos.x + this.keyboardSpeed, this.pos.y));
+            this.moveTo(new Vector(this.pos.x + this.keyboardSpeed, this.pos.y), false);
         }
     }
 
