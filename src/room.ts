@@ -1,5 +1,4 @@
 import { Scene } from 'excalibur';
-
 class Room extends Scene {
     name: string;
     east: Room;
@@ -8,11 +7,13 @@ class Room extends Scene {
     south: Room;
     up: Room;
     down: Room;
-    constructor(name: string) {
+    constructor(room: any) {
         super();
+        this.name = room.name;
         
-        this.name = name;
+        console.log(room.name)
     }
+
 }
 
 export default Room;

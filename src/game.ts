@@ -12,6 +12,7 @@ class Game extends Engine{
     
     onStart() {
         this.player = new Player();
+        this.rooms = Rooms.getInstance();
         this.add(this.player);
     }
     

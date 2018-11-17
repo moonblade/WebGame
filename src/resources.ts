@@ -1,6 +1,6 @@
 import { Texture, ILoader, ILoadable, Loader, Animation, SpriteSheet, Engine, Vector, Sprite } from "excalibur";
 import Game from "./game";
-
+import * as textures from './resources/textures.json';
 class Resources {
     textures: any = {};
     animations: any = {};
@@ -10,10 +10,9 @@ class Resources {
     frameSpeed: number = 100;
 
     constructor() {
-        this.textures['playerWalkDown'] = new Texture("./src/resources/player/walk_down.png"); 
-        this.textures['playerWalkUp'] = new Texture("./src/resources/player/walk_up.png"); 
-        this.textures['playerWalkRight'] = new Texture("./src/resources/player/walk_right.png"); 
-        this.textures['playerWalkLeft'] = new Texture("./src/resources/player/walk_left.png"); 
+        for (let key in textures) {
+            this.textures[key] = new Texture(textures[key]);
+        }
     }
     
     
