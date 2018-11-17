@@ -1,15 +1,17 @@
-import { Actor, Engine, Color, Texture, Sprite, Vector, SpriteSheet, Animation, ConsoleAppender } from 'excalibur';
+import { Actor, Engine, Color, Texture, Sprite, Vector, SpriteSheet, Animation, ConsoleAppender, EnterTriggerEvent, Input } from 'excalibur';
 import Resources from './resources';
 class Player extends Actor {
     health: number;
     speed: number;
+    // How much travel in one update
+    keyboardSpeed: number;
     idleSprite: Sprite;
-    inMotion: boolean;
 
     constructor() {
         super(30,30,30,30);
         this.color = Color.Red;
         this.speed = 500;
+        this.keyboardSpeed = 1;
     }
 
     moveRight(coordinate: Vector) {
@@ -64,7 +66,23 @@ class Player extends Actor {
     clicked(coordinate:any) {
         this.moveTo(coordinate);
     }
-    
+
+    update(engine: Engine, delta: number) {
+        super.update(engine, delta);
+        if (engine.input.keyboard.isHeld(Input.Keys.W) || engine.input.keyboard.isHeld(Input.Keys.Up)) {
+            this.moveTo(new Vector(this.pos.x, this.pos.y - this.keyboardSpeed));
+        }
+        if (engine.input.keyboard.isHeld(Input.Keys.A) || engine.input.keyboard.isHeld(Input.Keys.Left)) {
+            this.moveTo(new Vector(this.pos.x - this.keyboardSpeed, this.pos.y));
+        }
+        if (engine.input.keyboard.isHeld(Input.Keys.S) || engine.input.keyboard.isHeld(Input.Keys.Down)) {
+            this.moveTo(new Vector(this.pos.x, this.pos.y + this.keyboardSpeed));
+        }
+        if (engine.input.keyboard.isHeld(Input.Keys.D) || engine.input.keyboard.isHeld(Input.Keys.Right)) {
+            this.moveTo(new Vector(this.pos.x + this.keyboardSpeed, this.pos.y));
+        }
+    }
+
     public onInitialize(engine: Engine) {
         Resources.getInstance().onInitialize(engine);
         this.addDrawing('idleDown', Resources.getInstance().getSprite('playerIdleDown'));
@@ -76,7 +94,6 @@ class Player extends Actor {
         this.addDrawing('walkLeft', Resources.getInstance().getAnimation('playerWalkLeft'));
         this.addDrawing('walkRight', Resources.getInstance().getAnimation('playerWalkRight'));
         this.setDrawing('idleDown');
-        this.enableCapturePointer = true;
         // respond to click events
         engine.input.pointers.primary.on('down', (event:any)=>{
             this.clicked(event.coordinates.worldPos);

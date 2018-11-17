@@ -29,18 +29,22 @@ class Resources {
         return this.textures[key];
     }
     
-    onInitialize(engine: Engine) {
-        if (this.initialized)
-        return;
+    initResources(engine: Engine) {
         this.animations['playerWalkDown'] = new SpriteSheet(this.getTexture('playerWalkDown'), 3, 1, 14, 21).getAnimationForAll(engine, this.frameSpeed);
         this.animations['playerWalkUp'] = new SpriteSheet(this.getTexture('playerWalkUp'), 3, 1, 14, 21).getAnimationForAll(engine, this.frameSpeed);
         this.animations['playerWalkRight'] = new SpriteSheet(this.getTexture('playerWalkRight'), 3, 1, 14, 21).getAnimationForAll(engine, this.frameSpeed);
         this.animations['playerWalkLeft'] = new SpriteSheet(this.getTexture('playerWalkLeft'), 3, 1, 14, 21).getAnimationForAll(engine, this.frameSpeed);
-
+    
         this.sprites['playerIdleUp'] = new Sprite(this.getTexture('playerWalkUp'), 0, 0, 14, 21);
         this.sprites['playerIdleDown'] = new Sprite(this.getTexture('playerWalkDown'), 0, 0, 14, 21);
         this.sprites['playerIdleRight'] = new Sprite(this.getTexture('playerWalkRight'), 0, 0, 14, 21);
         this.sprites['playerIdleLeft'] = new Sprite(this.getTexture('playerWalkLeft'), 0, 0, 14, 21);
+    }
+
+    onInitialize(engine: Engine) {
+        if (this.initialized)
+            return;
+        this.initResources(engine);
         this.initialized = true;
     }
 
