@@ -7,7 +7,7 @@ class Resources {
     sprites: any = {};
     static instance: Resources = null;
     initialized: boolean = false;
-    frameSpeed: number = 150;
+    frameSpeed: number = 100;
 
     constructor() {
         this.textures['playerWalkDown'] = new Texture("./src/resources/player/walk_down.png"); 
