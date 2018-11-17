@@ -7,10 +7,13 @@ class Resources {
     sprites: any = {};
     static instance: Resources = null;
     initialized: boolean = false;
+    frameSpeed: number = 150;
 
     constructor() {
-        this.textures['playerWalk'] = new Texture("./src/resources/player/sprite.png"); 
         this.textures['playerWalkDown'] = new Texture("./src/resources/player/walk_down.png"); 
+        this.textures['playerWalkUp'] = new Texture("./src/resources/player/walk_up.png"); 
+        this.textures['playerWalkRight'] = new Texture("./src/resources/player/walk_right.png"); 
+        this.textures['playerWalkLeft'] = new Texture("./src/resources/player/walk_left.png"); 
     }
     
     
@@ -29,9 +32,15 @@ class Resources {
     onInitialize(engine: Engine) {
         if (this.initialized)
         return;
-        this.animations['playerWalkDown'] = new SpriteSheet(this.getTexture('playerWalkDown'), 3, 1, 14, 21).getAnimationForAll(engine, 150);
+        this.animations['playerWalkDown'] = new SpriteSheet(this.getTexture('playerWalkDown'), 3, 1, 14, 21).getAnimationForAll(engine, this.frameSpeed);
+        this.animations['playerWalkUp'] = new SpriteSheet(this.getTexture('playerWalkUp'), 3, 1, 14, 21).getAnimationForAll(engine, this.frameSpeed);
+        this.animations['playerWalkRight'] = new SpriteSheet(this.getTexture('playerWalkRight'), 3, 1, 14, 21).getAnimationForAll(engine, this.frameSpeed);
+        this.animations['playerWalkLeft'] = new SpriteSheet(this.getTexture('playerWalkLeft'), 3, 1, 14, 21).getAnimationForAll(engine, this.frameSpeed);
 
-        this.sprites['playerIdle'] = new Sprite(this.getTexture('playerWalk'), 8, 7, 14, 21);
+        this.sprites['playerIdleUp'] = new Sprite(this.getTexture('playerWalkUp'), 0, 0, 14, 21);
+        this.sprites['playerIdleDown'] = new Sprite(this.getTexture('playerWalkDown'), 0, 0, 14, 21);
+        this.sprites['playerIdleRight'] = new Sprite(this.getTexture('playerWalkRight'), 0, 0, 14, 21);
+        this.sprites['playerIdleLeft'] = new Sprite(this.getTexture('playerWalkLeft'), 0, 0, 14, 21);
         this.initialized = true;
     }
 
