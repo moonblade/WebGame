@@ -1,10 +1,10 @@
 import { Engine, Loader, ILoadable } from 'excalibur';
 import Player from './player';
-import Rooms from './rooms';
+import Levels from './levels';
 import Resources from './resources';
 class Game extends Engine{
     player: Player;
-    rooms: Rooms;
+    rooms: Levels;
     constructor() {
         super();
         this.initializeRooms();
@@ -12,8 +12,9 @@ class Game extends Engine{
     
     onStart() {
         this.player = new Player();
-        this.rooms = Rooms.getInstance();
+        this.rooms = Levels.getInstance();
         this.add(this.player);
+        this.currentScene.camera.strategy.lockToActor(this.player);
     }
     
     loadAll(resources: ILoadable[]) {
@@ -27,7 +28,7 @@ class Game extends Engine{
     }
     
     initializeRooms() {
-        this.rooms = new Rooms();
+        this.rooms = new Levels();
     }
 
 }
