@@ -1,8 +1,11 @@
-import { Texture, ILoader, ILoadable, Loader, Animation, SpriteSheet, Engine, Vector, Sprite } from "excalibur";
+import { Texture, ILoader, ILoadable, Loader, Animation, SpriteSheet, Engine, Vector, Sprite, Resource } from "excalibur";
+import TiledResource from '@excaliburjs/excalibur-tiled';
 import * as graphics from './resources/graphics.json';
 class Resources {
     textures: any = {};
     animations: any = {};
+    resources: any = {};
+    tiledResources: any = {};
     sprites: any = {};
     static instance: Resources = null;
     initialized: boolean = false;
@@ -12,15 +15,33 @@ class Resources {
         for (let key in graphics.textures) {
             this.textures[key] = new Texture(graphics.textures[key]);
         }
+
+        for (let key in graphics.resources) {
+            let a = graphics.resources[key];
+            this.resources[key] = new Resource(a[0], a[1]);
+        }
+
+        for (let key in graphics.tiledResources) {
+            let a = graphics.tiledResources[key];
+            this.tiledResources[key] = new TiledResource(a);
+        }
+
     }
-    
     
     getTextures(): Texture[] {
         return Object.keys(this.textures).map(key=>this.textures[key]);
     }
     
+    getTiledResource(key: string): TiledResource {
+        return this.tiledResources[key];
+    }
+
     getResources(): ILoadable[] {
-        return this.getTextures();
+        let resources = Object.keys(this.resources).map(key=>this.resources[key]);
+        resources = resources.concat(this.getTextures());
+        resources = resources.concat(Object.keys(this.tiledResources).map(key=>this.tiledResources[key]));
+        // console.log(resources);
+        return resources;
     }
     
     getTexture(key: string): Texture {

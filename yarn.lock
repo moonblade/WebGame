@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@excaliburjs/excalibur-tiled@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@excaliburjs/excalibur-tiled/-/excalibur-tiled-2.3.0.tgz#cf2f8355822eacba10652ba7f29ccf568d5faa28"
+  integrity sha512-+qoBlt6udSFetZXZo/sAzsfCYqcydZrypSzcyav8UirG3afGIjKhU2TzE8Y5CzuN7ReImz2Dga0vUi2OASyuPg==
+
 "@types/core-js@^2.5.0":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@types/core-js/-/core-js-2.5.0.tgz#35cc282488de6f10af1d92902899a3b8ca3fbc47"

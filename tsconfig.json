@@ -10,6 +10,7 @@
         "moduleResolution": "node",
         "types": [
             "excalibur",
+            "excalibur-tiled",
             "core-js"         
         ],
         "lib": ["es2015", "dom"],

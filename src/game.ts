@@ -13,6 +13,9 @@ class Game extends Engine{
     onStart() {
         this.player = new Player();
         this.rooms = Levels.getInstance();
+        let a= Resources.getInstance().getTiledResource("map");
+        console.log(a);
+        console.log(a.getTileMap())
         this.add(this.player);
         this.currentScene.camera.strategy.lockToActor(this.player);
     }
