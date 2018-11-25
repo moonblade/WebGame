@@ -1,5 +1,5 @@
 import { Texture, ILoader, ILoadable, Loader, Animation, SpriteSheet, Engine, Vector, Sprite, Resource } from "excalibur";
-import TiledResource from '@excaliburjs/excalibur-tiled';
+import { TiledResource } from '@excaliburjs/excalibur-tiled';
 import * as graphics from './resources/graphics.json';
 class Resources {
     textures: any = {};

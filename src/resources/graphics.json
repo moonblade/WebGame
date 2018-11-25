@@ -19,7 +19,7 @@
         "playerIdleLeft" : ["playerWalkLeft", 0, 0, 14, 21]
     },
     "tiledResources": {
-        "map": "./src/resources/map.json"
+        "map": "./src/resources/map/map.json"
     },
     "resources": {
     }

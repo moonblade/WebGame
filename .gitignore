@@ -3,3 +3,5 @@ dist/*
 !dist/index.js
 *.map
 src/node_modules
+test
+
