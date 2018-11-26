@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@excaliburjs/excalibur-tiled": "^2.3.0",
+    "@types/lodash": "^4.14.118",
     "excalibur": "^0.19.1",
     "systemjs": "^2.1.1"
   },

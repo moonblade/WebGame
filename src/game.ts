@@ -2,8 +2,11 @@ import { Engine, Loader, ILoadable } from 'excalibur';
 import Player from './player';
 import Levels from './levels';
 import Resources from './resources';
+import { TiledResource } from './lib/tiled';
+
 class Game extends Engine{
     player: Player;
+    tileResource: TiledResource;
     rooms: Levels;
     constructor() {
         super();
@@ -11,11 +14,11 @@ class Game extends Engine{
     }
     
     onStart() {
-        this.player = new Player();
         this.rooms = Levels.getInstance();
-        let a= Resources.getInstance().getTiledResource("map");
+        this.tileResource = Resources.getInstance().getTiledResource("map");
+        this.add(this.tileResource.getTileMap());
+        this.player = new Player(this.tileResource);
         this.add(this.player);
-        this.add(a.getTileMap());
         this.currentScene.camera.strategy.lockToActor(this.player);
     }
     

@@ -9,9 +9,9 @@
         "outDir": "./dist",
         "moduleResolution": "node",
         "types": [
+            "lodash",
             "excalibur",
-            "excalibur-tiled",
-            "core-js"         
+            "core-js"
         ],
         "lib": ["es2015", "dom"],
         "resolveJsonModule": true,

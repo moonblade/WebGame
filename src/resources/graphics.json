@@ -1,4 +1,7 @@
 {
+    "constants" : {
+        "scale" : [1, 1]
+    },
     "textures": {
         "playerWalkDown": "./src/resources/player/walk_down.png",
         "playerWalkUp": "./src/resources/player/walk_up.png",

@@ -1,6 +1,6 @@
 import { Texture, ILoader, ILoadable, Loader, Animation, SpriteSheet, Engine, Vector, Sprite, Resource } from "excalibur";
-import { TiledResource } from '@excaliburjs/excalibur-tiled';
 import * as graphics from './resources/graphics.json';
+import { TiledResource } from "./lib/tiled";
 class Resources {
     textures: any = {};
     animations: any = {};
@@ -10,6 +10,7 @@ class Resources {
     static instance: Resources = null;
     initialized: boolean = false;
     frameSpeed: number = 100;
+    scale: Vector;
 
     constructor() {
         for (let key in graphics.textures) {
@@ -25,6 +26,8 @@ class Resources {
             let a = graphics.tiledResources[key];
             this.tiledResources[key] = new TiledResource(a);
         }
+
+        this.scale = new Vector(graphics.constants.scale[0], graphics.constants.scale[1]);
 
     }
     
@@ -70,7 +73,7 @@ class Resources {
     getSprite(key: string): Sprite {
         let sprite:Sprite = this.sprites[key];
         if (sprite) {
-            sprite.scale = new Vector(3,3);
+            sprite.scale = this.scale;
             return sprite;
         }
     }
@@ -78,7 +81,7 @@ class Resources {
     getAnimation(key: string): Animation {
         let anim:Animation = this.animations[key];
         if (anim) {
-            anim.scale = new Vector(3,3);
+            anim.scale = this.scale;
             return anim;
         }
     }

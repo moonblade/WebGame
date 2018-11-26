@@ -1,17 +1,28 @@
-import { Actor, Engine, Color, Texture, Sprite, Vector, SpriteSheet, Animation, ConsoleAppender, EnterTriggerEvent, Input } from 'excalibur';
+import { Actor, Engine, Color, Texture, Sprite, Vector, SpriteSheet, Animation, ConsoleAppender, EnterTriggerEvent, Input, CollisionType } from 'excalibur';
 import Resources from './resources';
+import { TiledResource } from './lib/tiled';
+
 class Player extends Actor {
     health: number;
     speed: number;
+    tiledResource: TiledResource;
     // How much travel in one update
     keyboardSpeed: number;
     idleSprite: Sprite;
-
-    constructor() {
+    
+    constructor(tiledResource: TiledResource) {
         super(30,30,30,30);
         this.color = Color.Red;
         this.speed = 500;
         this.keyboardSpeed = 1;
+        this.tiledResource = tiledResource;
+        this.collisionType = CollisionType.Active;
+
+        this.tiledResource.getTileMap().getCell(2,1).solid = true
+        console.log(this.tiledResource.data.layers[0].data)
+        console.log(this.tiledResource.getTileMap().getCell(2,1).sprites)
+        console.log(this.tiledResource.getTileMap().getCell(2,1).solid)
+        console.log(this.tiledResource.getTileMap().getCell(3,2).solid)
     }
 
     moveRight(coordinate: Vector) {
@@ -48,6 +59,7 @@ class Player extends Actor {
 
     async moveTo(coordinate:any, pathFind:boolean = true) {
         // TODO: Path finding algorithm required to move around obstacles in the room
+        console.log(this.tiledResource.getTileMap().collides(this));
         this.actions.clearActions();
         if (this.pos.x < coordinate.x) {
             await this.moveRight(coordinate);
@@ -64,6 +76,7 @@ class Player extends Actor {
     }
 
     clicked(coordinate:any) {
+        console.log(this.tiledResource.getTileMap().getCellByPoint(coordinate.x, coordinate.y).solid)
         this.moveTo(coordinate);
     }
 
