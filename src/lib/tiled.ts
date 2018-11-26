@@ -281,10 +281,15 @@ export interface ITiledMap {
                 if (gid !== 0) {
                    var ts = this.getTilesetForTile(gid);
                    let tile = gid - ts.firstgid;
-                   if (gid==2)
-                    map.data[i].solid = true;
-                //    if (ts.tiles && ts.tiles[tile] && ts.tiles[tile].properties )
-                //    map.data[i].solid = get(find(get(ts, ['tiles',tile, 'properties'], []), { 'name' : 'solid' }), 'value', false);
+                   if (ts.tiles && ts.tiles && ts.tiles[tile] && ts.tiles[tile]['solid'])
+                     map.data[i].solid = true;
+                   else if (ts.tiles && ts.tiles[tile] && ts.tiles[tile]['properties'] &&  ts.tiles[tile]['properties'].length > 0) {
+                     ts.tiles[tile]['properties'].forEach(property => {
+                        if (property.key == 'solid' && property.value == true)
+                           map.data[i].solid = true;
+                        ts.tiles[tile]['solid'] = true;
+                     });
+                   } 
                    map.data[i].sprites.push(new TileSprite(ts.firstgid.toString(), gid - ts.firstgid))
                 }
              }
