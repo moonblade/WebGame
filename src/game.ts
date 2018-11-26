@@ -1,41 +1,39 @@
 import { Engine, Loader, ILoadable } from 'excalibur';
 import Player from './player';
-import Levels from './levels';
 import Resources from './resources';
-import { TiledResource } from './lib/tiled';
+import * as Phaser from 'phaser';
+import { Dungeon } from './scenes/dungeon';
 
-class Game extends Engine{
+let gameConfig:GameConfig = {
+    width: 800,
+    height: 600,
+    type: Phaser.AUTO,
+    scene: [Dungeon],
+  }
+class Game extends Phaser.Game{
     player: Player;
-    tileResource: TiledResource;
-    rooms: Levels;
     constructor() {
-        super();
-        this.initializeRooms();
+        super(gameConfig);
     }
     
     onStart() {
-        this.rooms = Levels.getInstance();
-        this.tileResource = Resources.getInstance().getTiledResource("map");
-        this.add(this.tileResource.getTileMap());
-        this.player = new Player(this.tileResource);
-        this.add(this.player);
-        this.currentScene.camera.strategy.lockToActor(this.player);
+        // this.tileResource = Resources.getInstance().getTiledResource("map");
+        // this.add(this.tileResource.getTileMap());
+        // this.player = new Player(this.tileResource);
+        // this.add(this.player);
+        // this.currentScene.camera.strategy.lockToActor(this.player);
     }
     
     loadAll(resources: ILoadable[]) {
         for (let resource of resources) {
-            this.load(resource);
+            // this.load(resource);
         }
     }
     
     startWithLoader(){
-        this.start(Resources.getInstance().getLoader()).then(()=>this.onStart());
+        // this.start(Resources.getInstance().getLoader()).then(()=>this.onStart());
     }
     
-    initializeRooms() {
-        this.rooms = new Levels();
-    }
-
 }
 
 export default Game;
