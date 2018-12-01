@@ -14,7 +14,7 @@ class Player extends Actor {
         super(30,30,30,30);
         this.color = Color.Red;
         this.speed = 500;
-        this.keyboardSpeed = new Vector(14, 21);
+        this.keyboardSpeed = new Vector(1, 1);
         this.tiledResource = tiledResource;
         this.collisionType = CollisionType.Active;
 
@@ -60,21 +60,23 @@ class Player extends Actor {
             this.actions.clearActions();
             return;
         }
-        if (this.tiledResource.getTileMap().collides(this))
-            return;
-        this.actions.clearActions();
-        if (this.pos.x < coordinate.x) {
-            await this.moveRight(coordinate);
-        }
-        if (this.pos.x > coordinate.x) {
-            await this.moveLeft(coordinate);
-        }
-        if (this.pos.y > coordinate.y) {
-            await this.moveUp(coordinate);
-        }
-        if (this.pos.y < coordinate.y) {
-            await this.moveDown(coordinate);
-        }
+        // if (this.tiledResource.getTileMap().collides(this))
+        // return;
+        this.pos.x = coordinate.x;
+        this.pos.y = coordinate.y;
+        // this.actions.clearActions();
+        // if (this.pos.x < coordinate.x) {
+        //     await this.moveRight(coordinate);
+        // }
+        // if (this.pos.x > coordinate.x) {
+        //     await this.moveLeft(coordinate);
+        // }
+        // if (this.pos.y > coordinate.y) {
+        //     await this.moveUp(coordinate);
+        // }
+        // if (this.pos.y < coordinate.y) {
+        //     await this.moveDown(coordinate);
+        // }
     }
 
     clicked(coordinate:any) {
