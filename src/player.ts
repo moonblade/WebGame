@@ -1,6 +1,9 @@
 import { Actor, Engine, Color, Texture, Sprite, Vector, SpriteSheet, Animation, ConsoleAppender, EnterTriggerEvent, Input, CollisionType, Cell } from 'excalibur';
 import Resources from './resources';
 import { TiledResource } from './lib/tiled';
+import Controls from './controls';
+import In from './In';
+import Direction from './direction';
 
 class Player extends Actor {
     health: number;
@@ -14,7 +17,7 @@ class Player extends Actor {
         super(30,30,30,30);
         this.color = Color.Red;
         this.speed = 500;
-        this.keyboardSpeed = new Vector(1, 1);
+        this.keyboardSpeed = new Vector(5, 5);
         this.tiledResource = tiledResource;
         this.collisionType = CollisionType.Active;
 
@@ -83,19 +86,30 @@ class Player extends Actor {
         this.moveTo(coordinate);
     }
 
+    target(direction: Direction): Vector {
+        switch (direction) {
+            case Direction.Up:
+                return new Vector(this.pos.x, this.pos.y - this.keyboardSpeed.y);
+            case Direction.Down:
+                return new Vector(this.pos.x, this.pos.y + this.keyboardSpeed.y);
+            case Direction.Left:
+                return new Vector(this.pos.x - this.keyboardSpeed.x, this.pos.y);
+            case Direction.Right:
+                return new Vector(this.pos.x + this.keyboardSpeed.x, this.pos.y);
+        }
+    }
+
     update(engine: Engine, delta: number) {
         super.update(engine, delta);
-        if (engine.input.keyboard.isHeld(Input.Keys.W) || engine.input.keyboard.isHeld(Input.Keys.Up)) {
-            this.moveTo(new Vector(this.pos.x, this.pos.y - this.keyboardSpeed.y), false);
-        }
-        if (engine.input.keyboard.isHeld(Input.Keys.A) || engine.input.keyboard.isHeld(Input.Keys.Left)) {
-            this.moveTo(new Vector(this.pos.x - this.keyboardSpeed.x, this.pos.y), false);
-        }
-        if (engine.input.keyboard.isHeld(Input.Keys.S) || engine.input.keyboard.isHeld(Input.Keys.Down)) {
-            this.moveTo(new Vector(this.pos.x, this.pos.y + this.keyboardSpeed.y), false);
-        }
-        if (engine.input.keyboard.isHeld(Input.Keys.D) || engine.input.keyboard.isHeld(Input.Keys.Right)) {
-            this.moveTo(new Vector(this.pos.x + this.keyboardSpeed.x, this.pos.y), false);
+        for (let direction in Direction) {
+            let dir: Direction = Direction[direction] as Direction;
+            if (Controls.input(engine, In.release, dir)) {
+                this.setDrawing('idle' + direction);
+            }
+            if (Controls.input(engine, In.held, dir)) {
+                this.setDrawing('walk' + direction);
+                this.moveTo(this.target(dir));
+            }
         }
     }
 

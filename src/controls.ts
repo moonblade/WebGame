@@ -1,0 +1,67 @@
+import { Input, Engine } from "excalibur";
+import In from "./In";
+import Direction from "./direction";
+
+class Controls {
+    static upKeys: Input.Keys[] = [Input.Keys.W, Input.Keys.Up];
+    static downKeys: Input.Keys[] = [Input.Keys.S, Input.Keys.Down];
+    static leftKeys: Input.Keys[] = [Input.Keys.A, Input.Keys.Left];
+    static rightKeys: Input.Keys[] = [Input.Keys.D, Input.Keys.Right];
+    static keys: Map<Direction, Input.Keys[]> = new Map([
+        [Direction.Up, Controls.upKeys],
+        [Direction.Down, Controls.downKeys],
+        [Direction.Left, Controls.leftKeys],
+        [Direction.Right, Controls.rightKeys],
+    ]);
+
+    static keyboard(engine:Engine, type: In, keys: Input.Keys[]) {
+        let retVal:boolean = false;
+        if (type == In.held) {
+            for (let x of keys) {
+                if (engine.input.keyboard.isHeld(x)) {
+                    retVal = true;
+                    break;
+                }
+            }
+        } else if (type == In.press) {
+            for (let x of keys) {
+                if (engine.input.keyboard.wasPressed(x)) {
+                    retVal = true;
+                    break;
+                }
+            }
+        } else if (type == In.release) {
+            for (let x of keys) {
+                if (engine.input.keyboard.wasReleased(x)) {
+                    retVal = true;
+                    break;
+                }
+            }
+        }
+        return retVal;
+
+    }
+
+    static input(engine: Engine, type: In, direction: Direction) {
+        return Controls.keyboard(engine, type, Controls.keys.get(direction));
+    }
+
+    static up(engine: Engine, type: In): boolean {
+        return Controls.keyboard(engine, type, Controls.upKeys);
+    }
+    
+    static down(engine: Engine, type: In): boolean {
+        return Controls.keyboard(engine, type, Controls.downKeys);
+    }
+
+    static left(engine: Engine, type: In): boolean {
+        return Controls.keyboard(engine, type, Controls.leftKeys);
+    }
+
+    static right(engine: Engine, type: In): boolean {
+        return Controls.keyboard(engine, type, Controls.rightKeys);
+    }
+
+}
+
+export default Controls;
