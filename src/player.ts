@@ -63,8 +63,6 @@ class Player extends Actor {
             this.actions.clearActions();
             return;
         }
-        // if (this.tiledResource.getTileMap().collides(this))
-        // return;
         this.pos.x = coordinate.x;
         this.pos.y = coordinate.y;
         // this.actions.clearActions();
@@ -83,7 +81,7 @@ class Player extends Actor {
     }
 
     clicked(coordinate:any) {
-        this.moveTo(coordinate);
+        this.moveTo(coordinate, true);
     }
 
     target(direction: Direction): Vector {
@@ -108,7 +106,7 @@ class Player extends Actor {
             }
             if (Controls.input(engine, In.held, dir)) {
                 this.setDrawing('walk' + direction);
-                this.moveTo(this.target(dir));
+                this.moveTo(this.target(dir), false);
             }
         }
     }
