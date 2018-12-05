@@ -4,23 +4,25 @@ import { TiledResource } from './lib/tiled';
 import Controls from './controls';
 import In from './In';
 import Direction from './direction';
+import HealthBar from './healthbar';
 
 class Player extends Actor {
-    health: number;
+    health: HealthBar;
     speed: number;
+    maxHealth: number = 50;
     tiledResource: TiledResource;
     // How much travel in one update
     keyboardSpeed: Vector;
     idleSprite: Sprite;
     
     constructor(tiledResource: TiledResource) {
-        super(30,30,30,30);
+        super(50,500,21,21);
         this.color = Color.Red;
         this.speed = 500;
         this.keyboardSpeed = new Vector(5, 5);
         this.tiledResource = tiledResource;
         this.collisionType = CollisionType.Active;
-
+        this.health = new HealthBar(this.maxHealth);
         this.tiledResource.getTileMap().getCell(2,1).solid = true
     }
 
@@ -57,14 +59,18 @@ class Player extends Actor {
     }
 
     async moveTo(coordinate:any, pathFind:boolean = true) {
-        // TODO: Path finding algorithm required to move around obstacles in the room
         let cell:Cell = this.tiledResource.getTileMap().getCellByPoint(coordinate.x, coordinate.y)
         if(!cell || (cell && cell.solid && !pathFind)) {
             this.actions.clearActions();
             return;
         }
-        this.pos.x = coordinate.x;
-        this.pos.y = coordinate.y;
+        if (!pathFind) {
+            this.pos.x = coordinate.x;
+            this.pos.y = coordinate.y;
+        } else {
+            // TODO: Path finding algorithm required to move around obstacles in the room
+            console.log("not implemented")
+        }
         // this.actions.clearActions();
         // if (this.pos.x < coordinate.x) {
         //     await this.moveRight(coordinate);
@@ -122,6 +128,7 @@ class Player extends Actor {
         this.addDrawing('walkLeft', Resources.getInstance().getAnimation('playerWalkLeft'));
         this.addDrawing('walkRight', Resources.getInstance().getAnimation('playerWalkRight'));
         this.setDrawing('idleDown');
+        this.add(this.health);
         // respond to click events
         engine.input.pointers.primary.on('down', (event:any)=>{
             this.clicked(event.coordinates.worldPos);
