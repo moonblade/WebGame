@@ -9,6 +9,14 @@ class Game extends Engine{
     player: Player;
     tileResource: TiledResource;
     rooms: Levels;
+    static instance: Game = null;
+    
+    static getInstance() {
+        if (Levels.instance == null)
+            Levels.instance = new Levels();
+        return Levels.instance;
+    }
+
     constructor() {
         super();
         this.initializeRooms();

@@ -1,5 +1,4 @@
 import Game from './game';
 
-let game = new Game();
+let game = Game.getInstance();
 game.startWithLoader();
-// game.start();
