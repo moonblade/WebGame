@@ -1,5 +1,7 @@
-import { Actor, CollisionType, Vector, Sprite } from "excalibur";
+import { Actor, CollisionType, Vector, Sprite, Trigger } from "excalibur";
 import Resources from "./resources";
+import Player from "./player";
+import Game from "./game";
 
 class Item extends Actor {
     spriteName: string;
@@ -16,11 +18,23 @@ class Item extends Actor {
         this.collisionType = collisionType;
     }
     
+    createTrigger() {
+        let trigger = new Trigger({
+            width: this.getWidth(),
+            height: this.getHeight(),
+            pos: this.pos,
+            target: Player.getInstance(),
+            action: ()=>Player.getInstance().itemAction(this)
+        });
+        Game.getInstance().add(trigger);
+    }
+
     onInitialize() {
         this.sprite = Resources.getInstance().getSprite(this.spriteName)
         this.addDrawing(this.sprite);
         this.setWidth(this.sprite.width);
         this.setHeight(this.sprite.height);
+        this.createTrigger();
     }
 }
 

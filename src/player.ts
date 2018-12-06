@@ -7,6 +7,7 @@ import Direction from './direction';
 import HealthBar from './healthbar';
 import Inventory from './inventory';
 import Item from './item';
+import Game from './game';
 
 class Player extends Actor {
     health: HealthBar;
@@ -17,6 +18,13 @@ class Player extends Actor {
     keyboardSpeed: Vector;
     inventory: Inventory;
     idleSprite: Sprite;
+    static instance: Player = null;
+    
+    static getInstance() {
+        if (Player.instance == null)
+            Player.instance = new Player(Game.getInstance().tileResource);
+        return Player.instance;
+    }
     
     constructor(tiledResource: TiledResource) {
         super(50,500,21,21);
@@ -136,13 +144,11 @@ class Player extends Actor {
         engine.input.pointers.primary.on('down', (event:any)=>{
             this.clicked(event.coordinates.worldPos);
         })
-
-        this.addCollisionGroup("item");
-        this.onCollidesWith("item", (item: Item)=>{
-            console.log(item.sprite);
-        })
     }
 
+    itemAction(item: Item) {
+        console.log(item.spriteName)
+    }
 }
 
 export default Player;

@@ -26,7 +26,7 @@ class Game extends Engine{
         // this.rooms = Levels.getInstance();
         this.tileResource = Resources.getInstance().getTiledResource("map");
         this.add(this.tileResource.getTileMap());
-        this.player = new Player(this.tileResource);
+        this.player = Player.getInstance();
         this.add(this.player);
         this.add(new Item('sword', new Vector(150, 500)));
         this.currentScene.camera.strategy.lockToActor(this.player);
