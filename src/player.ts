@@ -2,9 +2,11 @@ import { Actor, Engine, Color, Texture, Sprite, Vector, SpriteSheet, Animation, 
 import Resources from './resources';
 import { TiledResource } from './lib/tiled';
 import Controls from './controls';
-import In from './In';
+import InputType from './In';
 import Direction from './direction';
 import HealthBar from './healthbar';
+import Inventory from './inventory';
+import Item from './item';
 
 class Player extends Actor {
     health: HealthBar;
@@ -13,6 +15,7 @@ class Player extends Actor {
     tiledResource: TiledResource;
     // How much travel in one update
     keyboardSpeed: Vector;
+    inventory: Inventory;
     idleSprite: Sprite;
     
     constructor(tiledResource: TiledResource) {
@@ -23,7 +26,7 @@ class Player extends Actor {
         this.tiledResource = tiledResource;
         this.collisionType = CollisionType.Active;
         this.health = new HealthBar(this.maxHealth);
-        this.tiledResource.getTileMap().getCell(2,1).solid = true
+        this.inventory = new Inventory();
     }
 
     moveRight(coordinate: Vector) {
@@ -107,10 +110,10 @@ class Player extends Actor {
         super.update(engine, delta);
         for (let direction in Direction) {
             let dir: Direction = Direction[direction] as Direction;
-            if (Controls.input(engine, In.release, dir)) {
+            if (Controls.input(engine, InputType.release, dir)) {
                 this.setDrawing('idle' + direction);
             }
-            if (Controls.input(engine, In.held, dir)) {
+            if (Controls.input(engine, InputType.held, dir)) {
                 this.setDrawing('walk' + direction);
                 this.moveTo(this.target(dir), false);
             }
@@ -132,6 +135,11 @@ class Player extends Actor {
         // respond to click events
         engine.input.pointers.primary.on('down', (event:any)=>{
             this.clicked(event.coordinates.worldPos);
+        })
+
+        this.addCollisionGroup("item");
+        this.onCollidesWith("item", (item: Item)=>{
+            console.log(item.sprite);
         })
     }
 

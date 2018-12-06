@@ -1,5 +1,5 @@
 import { Input, Engine } from "excalibur";
-import In from "./In";
+import InputType from "./In";
 import Direction from "./direction";
 
 class Controls {
@@ -14,23 +14,23 @@ class Controls {
         [Direction.Right, Controls.rightKeys],
     ]);
 
-    static keyboard(engine:Engine, type: In, keys: Input.Keys[]) {
+    static keyboard(engine:Engine, type: InputType, keys: Input.Keys[]) {
         let retVal:boolean = false;
-        if (type == In.held) {
+        if (type == InputType.held) {
             for (let x of keys) {
                 if (engine.input.keyboard.isHeld(x)) {
                     retVal = true;
                     break;
                 }
             }
-        } else if (type == In.press) {
+        } else if (type == InputType.press) {
             for (let x of keys) {
                 if (engine.input.keyboard.wasPressed(x)) {
                     retVal = true;
                     break;
                 }
             }
-        } else if (type == In.release) {
+        } else if (type == InputType.release) {
             for (let x of keys) {
                 if (engine.input.keyboard.wasReleased(x)) {
                     retVal = true;
@@ -42,23 +42,23 @@ class Controls {
 
     }
 
-    static input(engine: Engine, type: In, direction: Direction) {
+    static input(engine: Engine, type: InputType, direction: Direction) {
         return Controls.keyboard(engine, type, Controls.keys.get(direction));
     }
 
-    static up(engine: Engine, type: In): boolean {
+    static up(engine: Engine, type: InputType): boolean {
         return Controls.keyboard(engine, type, Controls.upKeys);
     }
     
-    static down(engine: Engine, type: In): boolean {
+    static down(engine: Engine, type: InputType): boolean {
         return Controls.keyboard(engine, type, Controls.downKeys);
     }
 
-    static left(engine: Engine, type: In): boolean {
+    static left(engine: Engine, type: InputType): boolean {
         return Controls.keyboard(engine, type, Controls.leftKeys);
     }
 
-    static right(engine: Engine, type: In): boolean {
+    static right(engine: Engine, type: InputType): boolean {
         return Controls.keyboard(engine, type, Controls.rightKeys);
     }
 

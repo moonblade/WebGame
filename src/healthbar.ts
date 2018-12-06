@@ -5,7 +5,7 @@ class HealthBar extends Actor{
     maxHealth: number;
     // how far above player the health bar is displayed
     above: number = -15;
-    sizeMultiplier = 2;
+    sizeMultiplier = 1.5;
     vertHeight: number = 5;
     
     setDimension() {

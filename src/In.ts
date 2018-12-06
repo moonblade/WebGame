@@ -1,7 +1,7 @@
-enum In {
+enum InputType {
     press,
     release,
     held
 }
 
-export default In;
+export default InputType;

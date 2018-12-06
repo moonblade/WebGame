@@ -6,7 +6,8 @@
         "playerWalkDown": "./src/resources/player/walk_down.png",
         "playerWalkUp": "./src/resources/player/walk_up.png",
         "playerWalkRight": "./src/resources/player/walk_right.png",
-        "playerWalkLeft": "./src/resources/player/walk_left.png"
+        "playerWalkLeft": "./src/resources/player/walk_left.png",
+        "sword": "./src/resources/items/sword.png"
     },
     "animations": {
         "playerWalkDown": ["playerWalkDown", 3, 1, 14, 21],
@@ -19,7 +20,8 @@
         "playerIdleUp" : ["playerWalkUp", 0, 0, 14, 21],
         "playerIdleDown" : ["playerWalkDown", 0, 0, 14, 21],
         "playerIdleRight" : ["playerWalkRight", 0, 0, 14, 21],
-        "playerIdleLeft" : ["playerWalkLeft", 0, 0, 14, 21]
+        "playerIdleLeft" : ["playerWalkLeft", 0, 0, 14, 21],
+        "sword": ["sword", 0, 0, 21, 21]
     },
     "tiledResources": {
         "map": "./src/resources/map/map.json"
