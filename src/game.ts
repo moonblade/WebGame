@@ -12,9 +12,9 @@ class Game extends Engine{
     static instance: Game = null;
     
     static getInstance() {
-        if (Levels.instance == null)
-            Levels.instance = new Levels();
-        return Levels.instance;
+        if (Game.instance == null)
+            Game.instance = new Game();
+        return Game.instance;
     }
 
     constructor() {
