@@ -7,15 +7,17 @@ class Item extends Actor {
     spriteName: string;
     sprite: Sprite;
     name: string;
+    canPick: boolean;
 
-    constructor(spriteName: string, pos: Vector, collisionType: CollisionType = CollisionType.Passive, name?: string) {
+    constructor(spriteName: string, pos: Vector, properties: any = {}, collisionType: CollisionType = CollisionType.Passive) {
         super({
             pos: pos
         })
         this.spriteName = spriteName;
-        this.name = name || spriteName;
+        this.name = properties.name || spriteName;
         this.addCollisionGroup("item");
         this.collisionType = collisionType;
+        this.canPick = properties.canPick;
     }
     
     collisionStart(event: CollisionStartEvent):void {

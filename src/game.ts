@@ -28,12 +28,9 @@ class Game extends Engine{
         this.add(this.tileResource.getTileMap());
         this.player = Player.getInstance();
         this.add(this.player);
-        this.add(new Item('sword', new Vector(150, 500)));
-        // let sw:Item = new Item('sword', new Vector(100, 500));
-        // sw.actions.moveTo(160, 500,50)
-        // sw.actions.moveTo(100, 500,50)
-        // sw.actions.repeatForever();
-        // this.add(sw)
+        this.add(new Item('sword', new Vector(150, 500), {
+            canPick: true
+        }));
         this.currentScene.camera.strategy.lockToActor(this.player);
         // this.isDebug = true;
     }
