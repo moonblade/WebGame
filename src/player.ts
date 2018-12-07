@@ -18,6 +18,7 @@ class Player extends Actor {
     keyboardSpeed: Vector;
     inventory: Inventory;
     idleSprite: Sprite;
+    curItem: Item;
     static instance: Player = null;
     
     static getInstance() {
@@ -143,11 +144,14 @@ class Player extends Actor {
         // respond to click events
         engine.input.pointers.primary.on('down', (event:any)=>{
             this.clicked(event.coordinates.worldPos);
+            this.curItem.pos = event.coordinates.worldPos
         })
     }
 
     itemAction(item: Item) {
         console.log(item.spriteName)
+        // item.pos.x += 30
+        this.curItem = item;
     }
 }
 

@@ -1,4 +1,4 @@
-import { Engine, Loader, ILoadable, Vector } from 'excalibur';
+import { Engine, Loader, ILoadable, Vector, Debug } from 'excalibur';
 import Player from './player';
 import Levels from './levels';
 import Resources from './resources';
@@ -29,7 +29,13 @@ class Game extends Engine{
         this.player = Player.getInstance();
         this.add(this.player);
         this.add(new Item('sword', new Vector(150, 500)));
+        // let sw:Item = new Item('sword', new Vector(100, 500));
+        // sw.actions.moveTo(160, 500,50)
+        // sw.actions.moveTo(100, 500,50)
+        // sw.actions.repeatForever();
+        // this.add(sw)
         this.currentScene.camera.strategy.lockToActor(this.player);
+        // this.isDebug = true;
     }
     
     loadAll(resources: ILoadable[]) {
