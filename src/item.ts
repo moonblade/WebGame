@@ -26,6 +26,11 @@ class Item extends Actor {
         }
     }
 
+    hudDisplay(position: number) {
+        this.x = - Game.getInstance().halfCanvasWidth + this.getWidth();
+        this.y = - Game.getInstance().halfCanvasHeight + this.getHeight();
+    }
+
     onInitialize() {
         this.sprite = Resources.getInstance().getSprite(this.spriteName)
         this.addDrawing(this.sprite);

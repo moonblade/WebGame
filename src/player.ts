@@ -126,6 +126,8 @@ class Player extends Actor {
                 this.moveTo(this.target(dir), false);
             }
         }
+
+        this.inventory.draw();
     }
 
     public onInitialize(engine: Engine) {
