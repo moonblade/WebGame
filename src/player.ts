@@ -127,7 +127,9 @@ class Player extends Actor {
             }
         }
 
-        this.inventory.draw();
+        if (engine.input.keyboard.wasPressed(Input.Keys.R)) {
+            this.inventory.removeSelected();
+        }
     }
 
     public onInitialize(engine: Engine) {
@@ -149,8 +151,9 @@ class Player extends Actor {
     }
 
     itemAction(item: Item) {
-        if (item.canPick)
+        if (item.canPick) {
             this.inventory.add(item);
+        }
     }
 }
 

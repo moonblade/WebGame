@@ -8,6 +8,7 @@ class Item extends Actor {
     sprite: Sprite;
     name: string;
     canPick: boolean;
+    collisionTypeSaved: CollisionType;
 
     constructor(spriteName: string, pos: Vector, properties: any = {}, collisionType: CollisionType = CollisionType.Passive) {
         super({
@@ -15,11 +16,15 @@ class Item extends Actor {
         })
         this.spriteName = spriteName;
         this.name = properties.name || spriteName;
-        this.addCollisionGroup("item");
         this.collisionType = collisionType;
+        this.collisionTypeSaved = collisionType;
         this.canPick = properties.canPick;
     }
     
+    restoreCollision() {
+        this.collisionType = this.collisionTypeSaved;
+    }
+
     collisionStart(event: CollisionStartEvent):void {
         if (event.other == Player.getInstance()) {
             Player.getInstance().itemAction(this)
@@ -29,6 +34,11 @@ class Item extends Actor {
     hudDisplay(position: number) {
         this.x = - Game.getInstance().halfCanvasWidth + this.getWidth();
         this.y = - Game.getInstance().halfCanvasHeight + this.getHeight();
+    }
+
+    placeItem(pos: Vector) {
+        this.pos = pos;
+        Game.getInstance().add(this);
     }
 
     onInitialize() {
