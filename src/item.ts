@@ -20,7 +20,7 @@ class Item extends Actor {
     
     constructor(properties: any = {}, collisionType:CollisionType = CollisionType.Passive) {
         super(properties);
-        this.spriteName = properties.name || properties.type
+        this.spriteName = properties.type
         this.name = properties.name || properties.type
         this.collisionType = collisionType;
         this.collisionTypeSaved = collisionType;
@@ -84,9 +84,9 @@ class Item extends Actor {
         super.draw(ctx, delta);
         if (this.inventory) {
             if (this.selected) {
-                ctx.strokeStyle = "#e65c00";
+                ctx.strokeStyle = "#000000";
             } else {
-                ctx.strokeStyle = "#FF8533";
+                ctx.strokeStyle = "#e65c00";
             }
             ctx.strokeRect(this.x - this.getWidth()/2 - this.padding, this.y - this.getHeight()/2 - this.padding, this.getWidth() + 2 * this.padding, this.getHeight() + 2 * this.padding)
         }

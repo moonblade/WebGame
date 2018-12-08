@@ -31,30 +31,6 @@
                  "y":588.345584825774
                 }, 
                 {
-                 "gid":5,
-                 "height":21,
-                 "id":11,
-                 "name":"temp2",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":21,
-                 "x":193.579858379229,
-                 "y":531.243115656963
-                }, 
-                {
-                 "gid":5,
-                 "height":21,
-                 "id":13,
-                 "name":"temp1",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":21,
-                 "x":216.199842643588,
-                 "y":688.599527930763
-                }, 
-                {
                  "gid":3,
                  "height":21,
                  "id":15,
@@ -65,6 +41,18 @@
                  "width":21,
                  "x":189.645948072384,
                  "y":587.301337529504
+                }, 
+                {
+                 "gid":5,
+                 "height":21,
+                 "id":16,
+                 "name":"a",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":340.118017309205,
+                 "y":501.738788355626
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -73,7 +61,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":16,
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -108,11 +96,11 @@
          "tilewidth":21
         }, 
         {
-         "columns":4,
+         "columns":3,
          "firstgid":3,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":84,
+         "imagewidth":63,
          "margin":0,
          "name":"items",
          "spacing":0,
@@ -150,21 +138,8 @@
                          "name":"class",
                          "type":"string",
                          "value":"item"
-                        }]
-                }, 
-                {
-                 "id":3,
-                 "properties":[
-                        {
-                         "name":"canPick",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"class",
-                         "type":"string",
-                         "value":"item"
-                        }]
+                        }],
+                 "type":"bottle"
                 }],
          "tilewidth":21
         }],

@@ -1,7 +1,9 @@
 import { Texture, ILoader, ILoadable, Loader, Animation, SpriteSheet, Engine, Vector, Sprite, Resource } from "excalibur";
-import * as graphics from '../resources/graphics.json';
 import { TiledResource } from "./lib/tiled";
 import Item from "./item.js";
+import * as map from "../resources/map/map.json";
+import * as graphics from '../resources/graphics.json';
+
 class Resources {
     textures: any = {};
     animations: any = {};
@@ -13,6 +15,7 @@ class Resources {
     initialized: boolean = false;
     frameSpeed: number = 100;
     scale: Vector;
+    spriteTileSets: string[];
 
     constructor() {
         for (let key in graphics.textures) {
@@ -30,6 +33,7 @@ class Resources {
         }
 
         this.scale = new Vector(graphics.constants.scale[0], graphics.constants.scale[1]);
+        this.spriteTileSets = ["items"]
 
     }
     
@@ -74,9 +78,13 @@ class Resources {
             this.sprites[key] = new Sprite(this.getTexture(a[0]), a[1], a[2], a[3], a[4]);
         }
 
-        for (let key in graphics.items) {
-            let a = graphics.items[key]
-            this.sprites[key] = new Sprite(this.getTexture(a[0]), a[1], a[2], a[3], a[4]);
+        // get image sprites from map iteself
+        for (let tileset of map.tilesets) {
+            if (this.spriteTileSets.indexOf(tileset.name)>-1) {
+                for (let tile of tileset.tiles) {
+                    this.sprites[tile.type] = new Sprite(this.getTexture(tileset.name), tileset.tilewidth * tile.id, 0, tileset.tilewidth, tileset.tileheight);
+                }
+            }
         }
     }
 
