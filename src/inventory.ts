@@ -2,6 +2,7 @@ import Item from "./item";
 import Game from "./game";
 import { UIActor, Vector } from "excalibur";
 import Player from "./player";
+import Resources from "./resources";
 
 class Inventory {
     items: Item[] = [];
@@ -13,27 +14,31 @@ class Inventory {
     add(item: Item) {
         this.selectedItem = item;
         this.items.push(item);
-        Game.getInstance().remove(item);
-        item.hudDisplay(this.items.length)
-        Player.getInstance().add(item)
+        this.updateDisplay();
+        item.setInventory(true, this.items.length);
+    }
+
+    updateDisplay() {
+        for (let i=0; i<this.items.length; ++i) {
+            this.items[i].hudDisplay(i);
+        }
     }
 
     removeSelected() {
         this.remove(this.selectedItem)
+        console.log(this.items)
+        this.selectedItem = this.items[0]
     }
 
     remove(item: Item) {
         let index = this.items.findIndex(x=>{
             return x.name == item.name;
         });
-
         if (index > -1) {
             this.items.splice(index, 1)
-            Player.getInstance().remove(item);
-            item.pos = Player.getInstance().pos.add(new Vector(0, item.getHeight()));
-            Game.getInstance().add(item);
-            item.restoreCollision();
+            item.setInventory(false);
         }
+        this.updateDisplay();
     }
 
 }

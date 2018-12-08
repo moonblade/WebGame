@@ -21,7 +21,9 @@
         "playerIdleDown" : ["playerWalkDown", 0, 0, 14, 21],
         "playerIdleRight" : ["playerWalkRight", 0, 0, 14, 21],
         "playerIdleLeft" : ["playerWalkLeft", 0, 0, 14, 21],
-        "sword": ["items", 0, 0, 21, 21]
+        "sword": ["items", 0, 0, 21, 21],
+        "temp1": ["items", 42, 0, 21, 21],
+        "temp2": ["items", 53, 0, 21, 21]
     },
     "tiledResources": {
         "map": "resources/map/map.json"

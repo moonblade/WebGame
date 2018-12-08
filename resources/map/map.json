@@ -19,18 +19,6 @@
          "name":"objects",
          "objects":[
                 {
-                 "gid":3,
-                 "height":21,
-                 "id":5,
-                 "name":"sword",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":21,
-                 "x":294.150659374927,
-                 "y":504.022549348937
-                }, 
-                {
                  "gid":4,
                  "height":21,
                  "id":6,
@@ -39,8 +27,44 @@
                  "type":"spawn",
                  "visible":true,
                  "width":21,
-                 "x":189.010724834348,
-                 "y":608.99861393671
+                 "x":129.018592654962,
+                 "y":588.345584825774
+                }, 
+                {
+                 "gid":5,
+                 "height":21,
+                 "id":11,
+                 "name":"temp2",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":193.579858379229,
+                 "y":531.243115656963
+                }, 
+                {
+                 "gid":5,
+                 "height":21,
+                 "id":13,
+                 "name":"temp1",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":216.199842643588,
+                 "y":688.599527930763
+                }, 
+                {
+                 "gid":3,
+                 "height":21,
+                 "id":15,
+                 "name":"sword",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":189.645948072384,
+                 "y":587.301337529504
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -49,7 +73,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":8,
+ "nextobjectid":16,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -84,15 +108,15 @@
          "tilewidth":21
         }, 
         {
-         "columns":2,
+         "columns":4,
          "firstgid":3,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":42,
+         "imagewidth":84,
          "margin":0,
          "name":"items",
          "spacing":0,
-         "tilecount":2,
+         "tilecount":4,
          "tileheight":21,
          "tiles":[
                 {
@@ -113,6 +137,34 @@
                 {
                  "id":1,
                  "type":"spawn"
+                }, 
+                {
+                 "id":2,
+                 "properties":[
+                        {
+                         "name":"canPick",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"item"
+                        }]
+                }, 
+                {
+                 "id":3,
+                 "properties":[
+                        {
+                         "name":"canPick",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"item"
+                        }]
                 }],
          "tilewidth":21
         }],

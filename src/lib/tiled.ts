@@ -288,12 +288,15 @@ export interface ITiledMap {
                 if (gid !== 0) {
                    var ts = this.getTilesetForTile(gid);
                    let tile = gid - ts.firstgid;
-                   if (ts.tiles && ts.tiles[tile] && ts.tiles[tile]['properties'] &&  ts.tiles[tile]['properties'].length > 0) {
-                     ts.tiles[tile]['properties'].forEach(property => {
-                        map.data[i][property.name] = property.value;
-                     });
-                   } 
-                   map.data[i].sprites.push(new TileSprite(ts.firstgid.toString(), gid - ts.firstgid))
+                   if (ts.tiles && ts.tiles[tile]) {
+                     map.data[i]['type'] = map.data[i]['type'] || ts.tiles[tile]['type']
+                     if(ts.tiles[tile]['properties'] &&  ts.tiles[tile]['properties'].length > 0) {
+                         ts.tiles[tile]['properties'].forEach(property => {
+                            map.data[i][property.name] = property.value;
+                           });
+                        } 
+                     }
+                     map.data[i].sprites.push(new TileSprite(ts.firstgid.toString(), gid - ts.firstgid))
                 }
              }
           }
@@ -304,10 +307,13 @@ export interface ITiledMap {
                 if (gid !== 0) {
                   var ts = this.getTilesetForTile(gid);
                   let tile = gid - ts.firstgid;
-                  if (ts.tiles && ts.tiles[tile] && ts.tiles[tile]['properties'] && ts.tiles[tile]['properties'].length>0) {
-                     ts.tiles[tile]['properties'].forEach(property => {
-                        object[property.name] = property.value
-                     })
+                  if (ts.tiles && ts.tiles[tile]) {
+                     object['type'] = object['type'] || ts.tiles[tile]['type']
+                     if(ts.tiles[tile]['properties'] &&  ts.tiles[tile]['properties'].length > 0) {
+                         ts.tiles[tile]['properties'].forEach(property => {
+                            object[property.name] = property.value;
+                           });
+                        } 
                   }
                   Helper.initObject(object);
                 }
