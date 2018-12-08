@@ -37,7 +37,7 @@
                  "name":"spawn",
                  "rotation":0,
                  "type":"spawn",
-                 "visible":false,
+                 "visible":true,
                  "width":21,
                  "x":189.010724834348,
                  "y":608.99861393671
