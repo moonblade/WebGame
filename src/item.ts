@@ -10,15 +10,25 @@ class Item extends Actor {
     canPick: boolean;
     collisionTypeSaved: CollisionType;
 
-    constructor(spriteName: string, pos: Vector, properties: any = {}, collisionType: CollisionType = CollisionType.Passive) {
-        super({
-            pos: pos
-        })
-        this.spriteName = spriteName;
-        this.name = properties.name || spriteName;
+    // constructor(spriteName: string, pos: Vector, properties: any = {}, collisionType: CollisionType = CollisionType.Passive) {
+    //     super({
+    //         pos: pos
+    //     })
+    //     this.spriteName = spriteName;
+    //     this.name = properties.name || spriteName;
+    //     this.collisionType = collisionType;
+    //     this.collisionTypeSaved = collisionType;
+    //     this.canPick = properties.canPick;
+    // }
+    
+    constructor(properties: any = {}, collisionType:CollisionType = CollisionType.Passive) {
+        super(properties);
+        this.spriteName = properties.name || properties.type
+        this.name = properties.name || properties.type
         this.collisionType = collisionType;
         this.collisionTypeSaved = collisionType;
         this.canPick = properties.canPick;
+
     }
     
     restoreCollision() {
@@ -32,7 +42,7 @@ class Item extends Actor {
     }
 
     hudDisplay(position: number) {
-        this.x = - Game.getInstance().halfCanvasWidth + this.getWidth();
+        this.x = - Game.getInstance().halfCanvasWidth + position * this.getWidth();
         this.y = - Game.getInstance().halfCanvasHeight + this.getHeight();
     }
 
@@ -46,7 +56,6 @@ class Item extends Actor {
         this.addDrawing(this.sprite);
         this.setWidth(this.sprite.width);
         this.setHeight(this.sprite.height);
-        this.visible = true;
         this.on("collisionstart", this.collisionStart);
     }
 }

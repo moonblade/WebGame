@@ -12,9 +12,44 @@
          "width":116,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":4,
+         "name":"objects",
+         "objects":[
+                {
+                 "gid":3,
+                 "height":21,
+                 "id":5,
+                 "name":"sword",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":294.150659374927,
+                 "y":504.022549348937
+                }, 
+                {
+                 "gid":4,
+                 "height":21,
+                 "id":6,
+                 "name":"spawn",
+                 "rotation":0,
+                 "type":"spawn",
+                 "visible":false,
+                 "width":21,
+                 "x":189.010724834348,
+                 "y":608.99861393671
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":4,
- "nextobjectid":1,
+ "nextlayerid":5,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -45,6 +80,30 @@
                          "value":true
                         }],
                  "type":"wall"
+                }],
+         "tilewidth":21
+        }, 
+        {
+         "columns":2,
+         "firstgid":3,
+         "image":"items.png",
+         "imageheight":21,
+         "imagewidth":42,
+         "margin":0,
+         "name":"items",
+         "spacing":0,
+         "tilecount":2,
+         "tileheight":21,
+         "tiles":[
+                {
+                 "id":0,
+                 "properties":[
+                        {
+                         "name":"canPick",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "type":"sword"
                 }],
          "tilewidth":21
         }],

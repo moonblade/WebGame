@@ -1,5 +1,4 @@
 import Level from './level';
-import * as levels from './resources/levels.json';
 
 class Levels {
     levels: any = {};
@@ -11,9 +10,6 @@ class Levels {
     }
 
     constructor() {
-        for (let key in levels) {
-            this.levels[key] = new Level(levels[key]);
-        }
     }
 }
 

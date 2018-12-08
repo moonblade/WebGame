@@ -17,7 +17,6 @@ class Player extends Actor {
     // How much travel in one update
     keyboardSpeed: Vector;
     inventory: Inventory;
-    idleSprite: Sprite;
     static instance: Player = null;
     
     static getInstance() {
@@ -27,7 +26,7 @@ class Player extends Actor {
     }
     
     constructor(tiledResource: TiledResource) {
-        super(50,500,21,21);
+        super(0,0,21,21);
         this.color = Color.Red;
         this.speed = 500;
         this.keyboardSpeed = new Vector(5, 5);
@@ -67,6 +66,10 @@ class Player extends Actor {
             this.setDrawing('idleDown');
             return Promise.resolve();
         });
+    }
+
+    setPosition(pos: any) {
+        this.pos = new Vector(pos.x, pos.y);
     }
 
     async moveTo(coordinate:any, pathFind:boolean = true) {
@@ -133,7 +136,6 @@ class Player extends Actor {
     }
 
     public onInitialize(engine: Engine) {
-        Resources.getInstance().onInitialize(engine);
         this.addDrawing('idleDown', Resources.getInstance().getSprite('playerIdleDown'));
         this.addDrawing('idleUp', Resources.getInstance().getSprite('playerIdleUp'));
         this.addDrawing('idleRight', Resources.getInstance().getSprite('playerIdleRight'));

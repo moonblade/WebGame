@@ -8,6 +8,9 @@ import {
     Logger
  } from 'excalibur';
  import * as pako from 'pako';
+import Game from '../game';
+import Item from '../item';
+import Player from '../player';
  /**
  * Tiled Map Interface
  *
@@ -144,17 +147,19 @@ export interface ITiledMap {
  
     protected mapFormat: TiledMapFormat;
  
+    public objectsLoaded: boolean;
     public imagePathAccessor: (path: string, ts: ITiledTileSet) => string;
     public externalTilesetPathAccessor: (path: string, ts: ITiledTileSet) => string;
  
     constructor(path: string, mapFormat = TiledMapFormat.JSON) {
        switch (mapFormat) {
           case TiledMapFormat.JSON:
-             super(path, "json");
-             break;
+          super(path, "json");
+          break;
           default:
-             throw `The format ${mapFormat} is not currently supported. Please export Tiled map as JSON.`;
-       }
+          throw `The format ${mapFormat} is not currently supported. Please export Tiled map as JSON.`;
+         }
+      this.objectsLoaded = false;
  
        this.mapFormat = mapFormat;
        this.imagePathAccessor = this.externalTilesetPathAccessor = (p, tileset) => {
@@ -281,18 +286,36 @@ export interface ITiledMap {
                 if (gid !== 0) {
                    var ts = this.getTilesetForTile(gid);
                    let tile = gid - ts.firstgid;
-                   if (ts.tiles && ts.tiles && ts.tiles[tile] && ts.tiles[tile]['solid'])
-                     map.data[i].solid = true;
-                   else if (ts.tiles && ts.tiles[tile] && ts.tiles[tile]['properties'] &&  ts.tiles[tile]['properties'].length > 0) {
+                   if (ts.tiles && ts.tiles[tile] && ts.tiles[tile]['properties'] &&  ts.tiles[tile]['properties'].length > 0) {
                      ts.tiles[tile]['properties'].forEach(property => {
-                        if (property.key == 'solid' && property.value == true)
-                           map.data[i].solid = true;
-                        ts.tiles[tile]['solid'] = true;
+                        map.data[i][property.name] = property.value;
                      });
                    } 
                    map.data[i].sprites.push(new TileSprite(ts.firstgid.toString(), gid - ts.firstgid))
                 }
              }
+          }
+          if (layer.type === "objectgroup" && !this.objectsLoaded) {
+             for (var i =0; i< layer.objects.length; ++i) {
+                let object = layer.objects[i];
+                let gid = object.gid;
+                if (gid !== 0) {
+                  var ts = this.getTilesetForTile(gid);
+                  let tile = gid - ts.firstgid;
+                  if (ts.tiles && ts.tiles[tile] && ts.tiles[tile]['properties'] && ts.tiles[tile]['properties'].length>0) {
+                     ts.tiles[tile]['properties'].forEach(property => {
+                        object[property.name] = property.value
+                     })
+                  }
+                  if (object.type === "spawn") {
+                     Player.getInstance().setPosition(object);
+
+                  }
+                  Game.getInstance().add(new Item(object))
+                }
+
+             }
+             this.objectsLoaded = true;
           }
        }
  

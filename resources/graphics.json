@@ -3,11 +3,11 @@
         "scale" : [1, 1]
     },
     "textures": {
-        "playerWalkDown": "./src/resources/player/walk_down.png",
-        "playerWalkUp": "./src/resources/player/walk_up.png",
-        "playerWalkRight": "./src/resources/player/walk_right.png",
-        "playerWalkLeft": "./src/resources/player/walk_left.png",
-        "sword": "./src/resources/items/sword.png"
+        "playerWalkDown": "../resources/player/walk_down.png",
+        "playerWalkUp": "../resources/player/walk_up.png",
+        "playerWalkRight": "../resources/player/walk_right.png",
+        "playerWalkLeft": "../resources/player/walk_left.png",
+        "items": "../resources/map/items.png"
     },
     "animations": {
         "playerWalkDown": ["playerWalkDown", 3, 1, 14, 21],
@@ -21,10 +21,11 @@
         "playerIdleDown" : ["playerWalkDown", 0, 0, 14, 21],
         "playerIdleRight" : ["playerWalkRight", 0, 0, 14, 21],
         "playerIdleLeft" : ["playerWalkLeft", 0, 0, 14, 21],
-        "sword": ["sword", 0, 0, 21, 21]
+        "sword": ["items", 0, 0, 21, 21],
+        "spawn": ["items", 21, 0, 21, 21]
     },
     "tiledResources": {
-        "map": "./src/resources/map/map.json"
+        "map": "../resources/map/map.json"
     },
     "resources": {
     }

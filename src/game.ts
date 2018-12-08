@@ -23,14 +23,11 @@ class Game extends Engine{
     }
     
     onStart() {
-        // this.rooms = Levels.getInstance();
+        Resources.getInstance().onInitialize(this);
         this.tileResource = Resources.getInstance().getTiledResource("map");
         this.add(this.tileResource.getTileMap());
         this.player = Player.getInstance();
         this.add(this.player);
-        this.add(new Item('sword', new Vector(150, 500), {
-            canPick: true
-        }));
         this.currentScene.camera.strategy.lockToActor(this.player);
         // this.isDebug = true;
     }
