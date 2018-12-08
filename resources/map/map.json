@@ -37,7 +37,7 @@
                  "name":"spawn",
                  "rotation":0,
                  "type":"spawn",
-                 "visible":false,
+                 "visible":true,
                  "width":21,
                  "x":189.010724834348,
                  "y":608.99861393671
@@ -102,8 +102,17 @@
                          "name":"canPick",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"item"
                         }],
                  "type":"sword"
+                }, 
+                {
+                 "id":1,
+                 "type":"spawn"
                 }],
          "tilewidth":21
         }],

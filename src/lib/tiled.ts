@@ -11,6 +11,8 @@ import {
 import Game from '../game';
 import Item from '../item';
 import Player from '../player';
+import Resources from '../resources';
+import Helper from '../helper';
  /**
  * Tiled Map Interface
  *
@@ -307,11 +309,7 @@ export interface ITiledMap {
                         object[property.name] = property.value
                      })
                   }
-                  if (object.type === "spawn") {
-                     Player.getInstance().setPosition(object);
-
-                  }
-                  Game.getInstance().add(new Item(object))
+                  Helper.initObject(object);
                 }
 
              }

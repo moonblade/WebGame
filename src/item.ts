@@ -51,12 +51,20 @@ class Item extends Actor {
         Game.getInstance().add(this);
     }
 
+    static initialize(properties: any) {
+        let item:Item = new Item(properties);
+        Resources.getInstance().addItem(item);
+        Game.getInstance().add(item);
+    }
+
     onInitialize() {
         this.sprite = Resources.getInstance().getSprite(this.spriteName)
-        this.addDrawing(this.sprite);
-        this.setWidth(this.sprite.width);
-        this.setHeight(this.sprite.height);
-        this.on("collisionstart", this.collisionStart);
+        if (this.sprite) {
+            this.addDrawing(this.sprite);
+            this.setWidth(this.sprite.width);
+            this.setHeight(this.sprite.height);
+            this.on("collisionstart", this.collisionStart);
+        }
     }
 }
 

@@ -1,12 +1,14 @@
 import { Texture, ILoader, ILoadable, Loader, Animation, SpriteSheet, Engine, Vector, Sprite, Resource } from "excalibur";
 import * as graphics from '../resources/graphics.json';
 import { TiledResource } from "./lib/tiled";
+import Item from "./item.js";
 class Resources {
     textures: any = {};
     animations: any = {};
     resources: any = {};
     tiledResources: any = {};
     sprites: any = {};
+    items: any = {};
     static instance: Resources = null;
     initialized: boolean = false;
     frameSpeed: number = 100;
@@ -39,6 +41,16 @@ class Resources {
         return this.tiledResources[key];
     }
 
+    addItem(item:Item) {
+        this.items[item.name] = item;
+    }
+
+    getItem(key:string) {
+        if(this.items[key]) {
+            return this.items[key];
+        }
+    }
+
     getResources(): ILoadable[] {
         let resources = Object.keys(this.resources).map(key=>this.resources[key]);
         resources = resources.concat(this.getTextures());
@@ -59,6 +71,11 @@ class Resources {
 
         for (let key in graphics.sprites) {
             let a = graphics.sprites[key]
+            this.sprites[key] = new Sprite(this.getTexture(a[0]), a[1], a[2], a[3], a[4]);
+        }
+
+        for (let key in graphics.items) {
+            let a = graphics.items[key]
             this.sprites[key] = new Sprite(this.getTexture(a[0]), a[1], a[2], a[3], a[4]);
         }
     }
