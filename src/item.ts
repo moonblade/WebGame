@@ -3,7 +3,7 @@ import Resources from "./resources";
 import Player from "./player";
 import Game from "./game";
 import * as defaults from "./defaults.json"
-import { PointerUpEvent } from "excalibur/dist/Input";
+import { PointerUpEvent, PointerDownEvent } from "excalibur/dist/Input";
 
 class Item extends Actor {
     spriteName: string;
@@ -26,13 +26,7 @@ class Item extends Actor {
         this.collisionTypeSaved = collisionType;
         this.canPick = properties.canPick;
         this.padding = defaults.item.padding;
-        this.enableCapturePointer = true;
-        // inventory selection
-        this.on("pointerup", (event: PointerUpEvent)=>{
-            if (event.target == this && this.inventory) {
-                Player.getInstance().selectItem(this);
-            }
-        })
+        
     }
     
     
@@ -44,7 +38,7 @@ class Item extends Actor {
             Player.getInstance().add(this);
         } else {
             // Item drop position
-            this.pos = Player.getInstance().pos.add(new Vector(0, this.getHeight()));
+            this.pos = Player.getInstance().pos.add(new Vector(0, this.getHeight() + 2 * this.padding));
             this.restoreCollision();
             Player.getInstance().remove(this);
             Game.getInstance().add(this);

@@ -21,6 +21,15 @@ class Inventory {
         })
     }
 
+    // check if a vector is an item
+    findItem(pos: Vector) {
+        for (let i=0; i<this.items.length; ++i) {
+            if (this.items[i].contains(pos.x, pos.y, false)) {
+                return this.items[i]
+;            }
+        }
+    }
+
     add(item: Item) {
         this.items.push(item);
         this.selectedItem = this.items.length - 1;
@@ -44,6 +53,10 @@ class Inventory {
             this.selectedItem = index;
             this.updateDisplay();
         }
+    }
+
+    hasItem(item: Item): boolean {
+        return this.findIndex(item) > -1;
     }
 
     findIndex(item: Item): number {

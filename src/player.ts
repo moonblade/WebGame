@@ -8,6 +8,7 @@ import HealthBar from './healthbar';
 import Inventory from './inventory';
 import Item from './item';
 import Game from './game';
+import { PointerDownEvent } from 'excalibur/dist/Input';
 
 class Player extends Actor {
     health: HealthBar;
@@ -147,8 +148,10 @@ class Player extends Actor {
         this.setDrawing('idleDown');
         this.add(this.health);
         // respond to click events
-        engine.input.pointers.primary.on('down', (event:any)=>{
-            this.clicked(event.coordinates.worldPos);
+        this.on("pointerdown", (event: PointerDownEvent)=>{
+            if (event.target == this) {
+                this.inventory.selectItem(this.inventory.findItem(event.pos))
+            } 
         })
     }
 
