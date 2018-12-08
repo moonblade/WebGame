@@ -152,6 +152,10 @@ class Player extends Actor {
         })
     }
 
+    selectItem(item: Item) {
+        this.inventory.selectItem(item);
+    }
+
     itemAction(item: Item) {
         if (item.canPick) {
             this.inventory.add(item);

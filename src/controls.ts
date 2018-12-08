@@ -7,6 +7,8 @@ class Controls {
     static downKeys: Input.Keys[] = [Input.Keys.S, Input.Keys.Down];
     static leftKeys: Input.Keys[] = [Input.Keys.A, Input.Keys.Left];
     static rightKeys: Input.Keys[] = [Input.Keys.D, Input.Keys.Right];
+    // 1
+    static inventorySelectionStart: Input.Keys = 49
     static keys: Map<Direction, Input.Keys[]> = new Map([
         [Direction.Up, Controls.upKeys],
         [Direction.Down, Controls.downKeys],
@@ -15,25 +17,25 @@ class Controls {
     ]);
 
     static keyboard(engine:Engine, type: InputType, keys: Input.Keys[]) {
-        let retVal:boolean = false;
+        let retVal :any = false;
         if (type == InputType.held) {
             for (let x of keys) {
                 if (engine.input.keyboard.isHeld(x)) {
-                    retVal = true;
+                    retVal = x;
                     break;
                 }
             }
         } else if (type == InputType.press) {
             for (let x of keys) {
                 if (engine.input.keyboard.wasPressed(x)) {
-                    retVal = true;
+                    retVal = x;
                     break;
                 }
             }
         } else if (type == InputType.release) {
             for (let x of keys) {
                 if (engine.input.keyboard.wasReleased(x)) {
-                    retVal = true;
+                    retVal = x;
                     break;
                 }
             }

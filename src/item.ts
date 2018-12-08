@@ -3,6 +3,7 @@ import Resources from "./resources";
 import Player from "./player";
 import Game from "./game";
 import * as defaults from "./defaults.json"
+import { PointerUpEvent } from "excalibur/dist/Input";
 
 class Item extends Actor {
     spriteName: string;
@@ -13,8 +14,10 @@ class Item extends Actor {
     padding: number;
     // is inventory item
     inventory: boolean;
+    // is item selected in invetory
+    selected: boolean;
     collisionTypeSaved: CollisionType;
-
+    
     constructor(properties: any = {}, collisionType:CollisionType = CollisionType.Passive) {
         super(properties);
         this.spriteName = properties.name || properties.type
@@ -23,12 +26,19 @@ class Item extends Actor {
         this.collisionTypeSaved = collisionType;
         this.canPick = properties.canPick;
         this.padding = defaults.item.padding;
+        this.enableCapturePointer = true;
+        // inventory selection
+        this.on("pointerup", (event: PointerUpEvent)=>{
+            if (event.target == this && this.inventory) {
+                Player.getInstance().selectItem(this);
+            }
+        })
     }
     
-    setInventory(inventory: boolean, position: number = 0) {
+    
+    setInventory(inventory: boolean) {
         this.inventory = inventory;
         if (this.inventory) {
-            this.hudDisplay(position)
             this.collisionType = CollisionType.PreventCollision;
             Game.getInstance().remove(this);
             Player.getInstance().add(this);
@@ -40,24 +50,25 @@ class Item extends Actor {
             Game.getInstance().add(this);
         }
     }
-
+    
     restoreCollision() {
         this.collisionType = this.collisionTypeSaved;
     }
-
+    
     collisionStart(event: CollisionStartEvent):void {
         if (event.other == Player.getInstance()) {
             Player.getInstance().itemAction(this)
         }
     }
-
-    hudDisplay(position: number) {
+    
+    hudDisplay(position: number, selected: boolean = false) {
         // zero index to one index
         position++;
-        this.x = - Game.getInstance().halfCanvasWidth + position * ( this.getWidth() + 0 );
+        this.selected = selected;
+        this.x = - Game.getInstance().halfCanvasWidth + position * ( this.getWidth() + 6 * this.padding );
         this.y = - Game.getInstance().halfCanvasHeight + this.getHeight();
     }
-
+    
     placeItem(pos: Vector) {
         this.pos = pos;
         Game.getInstance().add(this);
@@ -72,7 +83,11 @@ class Item extends Actor {
     draw(ctx: CanvasRenderingContext2D, delta: number) {
         super.draw(ctx, delta);
         if (this.inventory) {
-            ctx.strokeStyle = "#FF8533";
+            if (this.selected) {
+                ctx.strokeStyle = "#e65c00";
+            } else {
+                ctx.strokeStyle = "#FF8533";
+            }
             ctx.strokeRect(this.x - this.getWidth()/2 - this.padding, this.y - this.getHeight()/2 - this.padding, this.getWidth() + 2 * this.padding, this.getHeight() + 2 * this.padding)
         }
     }
