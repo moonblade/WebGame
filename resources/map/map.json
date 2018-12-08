@@ -46,13 +46,25 @@
                  "gid":5,
                  "height":21,
                  "id":16,
-                 "name":"a",
+                 "name":"empty bottle",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":21,
                  "x":340.118017309205,
                  "y":501.738788355626
+                }, 
+                {
+                 "gid":6,
+                 "height":21,
+                 "id":19,
+                 "name":"filledBottle",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":335.685366272088,
+                 "y":701.370732544176
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -61,7 +73,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":17,
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -96,11 +108,11 @@
          "tilewidth":21
         }, 
         {
-         "columns":3,
+         "columns":4,
          "firstgid":3,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":63,
+         "imagewidth":84,
          "margin":0,
          "name":"items",
          "spacing":0,
@@ -138,8 +150,33 @@
                          "name":"class",
                          "type":"string",
                          "value":"item"
+                        }, 
+                        {
+                         "name":"filled",
+                         "type":"bool",
+                         "value":false
                         }],
                  "type":"bottle"
+                }, 
+                {
+                 "id":3,
+                 "properties":[
+                        {
+                         "name":"canPick",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"item"
+                        }, 
+                        {
+                         "name":"filled",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "type":"filledBottle"
                 }],
          "tilewidth":21
         }],
