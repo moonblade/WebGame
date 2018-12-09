@@ -59,8 +59,8 @@ class Item extends Actor {
         // zero index to one index
         position++;
         this.selected = selected;
-        this.x = - Game.getInstance().halfCanvasWidth + position * ( this.getWidth() + 6 * this.padding );
-        this.y = - Game.getInstance().halfCanvasHeight + this.getHeight();
+        this.x = - Game.getInstance().halfDrawWidth + position * ( this.getWidth() + 6 * this.padding );
+        this.y = - Game.getInstance().halfDrawHeight + this.getHeight();
     }
     
     placeItem(pos: Vector) {
