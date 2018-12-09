@@ -65,6 +65,18 @@
                  "width":21,
                  "x":335.685366272088,
                  "y":701.370732544176
+                }, 
+                {
+                 "gid":7,
+                 "height":21,
+                 "id":20,
+                 "name":"cross",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":203.58723623263,
+                 "y":710.80631326128
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -73,7 +85,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":20,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -108,15 +120,15 @@
          "tilewidth":21
         }, 
         {
-         "columns":4,
+         "columns":5,
          "firstgid":3,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":84,
+         "imagewidth":105,
          "margin":0,
          "name":"items",
          "spacing":0,
-         "tilecount":4,
+         "tilecount":5,
          "tileheight":21,
          "tiles":[
                 {
@@ -177,6 +189,21 @@
                          "value":true
                         }],
                  "type":"filledBottle"
+                }, 
+                {
+                 "id":4,
+                 "properties":[
+                        {
+                         "name":"canPick",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"item"
+                        }],
+                 "type":"cross"
                 }],
          "tilewidth":21
         }],

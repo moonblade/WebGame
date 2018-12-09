@@ -119,6 +119,7 @@ class Resources {
 
     getLoader(): Loader {
         let loader: Loader = new Loader();
+        // loader.logo = graphics.logo;
         for (let resource of this.getResources()) {
             loader.addResource(resource);
         }

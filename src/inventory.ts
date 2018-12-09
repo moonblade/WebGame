@@ -60,6 +60,8 @@ class Inventory {
     }
 
     findIndex(item: Item): number {
+        if (!item)
+            return -1;
         return this.items.findIndex(x=>{
             return x.name == item.name;
         });

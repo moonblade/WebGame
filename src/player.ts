@@ -150,7 +150,7 @@ class Player extends Actor {
         // respond to click events
         this.on("pointerdown", (event: PointerDownEvent)=>{
             if (event.target == this) {
-                this.inventory.selectItem(this.inventory.findItem(event.pos))
+                this.inventory.selectItem(this.inventory.findItem(event.pos));
             } 
         })
     }
