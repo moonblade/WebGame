@@ -77,6 +77,42 @@
                  "width":21,
                  "x":203.58723623263,
                  "y":710.80631326128
+                }, 
+                {
+                 "gid":8,
+                 "height":21,
+                 "id":23,
+                 "name":"copperKey",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":253.516970834044,
+                 "y":774.966740576497
+                }, 
+                {
+                 "gid":9,
+                 "height":21,
+                 "id":24,
+                 "name":"silverKey",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":273.131502643698,
+                 "y":710.153505031554
+                }, 
+                {
+                 "gid":10,
+                 "height":21,
+                 "id":25,
+                 "name":"goldKey",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":279.101142759679,
+                 "y":624.872931946103
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -85,7 +121,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":21,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -120,15 +156,15 @@
          "tilewidth":21
         }, 
         {
-         "columns":5,
+         "columns":8,
          "firstgid":3,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":105,
+         "imagewidth":168,
          "margin":0,
          "name":"items",
          "spacing":0,
-         "tilecount":5,
+         "tilecount":8,
          "tileheight":21,
          "tiles":[
                 {
@@ -204,6 +240,51 @@
                          "value":"item"
                         }],
                  "type":"cross"
+                }, 
+                {
+                 "id":5,
+                 "properties":[
+                        {
+                         "name":"canPick",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"item"
+                        }],
+                 "type":"copperKey"
+                }, 
+                {
+                 "id":6,
+                 "properties":[
+                        {
+                         "name":"canPick",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"item"
+                        }],
+                 "type":"silverKey"
+                }, 
+                {
+                 "id":7,
+                 "properties":[
+                        {
+                         "name":"canPick",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"item"
+                        }],
+                 "type":"goldKey"
                 }],
          "tilewidth":21
         }],
