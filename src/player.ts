@@ -76,7 +76,6 @@ class Player extends Actor {
     async moveTo(coordinate:any, pathFind:boolean = true) {
         let cell:Cell = this.tiledResource.getTileMap().getCellByPoint(coordinate.x, coordinate.y)
         if(!cell || (cell && cell.solid && !pathFind)) {
-            this.actions.clearActions();
             return;
         }
         if (!pathFind) {
@@ -84,21 +83,10 @@ class Player extends Actor {
             this.pos.y = coordinate.y;
         } else {
             // TODO: Path finding algorithm required to move around obstacles in the room
+            this.pos.x = coordinate.x;
+            this.pos.y = coordinate.y;
             console.log("not implemented")
         }
-        // this.actions.clearActions();
-        // if (this.pos.x < coordinate.x) {
-        //     await this.moveRight(coordinate);
-        // }
-        // if (this.pos.x > coordinate.x) {
-        //     await this.moveLeft(coordinate);
-        // }
-        // if (this.pos.y > coordinate.y) {
-        //     await this.moveUp(coordinate);
-        // }
-        // if (this.pos.y < coordinate.y) {
-        //     await this.moveDown(coordinate);
-        // }
     }
 
     clicked(coordinate:any) {
@@ -148,11 +136,14 @@ class Player extends Actor {
         this.setDrawing('idleDown');
         this.add(this.health);
         // respond to click events
-        this.on("pointerdown", (event: PointerDownEvent)=>{
-            if (event.target == this) {
-                this.inventory.selectItem(this.inventory.findItem(event.pos));
-            } 
-        })
+        Game.getInstance().input.pointers.primary.on("down", (event: PointerDownEvent)=>{
+            let item: Item = this.inventory.findItem(event.pos);
+            if (item) {
+                this.inventory.selectItem(item);
+            } else {
+                this.clicked(event.pos);
+            }
+        });
     }
 
     selectItem(item: Item) {
