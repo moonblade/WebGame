@@ -51,7 +51,9 @@ class Item extends Actor implements Pickable{
     }
     
     pick():boolean {
-        return Player.getInstance().getInventory().add(this);
+        if (!this.canPick)
+            return false;
+        return Player.getInstance().pick(this);
     }
 
     place(): boolean {
