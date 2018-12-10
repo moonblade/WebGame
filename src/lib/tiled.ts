@@ -184,6 +184,18 @@ export interface ITiledMap {
        };
     }
  
+    public loadProperties(tileset: any) {
+      if (tileset.tiles && tileset.tiles.length) {
+         for (let tile of tileset.tiles) {
+            if (tile.properties && tile.properties.length) {
+               for(let property of tile.properties) {
+                  tile[property.name] = property.value;
+               }
+            }
+         }
+      }
+   }
+
     public load(): Promise<ITiledMap> {
        var p = new Promise<ITiledMap>();
  
@@ -222,7 +234,7 @@ export interface ITiledMap {
                 var tx = new Texture(this.imagePathAccessor(ts.image, ts));
                 ts.imageTexture = tx;
                 promises.push(tx.load());
- 
+                this.loadProperties(ts);
                 Logger.getInstance().debug("[Tiled] Loading associated tileset: " + ts.image);
              });
  
@@ -289,12 +301,9 @@ export interface ITiledMap {
                    var ts = this.getTilesetForTile(gid);
                    let tile = gid - ts.firstgid;
                    if (ts.tiles && ts.tiles[tile]) {
-                     map.data[i]['type'] = map.data[i]['type'] || ts.tiles[tile]['type']
-                     if(ts.tiles[tile]['properties'] &&  ts.tiles[tile]['properties'].length > 0) {
-                         ts.tiles[tile]['properties'].forEach(property => {
-                            map.data[i][property.name] = property.value;
-                           });
-                        } 
+                      for (let property in ts.tiles[tile]) {
+                         map.data[property] = map.data[property] || ts.tiles[tile][property];
+                      }
                      }
                      map.data[i].sprites.push(new TileSprite(ts.firstgid.toString(), gid - ts.firstgid))
                 }
@@ -308,12 +317,9 @@ export interface ITiledMap {
                   var ts = this.getTilesetForTile(gid);
                   let tile = gid - ts.firstgid;
                   if (ts.tiles && ts.tiles[tile]) {
-                     object['type'] = object['type'] || ts.tiles[tile]['type']
-                     if(ts.tiles[tile]['properties'] &&  ts.tiles[tile]['properties'].length > 0) {
-                         ts.tiles[tile]['properties'].forEach(property => {
-                            object[property.name] = property.value;
-                           });
-                        } 
+                     for (let property in ts.tiles[tile]) {
+                        object[property] = object[property] || ts.tiles[tile][property];
+                     }
                   }
                   Helper.initObject(object);
                 }
