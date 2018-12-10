@@ -1,4 +1,7 @@
 interface Pickable {
+    // name: identifier to identify the pickable with
+    name: string;
+
     // pick up the object and add it to inventory, returns whether pick up was successful or not
     pick(): boolean;
 
@@ -14,6 +17,9 @@ interface Pickable {
 
     // inventory display of item
     hudDisplay(position: number, selected: boolean): void;
+
+    // check if a given point is within the item, for inventory selection
+    contains(x: number, y: number, recurse?: boolean): boolean;
 }
 
 export default Pickable

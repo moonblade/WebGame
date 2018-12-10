@@ -1,14 +1,11 @@
-import Item from "./item";
 import Game from "./game";
 import { UIActor, Vector, Input } from "excalibur";
-import Player from "./player";
-import Resources from "./resources";
 import Controls from "./controls";
-import InputType from "./In";
 import { KeyEvent } from "excalibur/dist/Input";
+import Pickable from "./interface/pickable";
 
 class Inventory {
-    items: Item[] = [];
+    items: Pickable[] = [];
     selectedItem: number;
 
     constructor() {
@@ -30,12 +27,12 @@ class Inventory {
         }
     }
 
-    add(item: Item): boolean {
-        if (this.hasItem(item)) 
+    add(pickable: Pickable): boolean {
+        if (this.hasItem(pickable)) 
             return false;
-        this.items.push(item);
+        this.items.push(pickable);
         this.selectedItem = this.items.length - 1;
-        item.setInventory(true);
+        pickable.setInventory(true);
         this.updateDisplay();
         return true;
     }
@@ -50,31 +47,31 @@ class Inventory {
         this.remove(this.items[this.selectedItem])
     }
     
-    selectItem(item: Item) {
-        let index = this.findIndex(item)
+    selectItem(pickable: Pickable) {
+        let index = this.findIndex(pickable)
         if (index > -1) {
             this.selectedItem = index;
             this.updateDisplay();
         }
     }
 
-    hasItem(item: Item): boolean {
-        return this.findIndex(item) > -1;
+    hasItem(pickable: Pickable): boolean {
+        return this.findIndex(pickable) > -1;
     }
 
-    findIndex(item: Item): number {
-        if (!item)
+    findIndex(pickable: Pickable): number {
+        if (!pickable)
             return -1;
         return this.items.findIndex(x=>{
-            return x.name == item.name;
+            return x.name == pickable.name;
         });
     }
 
-    remove(item: Item): boolean {
-        let index = this.findIndex(item)
+    remove(pickable: Pickable): boolean {
+        let index = this.findIndex(pickable)
         if (index > -1) {
             this.items.splice(index, 1)
-            item.setInventory(false);
+            pickable.setInventory(false);
             this.selectedItem = this.items.length - 1
             this.updateDisplay();
             return true;

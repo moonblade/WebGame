@@ -9,6 +9,7 @@ import Inventory from './inventory';
 import Item from './item';
 import Game from './game';
 import { PointerDownEvent } from 'excalibur/dist/Input';
+import Pickable from './interface/pickable';
 
 class Player extends Actor {
     health: HealthBar;
@@ -141,25 +142,21 @@ class Player extends Actor {
         this.add(this.health);
         // respond to click events
         Game.getInstance().input.pointers.primary.on("down", (event: PointerDownEvent)=>{
-            let item: Item = this.inventory.findItem(event.pos);
-            if (item) {
-                this.inventory.selectItem(item);
+            let pickable: Pickable = this.inventory.findItem(event.pos);
+            if (pickable) {
+                this.inventory.selectItem(pickable);
             } else {
                 this.clicked(event.pos);
             }
         });
     }
 
-    selectItem(item: Item) {
-        this.inventory.selectItem(item);
+    place(pickable: Pickable): boolean {
+        return this.inventory.remove(pickable);
     }
 
-    place(item: Item): boolean {
-        return this.inventory.remove(item);
-    }
-
-    pick(item: Item): boolean {
-        return this.inventory.add(item);
+    pick(pickable: Pickable): boolean {
+        return this.inventory.add(pickable);
     }
 
     itemAction(item: Item) {
