@@ -30,61 +30,22 @@ class Item extends Actor implements Pickable{
         
     }
     
-    
-    setInventory(inventory: boolean) {
-        this.inventory = inventory;
-        if (this.inventory) {
-            this.collisionType = CollisionType.PreventCollision;
-            Game.getInstance().remove(this);
-            Player.getInstance().add(this);
-        } else {
-            // Item drop position
-            this.pos = Player.getInstance().pos.add(new Vector(0, this.getHeight() + 2 * this.padding));
-            this.restoreCollision();
-            Player.getInstance().remove(this);
-            Game.getInstance().add(this);
-        }
-    }
-    
     restoreCollision() {
         this.collisionType = this.collisionTypeSaved;
     }
     
-    pick():boolean {
-        if (!this.canPick)
-            return false;
-        return Player.getInstance().pick(this);
-    }
-
-    place(): boolean {
-        return Player.getInstance().place(this);   
-    }
-
     collisionStart(event: CollisionStartEvent):void {
         if (event.other == Player.getInstance()) {
             this.pick();
         }
     }
     
-    hudDisplay(position: number, selected: boolean = false) {
-        // zero index to one index
-        position++;
-        this.selected = selected;
-        this.x = - Game.getInstance().halfDrawWidth + position * ( this.getWidth() + 6 * this.padding );
-        this.y = - Game.getInstance().halfDrawHeight + this.getHeight();
-    }
-    
-    placeItem(pos: Vector) {
-        this.pos = pos;
-        Game.getInstance().add(this);
-    }
-
     static initialize(properties: any) {
         let item:Item = new Item(properties);
         Resources.getInstance().addItem(item);
         Game.getInstance().add(item);
     }
-
+    
     draw(ctx: CanvasRenderingContext2D, delta: number) {
         super.draw(ctx, delta);
         if (this.inventory) {
@@ -96,7 +57,7 @@ class Item extends Actor implements Pickable{
             ctx.strokeRect(this.x - this.getWidth()/2 - this.padding, this.y - this.getHeight()/2 - this.padding, this.getWidth() + 2 * this.padding, this.getHeight() + 2 * this.padding)
         }
     }
-
+    
     onInitialize() {
         this.sprite = Resources.getInstance().getSprite(this.spriteName)
         if (this.sprite) {
@@ -105,6 +66,47 @@ class Item extends Actor implements Pickable{
             this.setHeight(this.sprite.height);
             this.on("collisionstart", this.collisionStart);
         }
+    }
+    
+    
+    // Pickable interface implementation
+
+    pick():boolean {
+        if (this.canPick)
+            return Player.getInstance().getInventory().add(this);
+        return false;
+    }
+    
+    place(): boolean {
+        this.pos = Player.getInstance().pos.add(new Vector(0, this.getHeight() + 2 * this.padding));
+        return true;
+    }
+
+    setInventory(inventory: boolean) {
+        this.inventory = inventory;
+        if (this.inventory) {
+            this.collisionType = CollisionType.PreventCollision;
+            Game.getInstance().remove(this);
+            Player.getInstance().add(this);
+        } else {
+            // Item drop position
+            this.place();
+            this.restoreCollision();
+            Player.getInstance().remove(this);
+            Game.getInstance().add(this);
+        }
+    }
+    
+    getInventory(): boolean {
+        return this.inventory;
+    }
+
+    hudDisplay(position: number, selected: boolean = false) {
+        // zero index to one index
+        position++;
+        this.selected = selected;
+        this.x = - Game.getInstance().halfDrawWidth + position * ( this.getWidth() + 6 * this.padding );
+        this.y = - Game.getInstance().halfDrawHeight + this.getHeight();
     }
 }
 
