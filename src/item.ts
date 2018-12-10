@@ -4,8 +4,9 @@ import Player from "./player";
 import Game from "./game";
 import * as defaults from "./defaults.json"
 import { PointerUpEvent, PointerDownEvent } from "excalibur/dist/Input";
+import Pickable from "./interface/pickable";
 
-class Item extends Actor {
+class Item extends Actor implements Pickable{
     spriteName: string;
     sprite: Sprite;
     name: string;
@@ -49,9 +50,17 @@ class Item extends Actor {
         this.collisionType = this.collisionTypeSaved;
     }
     
+    pick():boolean {
+        return Player.getInstance().getInventory().add(this);
+    }
+
+    place(): boolean {
+        return Player.getInstance().place(this);   
+    }
+
     collisionStart(event: CollisionStartEvent):void {
         if (event.other == Player.getInstance()) {
-            Player.getInstance().itemAction(this)
+            this.pick();
         }
     }
     

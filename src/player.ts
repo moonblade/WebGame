@@ -73,6 +73,10 @@ class Player extends Actor {
         this.pos = new Vector(pos.x, pos.y);
     }
 
+    getInventory(): Inventory {
+        return this.inventory;
+    }
+
     async moveTo(coordinate:any, pathFind:boolean = true) {
         let cell:Cell = this.tiledResource.getTileMap().getCellByPoint(coordinate.x, coordinate.y)
         if(!cell || (cell && cell.solid && !pathFind)) {
@@ -150,9 +154,17 @@ class Player extends Actor {
         this.inventory.selectItem(item);
     }
 
+    place(item: Item): boolean {
+        return this.inventory.remove(item);
+    }
+
+    pick(item: Item): boolean {
+        return this.inventory.add(item);
+    }
+
     itemAction(item: Item) {
         if (item.canPick) {
-            this.inventory.add(item);
+            // change to pick method for now
         }
     }
 }

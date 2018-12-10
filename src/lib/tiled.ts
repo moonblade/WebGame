@@ -296,13 +296,13 @@ export interface ITiledMap {
           if (layer.type === "tilelayer") {
              for (var i = 0; i < layer.data.length; i++) {
                 let gid = <number>layer.data[i];
- 
+                
                 if (gid !== 0) {
                    var ts = this.getTilesetForTile(gid);
                    let tile = gid - ts.firstgid;
                    if (ts.tiles && ts.tiles[tile]) {
                       for (let property in ts.tiles[tile]) {
-                         map.data[property] = map.data[property] || ts.tiles[tile][property];
+                         map.data[i][property] = map.data[i][property] || ts.tiles[tile][property];
                       }
                      }
                      map.data[i].sprites.push(new TileSprite(ts.firstgid.toString(), gid - ts.firstgid))

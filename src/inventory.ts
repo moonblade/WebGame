@@ -30,11 +30,14 @@ class Inventory {
         }
     }
 
-    add(item: Item) {
+    add(item: Item): boolean {
+        if (this.hasItem(item)) 
+            return false;
         this.items.push(item);
         this.selectedItem = this.items.length - 1;
         item.setInventory(true);
         this.updateDisplay();
+        return true;
     }
 
     updateDisplay() {
@@ -67,14 +70,17 @@ class Inventory {
         });
     }
 
-    remove(item: Item) {
+    remove(item: Item): boolean {
         let index = this.findIndex(item)
         if (index > -1) {
             this.items.splice(index, 1)
             item.setInventory(false);
+            this.selectedItem = this.items.length - 1
+            this.updateDisplay();
+            return true;
+        } else {
+            return false;
         }
-        this.selectedItem = this.items.length - 1
-        this.updateDisplay();
     }
 
 }
