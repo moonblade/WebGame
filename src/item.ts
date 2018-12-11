@@ -72,29 +72,33 @@ class Item extends Actor implements Pickable{
     // Pickable interface implementation
 
     pick():boolean {
-        if (this.canPick)
-            return Player.getInstance().getInventory().add(this);
+        if (this.canPick) {
+            if (Player.getInstance().getInventory().add(this)) {
+                this.collisionType = CollisionType.PreventCollision;
+                Game.getInstance().remove(this);
+                Player.getInstance().add(this);
+                this.setInventory(true);
+                return true;
+            }
+            return false;
+        }
         return false;
     }
     
     place(): boolean {
-        this.pos = Player.getInstance().pos.add(new Vector(0, this.getHeight() + 2 * this.padding));
-        return true;
+        if (Player.getInstance().getInventory().remove(this)) {
+            this.pos = Player.getInstance().getPos().add(new Vector(0, this.getHeight() + 2 * this.padding));
+            this.restoreCollision();
+            Player.getInstance().remove(this);
+            Game.getInstance().add(this);
+            this.setInventory(false);
+            return true;
+        }
+        return false;
     }
 
     setInventory(inventory: boolean) {
         this.inventory = inventory;
-        if (this.inventory) {
-            this.collisionType = CollisionType.PreventCollision;
-            Game.getInstance().remove(this);
-            Player.getInstance().add(this);
-        } else {
-            // Item drop position
-            this.place();
-            this.restoreCollision();
-            Player.getInstance().remove(this);
-            Game.getInstance().add(this);
-        }
     }
     
     getInventory(): boolean {

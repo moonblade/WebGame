@@ -125,8 +125,12 @@ class Player extends Actor {
         }
 
         if (engine.input.keyboard.wasPressed(Input.Keys.R)) {
-            this.inventory.removeSelected();
+            this.inventory.placeSelected();
         }
+    }
+
+    getPos(): Vector {
+        return this.pos;
     }
 
     public onInitialize(engine: Engine) {

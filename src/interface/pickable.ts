@@ -2,7 +2,13 @@ interface Pickable {
     // name: identifier to identify the pickable with
     name: string;
 
-    // pick up the object and add it to inventory, returns whether pick up was successful or not
+    // whether item is in inventory or not
+    inventory: boolean;
+
+    /**
+     * pick up the object and add it to player inventory
+     * @returns whether the item pickup was successful or not
+     */
     pick(): boolean;
 
     // place the object at current player position

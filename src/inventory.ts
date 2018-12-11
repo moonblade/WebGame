@@ -32,7 +32,6 @@ class Inventory {
             return false;
         this.items.push(pickable);
         this.selectedItem = this.items.length - 1;
-        pickable.setInventory(true);
         this.updateDisplay();
         return true;
     }
@@ -41,6 +40,10 @@ class Inventory {
         for (let i=0; i<this.items.length; ++i) {
             this.items[i].hudDisplay(i, i == this.selectedItem);
         }
+    }
+
+    placeSelected() {
+        this.items[this.selectedItem].place();
     }
 
     removeSelected() {
@@ -71,7 +74,6 @@ class Inventory {
         let index = this.findIndex(pickable)
         if (index > -1) {
             this.items.splice(index, 1)
-            pickable.setInventory(false);
             this.selectedItem = this.items.length - 1
             this.updateDisplay();
             return true;
