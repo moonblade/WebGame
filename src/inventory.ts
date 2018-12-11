@@ -42,8 +42,15 @@ class Inventory {
         }
     }
 
+    getSelectedItem(): Pickable {
+        return this.items[this.selectedItem];
+    }
+
     placeSelected() {
-        this.items[this.selectedItem].place();
+        let item: Pickable = this.getSelectedItem();
+        if (item) {
+            item.place();
+        }
     }
 
     removeSelected() {
