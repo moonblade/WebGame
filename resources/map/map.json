@@ -113,18 +113,6 @@
                  "width":21,
                  "x":279.101142759679,
                  "y":624.872931946103
-                }, 
-                {
-                 "gid":11,
-                 "height":21,
-                 "id":30,
-                 "name":"rope",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":21,
-                 "x":336.147794618975,
-                 "y":775.720879005612
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -133,7 +121,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":31,
+ "nextobjectid":32,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",

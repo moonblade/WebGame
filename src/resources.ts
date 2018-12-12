@@ -46,7 +46,8 @@ class Resources {
     }
 
     addItem(item:Item) {
-        this.items[item.name] = item;
+        if (!this.items[item.name])
+            this.items[item.name] = item;
     }
 
     getItem(key:string) {

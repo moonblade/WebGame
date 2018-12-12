@@ -2,11 +2,12 @@ import Item from "./item";
 import Player from "./player";
 
 class Helper {
-    static initObject(object: any = {}) {
+    static initObject(object: any = {}, addToGame: boolean = true) {
         if (object.class === "item") {
-            Item.initialize(object);
+            Item.initialize(object, addToGame);
         } else if (object.type === "spawn") {
-            Player.getInstance().setPosition(object);
+            if (addToGame)
+                Player.getInstance().setPosition(object);
         }
     }
 }

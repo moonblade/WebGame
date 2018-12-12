@@ -187,6 +187,8 @@ export interface ITiledMap {
     public loadProperties(tileset: any) {
       if (tileset.tiles && tileset.tiles.length) {
          for (let tile of tileset.tiles) {
+            tile.height = tileset.tileheight;
+            tile.width = tileset.tilewidth;
             if (tile.properties && tile.properties.length) {
                for(let property of tile.properties) {
                   tile[property.name] = property.value;
@@ -323,8 +325,15 @@ export interface ITiledMap {
                   }
                   Helper.initObject(object);
                 }
-
              }
+            //  Load items that may not be there in game space yet
+             if (layer.objects.length) {
+               let gid = layer.objects[0].gid;
+               let ts:any = this.getTilesetForTile(gid);
+               for (let tile of ts.tiles) {
+                 Helper.initObject(tile, false);
+               }
+            }
              this.objectsLoaded = true;
           }
        }

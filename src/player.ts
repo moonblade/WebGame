@@ -71,7 +71,8 @@ class Player extends Actor {
     }
 
     setPosition(pos: any) {
-        this.pos = new Vector(pos.x, pos.y);
+        if (pos)
+            this.pos = new Vector(pos.x, pos.y);
     }
 
     getInventory(): Inventory {

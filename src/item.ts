@@ -35,15 +35,14 @@ class Item extends Actor implements Pickable{
     
     collisionStart(event: CollisionStartEvent):void {
         if (event.other instanceof Item) {
-            Game.getInstance().remove(event.other);
-            Game.getInstance().remove(this);
         }
     }
     
-    static initialize(properties: any) {
+    static initialize(properties: any, addToGame: boolean = true) {
         let item:Item = new Item(properties);
         Resources.getInstance().addItem(item);
-        Game.getInstance().add(item);
+        if (addToGame)
+            Game.getInstance().add(item);
     }
     
     draw(ctx: CanvasRenderingContext2D, delta: number) {
