@@ -1,7 +1,7 @@
-import Game from "./game";
-import { UIActor, Vector, Input } from "excalibur";
-import Controls from "./controls";
+import { Vector } from "excalibur";
 import { KeyEvent } from "excalibur/dist/Input";
+import Controls from "./controls";
+import Game from "./game";
 import Pickable from "./interface/pickable";
 
 class Inventory {

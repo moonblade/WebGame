@@ -1,4 +1,3 @@
-import Level from './level';
 
 class Levels {
     levels: any = {};

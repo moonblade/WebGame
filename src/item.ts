@@ -1,10 +1,9 @@
-import { Actor, CollisionType, Vector, Sprite, Trigger, GameEvent, CollisionStartEvent } from "excalibur";
-import Resources from "./resources";
-import Player from "./player";
+import { Actor, CollisionStartEvent, CollisionType, Sprite, Vector } from "excalibur";
+import * as defaults from "./defaults.json";
 import Game from "./game";
-import * as defaults from "./defaults.json"
-import { PointerUpEvent, PointerDownEvent } from "excalibur/dist/Input";
 import Pickable from "./interface/pickable";
+import Player from "./player";
+import Resources from "./resources";
 
 class Item extends Actor implements Pickable{
     spriteName: string;
@@ -36,10 +35,8 @@ class Item extends Actor implements Pickable{
     
     collisionStart(event: CollisionStartEvent):void {
         if (event.other instanceof Item) {
-            console.log(event.other)
             Game.getInstance().remove(event.other);
             Game.getInstance().remove(this);
-            Game.getInstance().add(new Item({name: 'sword', type: 'sword'}))
         }
     }
     

@@ -1,9 +1,8 @@
-import { Engine, Loader, ILoadable, Vector, Debug } from 'excalibur';
-import Player from './player';
+import { Engine, ILoadable } from 'excalibur';
 import Levels from './levels';
-import Resources from './resources';
 import { TiledResource } from './lib/tiled';
-import Item from './item';
+import Player from './player';
+import Resources from './resources';
 
 class Game extends Engine{
     player: Player;

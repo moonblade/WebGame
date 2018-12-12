@@ -1,8 +1,8 @@
-import { Texture, ILoader, ILoadable, Loader, Animation, SpriteSheet, Engine, Vector, Sprite, Resource } from "excalibur";
-import { TiledResource } from "./lib/tiled";
-import Item from "./item.js";
-import * as map from "../resources/map/map.json";
+import { Animation, Engine, ILoadable, Loader, Resource, Sprite, SpriteSheet, Texture, Vector } from "excalibur";
 import * as graphics from '../resources/graphics.json';
+import * as map from "../resources/map/map.json";
+import Item from "./item.js";
+import { TiledResource } from "./lib/tiled";
 
 class Resources {
     textures: any = {};

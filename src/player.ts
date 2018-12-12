@@ -1,15 +1,15 @@
-import { Actor, Engine, Color, Texture, Sprite, Vector, SpriteSheet, Animation, ConsoleAppender, EnterTriggerEvent, Input, CollisionType, Cell, CollisionStartEvent } from 'excalibur';
-import Resources from './resources';
-import { TiledResource } from './lib/tiled';
+import { Actor, Cell, CollisionStartEvent, CollisionType, Color, Engine, Input, Vector } from 'excalibur';
+import { PointerDownEvent } from 'excalibur/dist/Input';
 import Controls from './controls';
-import InputType from './In';
 import Direction from './direction';
+import Game from './game';
 import HealthBar from './healthbar';
+import InputType from './In';
+import Pickable from './interface/pickable';
 import Inventory from './inventory';
 import Item from './item';
-import Game from './game';
-import { PointerDownEvent } from 'excalibur/dist/Input';
-import Pickable from './interface/pickable';
+import { TiledResource } from './lib/tiled';
+import Resources from './resources';
 
 class Player extends Actor {
     health: HealthBar;

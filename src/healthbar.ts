@@ -1,4 +1,4 @@
-import { Actor, Vector, Color, TileSprite } from "excalibur";
+import { Actor, Color } from "excalibur";
 
 class HealthBar extends Actor{
     health: number;
