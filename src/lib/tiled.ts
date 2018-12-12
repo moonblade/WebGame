@@ -7,7 +7,7 @@ import {
     SpriteSheet,
     Logger
  } from 'excalibur';
- import * as pako from 'pako';
+//  import * as pako from 'pako';
 import Game from '../game';
 import Item from '../item';
 import Player from '../player';
@@ -402,7 +402,7 @@ export interface ITiledMap {
        var PLUS_URL_SAFE = '-'.charCodeAt(0);
        var SLASH_URL_SAFE = '_'.charCodeAt(0);
  
-       function decode(elt) {
+       function decode(elt:any) {
           var code = elt.charCodeAt(0)
           if (code === PLUS || code === PLUS_URL_SAFE) return 62 // '+'
           if (code === SLASH || code === SLASH_URL_SAFE) return 63 // '/'
@@ -428,7 +428,7 @@ export interface ITiledMap {
  
        var L = 0
  
-       function push(v) {
+       function push(v:any) {
           arr[L++] = v
        }
  
@@ -451,7 +451,7 @@ export interface ITiledMap {
        // Byte array
        // handle compression
        if ("zlib" === compression || "gzip" === compression) {
-          arr = pako.inflate( arr );
+         //  arr = pako.inflate( arr );
        }
  
        var toNumber = function (byteArray: number[] | Uint8Array) {

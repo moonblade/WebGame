@@ -35,8 +35,11 @@ class Item extends Actor implements Pickable{
     }
     
     collisionStart(event: CollisionStartEvent):void {
-        if (event.other == Player.getInstance()) {
-            this.pick();
+        if (event.other instanceof Item) {
+            console.log(event.other)
+            Game.getInstance().remove(event.other);
+            Game.getInstance().remove(this);
+            Game.getInstance().add(new Item({name: 'sword', type: 'sword'}))
         }
     }
     

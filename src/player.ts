@@ -1,4 +1,4 @@
-import { Actor, Engine, Color, Texture, Sprite, Vector, SpriteSheet, Animation, ConsoleAppender, EnterTriggerEvent, Input, CollisionType, Cell } from 'excalibur';
+import { Actor, Engine, Color, Texture, Sprite, Vector, SpriteSheet, Animation, ConsoleAppender, EnterTriggerEvent, Input, CollisionType, Cell, CollisionStartEvent } from 'excalibur';
 import Resources from './resources';
 import { TiledResource } from './lib/tiled';
 import Controls from './controls';
@@ -153,6 +153,9 @@ class Player extends Actor {
                 this.clicked(event.pos);
             }
         });
+
+        // handle collisions
+        this.on("collisionstart", this.collisionStart);
     }
 
     place(pickable: Pickable): boolean {
@@ -166,6 +169,15 @@ class Player extends Actor {
     itemAction(item: Item) {
         if (item.canPick) {
             // change to pick method for now
+        }
+    }
+
+    /**
+     * When a collision happens between a player and some other object, handle the event
+     */
+    collisionStart(event: CollisionStartEvent) {
+        if (event.other instanceof Item) {
+            event.other.pick();
         }
     }
 }

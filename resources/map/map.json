@@ -99,8 +99,8 @@
                  "type":"",
                  "visible":true,
                  "width":21,
-                 "x":273.131502643698,
-                 "y":710.153505031554
+                 "x":236.460856216954,
+                 "y":664.10199556541
                 }, 
                 {
                  "gid":10,
@@ -113,6 +113,18 @@
                  "width":21,
                  "x":279.101142759679,
                  "y":624.872931946103
+                }, 
+                {
+                 "gid":11,
+                 "height":21,
+                 "id":30,
+                 "name":"rope",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":336.147794618975,
+                 "y":775.720879005612
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -121,7 +133,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":26,
+ "nextobjectid":31,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -156,15 +168,15 @@
          "tilewidth":21
         }, 
         {
-         "columns":8,
+         "columns":9,
          "firstgid":3,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":168,
+         "imagewidth":189,
          "margin":0,
          "name":"items",
          "spacing":0,
-         "tilecount":8,
+         "tilecount":11,
          "tileheight":21,
          "tiles":[
                 {
@@ -285,6 +297,29 @@
                          "value":"item"
                         }],
                  "type":"goldKey"
+                }, 
+                {
+                 "id":8,
+                 "properties":[
+                        {
+                         "name":"canPick",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"item"
+                        }],
+                 "type":"rope"
+                }, 
+                {
+                 "id":9,
+                 "type":"r1"
+                }, 
+                {
+                 "id":10,
+                 "type":"r2"
                 }],
          "tilewidth":21
         }],
