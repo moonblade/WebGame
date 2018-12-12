@@ -70,6 +70,18 @@ class Player extends Actor {
         });
     }
 
+    move(coordinate:Vector) {
+        if (coordinate.x > this.pos.x) {
+            return this.moveRight(coordinate);
+        } else if (coordinate.x < this.pos.x) {
+            return this.moveLeft(coordinate);
+        } else if(coordinate.y < this.pos.y) {
+            return this.moveUp(coordinate);
+        } else if (coordinate.y > this.pos.y) {
+            return this.moveDown(coordinate);
+        }
+    }
+
     setPosition(pos: any) {
         if (pos)
             this.pos = new Vector(pos.x, pos.y);
@@ -89,9 +101,13 @@ class Player extends Actor {
             this.pos.y = coordinate.y;
         } else {
             // TODO: Path finding algorithm required to move around obstacles in the room
-            this.pos.x = coordinate.x;
-            this.pos.y = coordinate.y;
-            console.log("not implemented")
+            let path:Vector[] = this.tiledResource.findPath(this.pos, coordinate);
+            if (path.length) {
+                this.actions.clearActions();
+                for(let coordinate of path) {
+                    await this.move(coordinate);
+                }
+            }
         }
     }
 
