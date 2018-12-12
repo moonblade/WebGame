@@ -30,7 +30,7 @@ class Player extends Actor {
     constructor(tiledResource: TiledResource) {
         super(0,0,21,21);
         this.color = Color.Red;
-        this.speed = 500;
+        this.speed = 150;
         this.keyboardSpeed = new Vector(5, 5);
         this.tiledResource = tiledResource;
         this.collisionType = CollisionType.Active;
