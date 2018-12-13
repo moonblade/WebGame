@@ -19,6 +19,7 @@ class Player extends Actor {
     // How much travel in one update
     keyboardSpeed: Vector;
     inventory: Inventory;
+    currentDirection: Direction;
     static instance: Player = null;
     
     static getInstance() {
@@ -30,7 +31,7 @@ class Player extends Actor {
     constructor(tiledResource: TiledResource) {
         super(0,0,21,21);
         this.color = Color.Red;
-        this.speed = 150;
+        this.speed = 500;
         this.keyboardSpeed = new Vector(5, 5);
         this.tiledResource = tiledResource;
         this.collisionType = CollisionType.Active;
@@ -38,47 +39,29 @@ class Player extends Actor {
         this.inventory = new Inventory();
     }
 
-    moveRight(coordinate: Vector) {
-        this.setDrawing('walkRight');
-        return this.actions.moveTo(coordinate.x, this.pos.y, this.speed).asPromise().then(()=>{
-            this.setDrawing('idleRight');
+    moveInDirection(coordinate:Vector, direction: Direction, setIdle: boolean = true) {
+        if (this.currentDirection != direction) {
+            this.setDrawing('walk' + direction);
+            this.currentDirection = direction;
+        }
+        return this.actions.moveTo(coordinate.x, coordinate.y, this.speed).asPromise().then(()=>{
+            if (setIdle) {
+                this.setDrawing('idle' + direction);
+                this.currentDirection = null;
+            }
             return Promise.resolve();
         });
     }
 
-    moveLeft(coordinate: Vector) {
-        this.setDrawing('walkLeft');
-        return this.actions.moveTo(coordinate.x, this.pos.y, this.speed).asPromise().then(()=>{
-            this.setDrawing('idleLeft');
-            return Promise.resolve();
-        });
-    }
-
-    moveUp(coordinate: Vector) {
-        this.setDrawing('walkUp');
-        return this.actions.moveTo(this.pos.x, coordinate.y, this.speed).asPromise().then(()=>{
-            this.setDrawing('idleUp');
-            return Promise.resolve();
-        });
-    }
-
-    moveDown(coordinate: Vector) {
-        this.setDrawing('walkDown');
-        return this.actions.moveTo(this.pos.x, coordinate.y, this.speed).asPromise().then(()=>{
-            this.setDrawing('idleDown');
-            return Promise.resolve();
-        });
-    }
-
-    move(coordinate:Vector) {
+    move(coordinate:Vector, setIdle: boolean = true) {
         if (coordinate.x > this.pos.x) {
-            return this.moveRight(coordinate);
+            return this.moveInDirection(coordinate, Direction.Right, setIdle);
         } else if (coordinate.x < this.pos.x) {
-            return this.moveLeft(coordinate);
+            return this.moveInDirection(coordinate, Direction.Left, setIdle);
         } else if(coordinate.y < this.pos.y) {
-            return this.moveUp(coordinate);
+            return this.moveInDirection(coordinate, Direction.Up, setIdle);
         } else if (coordinate.y > this.pos.y) {
-            return this.moveDown(coordinate);
+            return this.moveInDirection(coordinate, Direction.Down, setIdle);
         }
     }
 
@@ -104,8 +87,8 @@ class Player extends Actor {
             let path:Vector[] = this.tiledResource.findPath(this.pos, coordinate);
             if (path.length) {
                 this.actions.clearActions();
-                for(let coordinate of path) {
-                    await this.move(coordinate);
+                for(let key in path) {
+                    await this.move(path[key], parseInt(key) == path.length - 1);
                 }
             }
         }

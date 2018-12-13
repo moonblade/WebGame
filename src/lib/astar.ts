@@ -67,6 +67,16 @@ class AStar {
         return temp.filter((x)=>x);
     }
 
+    decrease(path:number[]): number[] {
+        let reducedPath=[path[0]]
+        for (var i=2; i<path.length; ++i) {
+        if (path[i]-path[i-1] != path[i-1] - path[i-2])
+            reducedPath.push(path[i-1])
+        }
+        reducedPath.push(path[path.length - 1])
+        return reducedPath;
+    }
+
     toVector(path: number[]): Vector[] {
         return path.map(x=>this.idxArray[x].getCenter());
     }
@@ -79,7 +89,7 @@ class AStar {
             else 
                 return [];
         }
-        return this.toVector(path);
+        return this.toVector(this.decrease(path));
     }
 }
 
