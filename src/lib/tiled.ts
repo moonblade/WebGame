@@ -186,7 +186,10 @@ export class TiledResource extends Resource<ITiledMap> {
             tile.width = tileset.tilewidth;
             if (tile.properties && tile.properties.length) {
                for(let property of tile.properties) {
-                  tile[property.name] = property.value;
+                  if (typeof property.value == 'string' && property.value.indexOf('{') == 0)
+                     tile[property.name]  = JSON.parse(property.value);
+                  else
+                     tile[property.name] = property.value;
                }
             }
          }

@@ -9,6 +9,7 @@ class Item extends Actor implements Pickable{
     spriteName: string;
     sprite: Sprite;
     name: string;
+    type: string;
     canPick: boolean;
     // while drawing inventory item, the rectangle is drawn with padding
     padding: number;
@@ -16,17 +17,20 @@ class Item extends Actor implements Pickable{
     inventory: boolean;
     // is item selected in invetory
     selected: boolean;
+    // crafting
+    craft: any;
     collisionTypeSaved: CollisionType;
     
     constructor(properties: any = {}, collisionType:CollisionType = CollisionType.Passive) {
         super(properties);
+        this.type = properties.type
         this.spriteName = properties.type
         this.name = properties.name || properties.type
         this.collisionType = collisionType;
         this.collisionTypeSaved = collisionType;
         this.canPick = properties.canPick;
         this.padding = defaults.item.padding;
-        
+        this.craft = properties.craft;
     }
     
     restoreCollision() {
@@ -34,7 +38,13 @@ class Item extends Actor implements Pickable{
     }
     
     collisionStart(event: CollisionStartEvent):void {
-        if (event.other instanceof Item) {
+        if (event.other instanceof Item && event.target instanceof Item) {
+            if (event.target.craft && event.target.craft[event.other.type]) {
+                Game.getInstance().remove(event.other);
+                Game.getInstance().remove(event.target);
+                let crafted: Item = Resources.getInstance().getItem(event.target.craft[event.other.type]);
+                crafted.pick();
+            }
         }
     }
     

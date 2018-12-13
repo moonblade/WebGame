@@ -10,6 +10,7 @@ import Inventory from './inventory';
 import Item from './item';
 import { TiledResource } from './lib/tiled';
 import Resources from './resources';
+import DropButton from './dropButton';
 
 class Player extends Actor {
     health: HealthBar;
@@ -20,6 +21,11 @@ class Player extends Actor {
     keyboardSpeed: Vector;
     inventory: Inventory;
     currentDirection: Direction;
+    dropButton: DropButton;
+
+    // binary counter for de duplicating keydown
+    flipper: boolean = false;
+
     static instance: Player = null;
     
     static getInstance() {
@@ -31,12 +37,13 @@ class Player extends Actor {
     constructor(tiledResource: TiledResource) {
         super(0,0,21,21);
         this.color = Color.Red;
-        this.speed = 500;
+        this.speed = 200;
         this.keyboardSpeed = new Vector(5, 5);
         this.tiledResource = tiledResource;
         this.collisionType = CollisionType.Active;
         this.health = new HealthBar(this.maxHealth);
         this.inventory = new Inventory();
+        this.dropButton = new DropButton();
     }
 
     moveInDirection(coordinate:Vector, direction: Direction, setIdle: boolean = true) {
@@ -83,7 +90,6 @@ class Player extends Actor {
             this.pos.x = coordinate.x;
             this.pos.y = coordinate.y;
         } else {
-            // TODO: Path finding algorithm required to move around obstacles in the room
             let path:Vector[] = this.tiledResource.findPath(this.pos, coordinate);
             if (path.length) {
                 this.actions.clearActions();
@@ -134,23 +140,28 @@ class Player extends Actor {
     }
 
     public onInitialize(engine: Engine) {
-        this.addDrawing('idleDown', Resources.getInstance().getSprite('playerIdleDown'));
-        this.addDrawing('idleUp', Resources.getInstance().getSprite('playerIdleUp'));
-        this.addDrawing('idleRight', Resources.getInstance().getSprite('playerIdleRight'));
-        this.addDrawing('idleLeft', Resources.getInstance().getSprite('playerIdleLeft'));
-        this.addDrawing('walkDown', Resources.getInstance().getAnimation('playerWalkDown'));
-        this.addDrawing('walkUp', Resources.getInstance().getAnimation('playerWalkUp'));
-        this.addDrawing('walkLeft', Resources.getInstance().getAnimation('playerWalkLeft'));
-        this.addDrawing('walkRight', Resources.getInstance().getAnimation('playerWalkRight'));
+        for (let direction in Direction) {
+            this.addDrawing('idle' + direction, Resources.getInstance().getSprite('playerIdle' + direction));
+            this.addDrawing('walk' + direction, Resources.getInstance().getAnimation('playerWalk' + direction));
+        }
         this.setDrawing('idleDown');
         this.add(this.health);
+        
+        // add drop button
+        this.add(this.dropButton);
+        
         // respond to click events
         Game.getInstance().input.pointers.primary.on("down", (event: PointerDownEvent)=>{
-            let pickable: Pickable = this.inventory.findItem(event.pos);
-            if (pickable) {
-                this.inventory.selectItem(pickable);
-            } else {
-                this.clicked(event.pos);
+            this.flipper = !this.flipper;
+            if (this.flipper) {
+                let pickable: Pickable = this.inventory.findItem(event.pos);
+                if (pickable) {
+                    this.inventory.selectItem(pickable);
+                } else if (this.dropButton.contains(event.pos.x, event.pos.y)) {
+                    this.inventory.placeSelected();
+                } else {
+                    this.clicked(event.pos);
+                }
             }
         });
 
@@ -164,12 +175,6 @@ class Player extends Actor {
 
     pick(pickable: Pickable): boolean {
         return this.inventory.add(pickable);
-    }
-
-    itemAction(item: Item) {
-        if (item.canPick) {
-            // change to pick method for now
-        }
     }
 
     /**

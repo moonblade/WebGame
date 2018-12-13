@@ -27,6 +27,9 @@ class AStar {
         let queue = [endIdx];
         this.count[endIdx] = 0;
 
+        if (end.solid)
+            return [];
+
         // main loop
         for (let i=0; i<queue.length; ++i) {
             // console.log(queue.length)
