@@ -28,6 +28,7 @@ class Game extends Engine{
         this.player = Player.getInstance();
         this.add(this.player);
         this.currentScene.camera.strategy.lockToActor(this.player);
+        this.currentScene.camera.zoom(2);
         // this.isDebug = true;
     }
     
