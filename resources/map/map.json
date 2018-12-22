@@ -67,18 +67,6 @@
                  "y":701.370732544176
                 }, 
                 {
-                 "gid":7,
-                 "height":21,
-                 "id":20,
-                 "name":"cross",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":21,
-                 "x":203.58723623263,
-                 "y":710.80631326128
-                }, 
-                {
                  "gid":8,
                  "height":21,
                  "id":23,
@@ -113,6 +101,30 @@
                  "width":21,
                  "x":279.101142759679,
                  "y":624.872931946103
+                }, 
+                {
+                 "gid":12,
+                 "height":21,
+                 "id":37,
+                 "name":"wood",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":368.764675855028,
+                 "y":578.657478305258
+                }, 
+                {
+                 "gid":11,
+                 "height":21,
+                 "id":38,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":244.211332312404,
+                 "y":524.548238897397
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -121,7 +133,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":36,
+ "nextobjectid":39,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -162,11 +174,11 @@
          "tilewidth":21
         }, 
         {
-         "columns":9,
+         "columns":10,
          "firstgid":3,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":189,
+         "imagewidth":210,
          "margin":0,
          "name":"items",
          "spacing":0,
@@ -304,12 +316,28 @@
                          "name":"class",
                          "type":"string",
                          "value":"item"
+                        }, 
+                        {
+                         "name":"craft",
+                         "type":"string",
+                         "value":"{\"wood\":\"cross\"}"
                         }],
                  "type":"rope"
                 }, 
                 {
                  "id":9,
-                 "type":"r1"
+                 "properties":[
+                        {
+                         "name":"canPick",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"item"
+                        }],
+                 "type":"wood"
                 }, 
                 {
                  "id":10,
