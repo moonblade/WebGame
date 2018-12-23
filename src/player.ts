@@ -35,7 +35,7 @@ class Player extends Actor {
     }
     
     constructor(tiledResource: TiledResource) {
-        super(0,0,21,21);
+        super();
         this.color = Color.Red;
         this.speed = 200;
         this.keyboardSpeed = new Vector(5, 5);
@@ -145,6 +145,8 @@ class Player extends Actor {
             this.addDrawing('walk' + direction, Resources.getInstance().getAnimation('playerWalk' + direction));
         }
         this.setDrawing('idleDown');
+        this.setWidth(Resources.getInstance().getSprite('playerIdleUp').width);
+        this.setHeight(Resources.getInstance().getSprite('playerIdleUp').height);
         this.add(this.health);
         
         // add drop button
