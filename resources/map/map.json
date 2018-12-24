@@ -55,18 +55,6 @@
                  "y":501.738788355626
                 }, 
                 {
-                 "gid":6,
-                 "height":21,
-                 "id":19,
-                 "name":"filledBottle",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":21,
-                 "x":335.685366272088,
-                 "y":701.370732544176
-                }, 
-                {
                  "gid":8,
                  "height":21,
                  "id":23,
@@ -125,6 +113,54 @@
                  "width":21,
                  "x":244.211332312404,
                  "y":524.548238897397
+                }, 
+                {
+                 "gid":13,
+                 "height":21,
+                 "id":39,
+                 "name":"e",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":125.98914733812,
+                 "y":651.068060748437
+                }, 
+                {
+                 "gid":13,
+                 "height":21,
+                 "id":40,
+                 "name":"t",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":125.98914733812,
+                 "y":630.057572047778
+                }, 
+                {
+                 "gid":13,
+                 "height":21,
+                 "id":41,
+                 "name":"a",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":104.978658637462,
+                 "y":630.015440197947
+                }, 
+                {
+                 "gid":13,
+                 "height":21,
+                 "id":42,
+                 "name":"w",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":104.978658637462,
+                 "y":651.068060748437
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -133,7 +169,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":39,
+ "nextobjectid":43,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -174,11 +210,11 @@
          "tilewidth":21
         }, 
         {
-         "columns":10,
+         "columns":11,
          "firstgid":3,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":210,
+         "imagewidth":231,
          "margin":0,
          "name":"items",
          "spacing":0,
@@ -216,6 +252,11 @@
                          "name":"class",
                          "type":"string",
                          "value":"item"
+                        }, 
+                        {
+                         "name":"craft",
+                         "type":"string",
+                         "value":"{\"water\":\"filledBottle\"}"
                         }, 
                         {
                          "name":"filled",
@@ -341,7 +382,13 @@
                 }, 
                 {
                  "id":10,
-                 "type":"r2"
+                 "properties":[
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"item"
+                        }],
+                 "type":"water"
                 }],
          "tilewidth":21
         }],

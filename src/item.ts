@@ -40,10 +40,19 @@ class Item extends Actor implements Pickable{
     collisionStart(event: CollisionStartEvent):void {
         if (event.other instanceof Item && event.target instanceof Item) {
             if (event.target.craft && event.target.craft[event.other.type]) {
-                Game.getInstance().remove(event.other);
-                Game.getInstance().remove(event.target);
-                let crafted: Item = Resources.getInstance().getItem(event.target.craft[event.other.type]);
-                crafted.pick();
+                if (event.target.canPick && event.other.canPick) {
+                    Game.getInstance().remove(event.other);
+                    Game.getInstance().remove(event.target);
+                    let crafted: Item = Resources.getInstance().getItem(event.target.craft[event.other.type]);
+                    crafted.pick();
+                    crafted.place();
+                } else if (event.target.canPick){
+                    // other is non movable
+                    Game.getInstance().remove(event.target);
+                    let crafted: Item = Resources.getInstance().getItem(event.target.craft[event.other.type]);
+                    crafted.pick();
+                    crafted.place();
+                }
             }
         }
     }
