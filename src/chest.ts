@@ -1,10 +1,11 @@
-import Item from "./item";
+import Entity from "./entity";
 
-class Chest extends Item {
-    contents: Item[] = [];
+class Chest extends Entity{
+    contents: Entity[] = [];
 
     constructor(properties: any) {
         super(properties);
+        console.log(properties);
         
     }
 }

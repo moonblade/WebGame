@@ -182,11 +182,11 @@ export class TiledResource extends Resource<ITiledMap> {
    public loadProperties(tileset: any) {
       if (tileset.tiles && tileset.tiles.length) {
          for (let tile of tileset.tiles) {
-            tile.height = tileset.tileheight;
-            tile.width = tileset.tilewidth;
+            tile.height = tile.height || tileset.tileheight;
+            tile.width = tile.width || tileset.tilewidth;
             if (tile.properties && tile.properties.length) {
                for(let property of tile.properties) {
-                  if (typeof property.value == 'string' && property.value.indexOf('{') == 0)
+                  if (typeof property.value == 'string' && (property.value.indexOf('{') == 0 || property.value.indexOf('[') == 0)) 
                      tile[property.name]  = JSON.parse(property.value);
                   else
                      tile[property.name] = property.value;

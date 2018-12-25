@@ -161,6 +161,29 @@
                  "width":21,
                  "x":104.978658637462,
                  "y":651.068060748437
+                }, 
+                {
+                 "gid":14,
+                 "height":42,
+                 "id":43,
+                 "name":"copperChest",
+                 "properties":[
+                        {
+                         "name":"contents",
+                         "type":"string",
+                         "value":"[\"cross\"]"
+                        }, 
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"copperKey"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":42,
+                 "x":377.584383219192,
+                 "y":735.412477600303
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -169,7 +192,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":43,
+ "nextobjectid":46,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -210,15 +233,15 @@
          "tilewidth":21
         }, 
         {
-         "columns":11,
+         "columns":12,
          "firstgid":3,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":231,
+         "imagewidth":252,
          "margin":0,
          "name":"items",
          "spacing":0,
-         "tilecount":11,
+         "tilecount":12,
          "tileheight":21,
          "tiles":[
                 {
@@ -232,7 +255,7 @@
                         {
                          "name":"class",
                          "type":"string",
-                         "value":"item"
+                         "value":"entity"
                         }],
                  "type":"sword"
                 }, 
@@ -251,7 +274,7 @@
                         {
                          "name":"class",
                          "type":"string",
-                         "value":"item"
+                         "value":"entity"
                         }, 
                         {
                          "name":"craft",
@@ -276,7 +299,7 @@
                         {
                          "name":"class",
                          "type":"string",
-                         "value":"item"
+                         "value":"entity"
                         }, 
                         {
                          "name":"filled",
@@ -296,7 +319,7 @@
                         {
                          "name":"class",
                          "type":"string",
-                         "value":"item"
+                         "value":"entity"
                         }],
                  "type":"cross"
                 }, 
@@ -311,7 +334,7 @@
                         {
                          "name":"class",
                          "type":"string",
-                         "value":"item"
+                         "value":"entity"
                         }],
                  "type":"copperKey"
                 }, 
@@ -326,7 +349,7 @@
                         {
                          "name":"class",
                          "type":"string",
-                         "value":"item"
+                         "value":"entity"
                         }],
                  "type":"silverKey"
                 }, 
@@ -341,7 +364,7 @@
                         {
                          "name":"class",
                          "type":"string",
-                         "value":"item"
+                         "value":"entity"
                         }],
                  "type":"goldKey"
                 }, 
@@ -356,7 +379,7 @@
                         {
                          "name":"class",
                          "type":"string",
-                         "value":"item"
+                         "value":"entity"
                         }, 
                         {
                          "name":"craft",
@@ -376,7 +399,7 @@
                         {
                          "name":"class",
                          "type":"string",
-                         "value":"item"
+                         "value":"entity"
                         }],
                  "type":"wood"
                 }, 
@@ -386,9 +409,19 @@
                         {
                          "name":"class",
                          "type":"string",
-                         "value":"item"
+                         "value":"entity"
                         }],
                  "type":"water"
+                }, 
+                {
+                 "id":11,
+                 "properties":[
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"chest"
+                        }],
+                 "type":"chest"
                 }],
          "tilewidth":21
         }],

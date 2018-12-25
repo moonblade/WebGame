@@ -9,7 +9,6 @@
         "outDir": "./dist",
         "moduleResolution": "node",
         "types": [
-            "lodash",
             "excalibur",
             "core-js"
         ],

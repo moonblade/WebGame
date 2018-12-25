@@ -1,7 +1,7 @@
 import { Animation, Engine, ILoadable, Loader, Resource, Sprite, SpriteSheet, Texture, Vector } from "excalibur";
 import * as graphics from '../resources/graphics.json';
 import * as map from "../resources/map/map.json";
-import Item from "./item.js";
+import Entity from "./entity.js";
 import { TiledResource } from "./lib/tiled";
 
 class Resources {
@@ -45,7 +45,7 @@ class Resources {
         return this.tiledResources[key];
     }
 
-    addItem(item:Item) {
+    addItem(item:Entity) {
         if (!this.items[item.name])
             this.items[item.name] = item;
     }

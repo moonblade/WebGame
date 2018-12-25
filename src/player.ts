@@ -7,7 +7,7 @@ import HealthBar from './healthbar';
 import InputType from './In';
 import Pickable from './interface/pickable';
 import Inventory from './inventory';
-import Item from './item';
+import Entity from './entity';
 import { TiledResource } from './lib/tiled';
 import Resources from './resources';
 import DropButton from './dropButton';
@@ -183,7 +183,7 @@ class Player extends Actor {
      * When a collision happens between a player and some other object, handle the event
      */
     collisionStart(event: CollisionStartEvent) {
-        if (event.other instanceof Item) {
+        if (event.other instanceof Entity) {
             event.other.pick();
         }
     }

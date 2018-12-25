@@ -5,7 +5,7 @@ import Pickable from "./interface/pickable";
 import Player from "./player";
 import Resources from "./resources";
 
-class Item extends Actor implements Pickable{
+class Entity extends Actor implements Pickable{
     spriteName: string;
     sprite: Sprite;
     name: string;
@@ -38,18 +38,18 @@ class Item extends Actor implements Pickable{
     }
     
     collisionStart(event: CollisionStartEvent):void {
-        if (event.other instanceof Item && event.target instanceof Item) {
+        if (event.other instanceof Entity && event.target instanceof Entity) {
             if (event.target.craft && event.target.craft[event.other.type]) {
                 if (event.target.canPick && event.other.canPick) {
                     Game.getInstance().remove(event.other);
                     Game.getInstance().remove(event.target);
-                    let crafted: Item = Resources.getInstance().getItem(event.target.craft[event.other.type]);
+                    let crafted: Entity = Resources.getInstance().getItem(event.target.craft[event.other.type]);
                     crafted.pick();
                     crafted.place();
                 } else if (event.target.canPick){
                     // other is non movable
                     Game.getInstance().remove(event.target);
-                    let crafted: Item = Resources.getInstance().getItem(event.target.craft[event.other.type]);
+                    let crafted: Entity = Resources.getInstance().getItem(event.target.craft[event.other.type]);
                     crafted.pick();
                     crafted.place();
                 }
@@ -58,7 +58,7 @@ class Item extends Actor implements Pickable{
     }
     
     static initialize(properties: any, addToGame: boolean = true) {
-        let item:Item = new Item(properties);
+        let item:Entity = new Entity(properties);
         Resources.getInstance().addItem(item);
         if (addToGame)
             Game.getInstance().add(item);
@@ -132,4 +132,4 @@ class Item extends Actor implements Pickable{
     }
 }
 
-export default Item;
+export default Entity;
