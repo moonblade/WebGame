@@ -17,7 +17,7 @@ class Helper {
                 Player.getInstance().setPosition(object);
         }
     }
-
+ 
     static loadProperties(object :any = {}) {
         if (object.properties && object.properties.length) {
             for(let property of object.properties) {
