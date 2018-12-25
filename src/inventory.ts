@@ -28,7 +28,7 @@ class Inventory {
         }
     }
 
-    add(pickable: Pickable): boolean {
+    add(pickable: Entity): boolean {
         if (this.hasItem(pickable)) 
             return false;
         this.items.push(pickable);

@@ -4,6 +4,7 @@ import * as map from "../resources/map/map.json";
 import Entity from "./entity.js";
 import { TiledResource } from "./lib/tiled";
 import Chest from "./chest";
+import Door from "./door.js";
 class Resources {
     textures: any = {};
     animations: any = {};
@@ -12,6 +13,7 @@ class Resources {
     sprites: any = {};
     items: any = {};
     chests: any = {};
+    doors: any = {};
     static instance: Resources = null;
     initialized: boolean = false;
     frameSpeed: number = 100;
@@ -65,6 +67,17 @@ class Resources {
     getChest(key:string) {
         if(this.chests[key]) {
             return this.chests[key];
+        }
+    }
+
+    addDoor(door:Door) {
+        if (!this.doors[door.name])
+            this.doors[door.name] = door;
+    }
+
+    getDoor(key:string) {
+        if(this.doors[key]) {
+            return this.doors[key];
         }
     }
 

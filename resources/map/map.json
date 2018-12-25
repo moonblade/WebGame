@@ -87,8 +87,8 @@
                  "type":"",
                  "visible":true,
                  "width":21,
-                 "x":368.764675855028,
-                 "y":578.657478305258
+                 "x":379.372797986799,
+                 "y":608.867565245737
                 }, 
                 {
                  "gid":11,
@@ -172,6 +172,24 @@
                  "width":42,
                  "x":377.584383219192,
                  "y":735.412477600303
+                }, 
+                {
+                 "gid":15,
+                 "height":21,
+                 "id":47,
+                 "name":"goldDoor",
+                 "properties":[
+                        {
+                         "name":"key",
+                         "type":"string",
+                         "value":"goldKey"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":420,
+                 "y":651
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -180,7 +198,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":46,
+ "nextobjectid":48,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -221,15 +239,15 @@
          "tilewidth":21
         }, 
         {
-         "columns":12,
+         "columns":13,
          "firstgid":3,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":252,
+         "imagewidth":273,
          "margin":0,
          "name":"items",
          "spacing":0,
-         "tilecount":12,
+         "tilecount":13,
          "tileheight":21,
          "tiles":[
                 {
@@ -410,6 +428,16 @@
                          "value":"chest"
                         }],
                  "type":"chest"
+                }, 
+                {
+                 "id":12,
+                 "properties":[
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"door"
+                        }],
+                 "type":"door"
                 }],
          "tilewidth":21
         }],

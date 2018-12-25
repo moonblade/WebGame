@@ -175,7 +175,7 @@ class Player extends Actor {
         return this.inventory.remove(pickable);
     }
 
-    pick(pickable: Pickable): boolean {
+    pick(pickable: Entity): boolean {
         return this.inventory.add(pickable);
     }
 

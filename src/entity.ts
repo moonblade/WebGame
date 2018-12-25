@@ -57,8 +57,8 @@ class Entity extends Actor implements Pickable{
         }
     }
     
-    static initialize(properties: any, addToGame: boolean = true) {
-        let item:Entity = new Entity(properties);
+    static initialize(properties: any, addToGame: boolean = true, collisionType: CollisionType = CollisionType.Passive) {
+        let item:Entity = new Entity(properties, collisionType);
         Resources.getInstance().addItem(item);
         if (addToGame)
             Game.getInstance().add(item);

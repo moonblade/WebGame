@@ -1,11 +1,10 @@
-import { Actor, CollisionType, Sprite, CollisionStartEvent } from "excalibur";
-import Entity from "./entity";
+import { Actor, Sprite, CollisionType, CollisionStartEvent } from "excalibur";
 import Resources from "./resources";
 import Game from "./game";
 import Player from "./player";
+import Entity from "./entity";
 
-class Chest extends Actor {
-    contents: string[] = [];
+class Door extends Actor{
     type: string;
     spriteName: string;
     name: string;
@@ -17,26 +16,21 @@ class Chest extends Actor {
         this.type = properties.type
         this.spriteName = properties.type
         this.name = properties.name || properties.type
-        this.collisionType = CollisionType.Passive;
+        this.collisionType = CollisionType.Fixed;
         this.key = properties.key;
-        this.contents = properties.contents || [];
     }
 
     static initialize(properties: any, addToGame: boolean) {
-        let chest = new Chest(properties);
-        Resources.getInstance().addChest(chest);
+        let door = new Door(properties);
+        Resources.getInstance().addDoor(door);
         if (addToGame)
-            Game.getInstance().add(chest);
+            Game.getInstance().add(door);
     }
 
     collisionStart(event:CollisionStartEvent):void{
         if (event.other == Player.getInstance()) {
             let key:Entity = Player.getInstance().getInventory().getSelectedItem();
             if (key && key.name == this.key) {
-                for (let content of this.contents) {
-                    let entity:Entity = Resources.getInstance().getItem(content);
-                    entity && entity.pick();
-                }
                 key.place();
                 key.remove();
                 Game.getInstance().remove(this);
@@ -53,6 +47,7 @@ class Chest extends Actor {
             this.on("collisionstart", this.collisionStart);
         }        
     }
+
 }
 
-export default Chest;
+export default Door;
