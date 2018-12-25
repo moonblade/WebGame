@@ -67,18 +67,6 @@
                  "y":774.966740576497
                 }, 
                 {
-                 "gid":9,
-                 "height":21,
-                 "id":24,
-                 "name":"silverKey",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":21,
-                 "x":236.460856216954,
-                 "y":664.10199556541
-                }, 
-                {
                  "gid":10,
                  "height":21,
                  "id":25,
@@ -171,7 +159,7 @@
                         {
                          "name":"contents",
                          "type":"string",
-                         "value":"[\"cross\"]"
+                         "value":"[\"silverKey\"]"
                         }, 
                         {
                          "name":"key",

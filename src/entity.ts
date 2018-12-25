@@ -86,6 +86,9 @@ class Entity extends Actor implements Pickable{
         }
     }
     
+    remove() {
+        Game.getInstance().remove(this);
+    }
     
     // Pickable interface implementation
 
@@ -113,6 +116,11 @@ class Entity extends Actor implements Pickable{
             return true;
         }
         return false;
+    }
+
+    drop() {
+        this.pick();
+        this.place();
     }
 
     setInventory(inventory: boolean) {

@@ -3,7 +3,7 @@ import * as graphics from '../resources/graphics.json';
 import * as map from "../resources/map/map.json";
 import Entity from "./entity.js";
 import { TiledResource } from "./lib/tiled";
-
+import Chest from "./chest";
 class Resources {
     textures: any = {};
     animations: any = {};
@@ -11,6 +11,7 @@ class Resources {
     tiledResources: any = {};
     sprites: any = {};
     items: any = {};
+    chests: any = {};
     static instance: Resources = null;
     initialized: boolean = false;
     frameSpeed: number = 100;
@@ -53,6 +54,17 @@ class Resources {
     getItem(key:string) {
         if(this.items[key]) {
             return this.items[key];
+        }
+    }
+
+    addChest(chest:Chest) {
+        if (!this.chests[chest.name])
+            this.chests[chest.name] = chest;
+    }
+
+    getChest(key:string) {
+        if(this.chests[key]) {
+            return this.chests[key];
         }
     }
 

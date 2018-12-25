@@ -3,9 +3,10 @@ import { KeyEvent } from "excalibur/dist/Input";
 import Controls from "./controls";
 import Game from "./game";
 import Pickable from "./interface/pickable";
+import Entity from "./entity";
 
 class Inventory {
-    items: Pickable[] = [];
+    items: Entity[] = [];
     selectedItem: number;
 
     constructor() {
@@ -42,7 +43,7 @@ class Inventory {
         }
     }
 
-    getSelectedItem(): Pickable {
+    getSelectedItem(): Entity {
         return this.items[this.selectedItem];
     }
 
