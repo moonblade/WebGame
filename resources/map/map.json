@@ -485,6 +485,16 @@
                          "value":"[\"cross\"]"
                         }, 
                         {
+                         "name":"sight",
+                         "type":"int",
+                         "value":50
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
                          "name":"weakness",
                          "type":"string",
                          "value":"[\"sword\"]"
