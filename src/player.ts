@@ -119,6 +119,9 @@ class Player extends Actor {
 
     update(engine: Engine, delta: number) {
         super.update(engine, delta);
+        if (this.health.empty()) {
+            //end game and restart
+        }
         for (let direction in Direction) {
             let dir: Direction = Direction[direction] as Direction;
             if (Controls.input(engine, InputType.release, dir)) {

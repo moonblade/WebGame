@@ -5,6 +5,7 @@ import Entity from "./entity.js";
 import { TiledResource } from "./lib/tiled";
 import Chest from "./chest";
 import Door from "./door.js";
+import Enemy from "./enemy.js";
 class Resources {
     textures: any = {};
     animations: any = {};
@@ -14,6 +15,7 @@ class Resources {
     items: any = {};
     chests: any = {};
     doors: any = {};
+    enemies: any = {};
     static instance: Resources = null;
     initialized: boolean = false;
     frameSpeed: number = 100;
@@ -78,6 +80,17 @@ class Resources {
     getDoor(key:string) {
         if(this.doors[key]) {
             return this.doors[key];
+        }
+    }
+
+    addEnemy(enemy:Enemy) {
+        if (!this.enemies[enemy.name])
+            this.enemies[enemy.name] = enemy;
+    }
+
+    getEnemy(key:string) {
+        if(this.enemies[key]) {
+            return this.enemies[key];
         }
     }
 

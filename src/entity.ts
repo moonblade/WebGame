@@ -19,6 +19,7 @@ class Entity extends Actor implements Pickable{
     selected: boolean;
     // crafting
     craft: any;
+    attackPower: number;
     collisionTypeSaved: CollisionType;
     
     constructor(properties: any = {}, collisionType:CollisionType = CollisionType.Passive) {
@@ -31,6 +32,7 @@ class Entity extends Actor implements Pickable{
         this.canPick = properties.canPick;
         this.padding = defaults.item.padding;
         this.craft = properties.craft;
+        this.attackPower = properties.attackPower || 0;
     }
     
     restoreCollision() {

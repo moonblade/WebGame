@@ -152,7 +152,7 @@
                 }, 
                 {
                  "gid":14,
-                 "height":42,
+                 "height":21,
                  "id":43,
                  "name":"copperChest",
                  "properties":[
@@ -169,7 +169,7 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":42,
+                 "width":21,
                  "x":377.584383219192,
                  "y":735.412477600303
                 }, 
@@ -190,6 +190,18 @@
                  "width":21,
                  "x":420,
                  "y":651
+                }, 
+                {
+                 "gid":16,
+                 "height":21,
+                 "id":48,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":335.510835913313,
+                 "y":692.97213622291
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -198,7 +210,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":48,
+ "nextobjectid":49,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -239,20 +251,25 @@
          "tilewidth":21
         }, 
         {
-         "columns":13,
+         "columns":14,
          "firstgid":3,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":273,
+         "imagewidth":294,
          "margin":0,
          "name":"items",
          "spacing":0,
-         "tilecount":13,
+         "tilecount":14,
          "tileheight":21,
          "tiles":[
                 {
                  "id":0,
                  "properties":[
+                        {
+                         "name":"attackPower",
+                         "type":"int",
+                         "value":5
+                        }, 
                         {
                          "name":"canPick",
                          "type":"bool",
@@ -438,6 +455,41 @@
                          "value":"door"
                         }],
                  "type":"door"
+                }, 
+                {
+                 "id":13,
+                 "properties":[
+                        {
+                         "name":"attackPower",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"enemy"
+                        }, 
+                        {
+                         "name":"health",
+                         "type":"int",
+                         "value":20
+                        }, 
+                        {
+                         "name":"removeWeakness",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"reward",
+                         "type":"string",
+                         "value":"[\"cross\"]"
+                        }, 
+                        {
+                         "name":"weakness",
+                         "type":"string",
+                         "value":"[\"sword\"]"
+                        }],
+                 "type":"spider"
                 }],
          "tilewidth":21
         }],

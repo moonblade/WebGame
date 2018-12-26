@@ -16,6 +16,10 @@ class HealthBar extends Actor{
         return this.health;
     }
 
+    empty(): boolean {
+        return this.health <=0;
+    }
+
     change(health: number) {
         this.health += health;
         if (this.health > this.maxHealth)

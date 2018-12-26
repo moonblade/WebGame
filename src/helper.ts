@@ -2,6 +2,7 @@ import Entity from "./entity";
 import Player from "./player";
 import Chest from "./chest";
 import Door from "./door";
+import Enemy from "./enemy";
 
 class Helper {
     static initObject(object: any = {}, addToGame: boolean = true) {
@@ -12,6 +13,8 @@ class Helper {
             Chest.initialize(object, addToGame);
         } else if (object.class === "door") {
             Door.initialize(object, addToGame);
+        } else if (object.class === "enemy") {
+            Enemy.initialize(object, addToGame);
         } else if (object.type === "spawn") {
             if (addToGame)
                 Player.getInstance().setPosition(object);
