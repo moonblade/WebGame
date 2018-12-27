@@ -47,11 +47,10 @@ class Enemy extends Actor{
         super.update(engine, delta);
         if (Math.abs(Player.getInstance().x - this.x) + Math.abs(Player.getInstance().y - this.y) < this.sight) {
             let item: Entity = Player.getInstance().getInventory().getSelectedItem();
-            if (item && this.weakness.indexOf(item.type)>-1 && item.attackPower) {
-                this.actions.clearActions();
-            } else {
-                this.actions.clearActions();
-                this.actions.moveTo(Player.getInstance().x, Player.getInstance().y, this.speed);
+            this.actions.clearActions();
+            if (!(item && this.weakness.indexOf(item.type)>-1 && item.attackPower)) {
+                if (!Player.getInstance().isIdle())
+                    this.actions.moveTo(Player.getInstance().x, Player.getInstance().y, this.speed);
             }
         }
     }

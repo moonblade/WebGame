@@ -32,7 +32,8 @@ class Inventory {
         if (this.hasItem(pickable)) 
             return false;
         this.items.push(pickable);
-        this.selectedItem = this.items.length - 1;
+        if (this.items.length == 1)
+            this.selectedItem = this.items.length - 1;
         this.updateDisplay();
         return true;
     }

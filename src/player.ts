@@ -25,6 +25,7 @@ class Player extends Actor {
 
     // binary counter for de duplicating keydown
     flipper: boolean = false;
+    idle: boolean;
 
     static instance: Player = null;
     
@@ -86,6 +87,7 @@ class Player extends Actor {
         if(!cell || (cell && cell.solid && !pathFind)) {
             return;
         }
+        this.idle = false;
         if (!pathFind) {
             this.pos.x = coordinate.x;
             this.pos.y = coordinate.y;
@@ -98,8 +100,9 @@ class Player extends Actor {
                 }
             }
         }
+        this.idle = true;
     }
-
+    
     clicked(coordinate:any) {
         this.moveTo(coordinate, true);
     }
@@ -142,6 +145,10 @@ class Player extends Actor {
         return this.pos;
     }
 
+    isIdle() {
+        return this.idle;
+    }
+    
     public onInitialize(engine: Engine) {
         for (let direction in Direction) {
             this.addDrawing('idle' + direction, Resources.getInstance().getSprite('playerIdle' + direction));
