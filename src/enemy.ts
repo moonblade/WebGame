@@ -19,6 +19,8 @@ class Enemy extends Actor{
     weakness: string[];
     speed: number;
     sight: number;
+    timeout: number;
+    currentWait: number;
 
     constructor(properties: any) {
         super(properties);
@@ -34,6 +36,8 @@ class Enemy extends Actor{
         this.weakness = properties.weakness;
         this.speed = properties.speed || defaults.enemy.speed;
         this.sight = properties.sight || defaults.enemy.sight;
+        this.timeout = properties.timeout || defaults.enemy.timeout;
+        this.currentWait = this.timeout;
     }
 
     static initialize(properties: any, addToGame: boolean) {
@@ -43,14 +47,26 @@ class Enemy extends Actor{
             Game.getInstance().add(door);
     }
 
+    canAttack() {
+        this.currentWait --;
+        if (this.currentWait == 0) {
+            this.currentWait = this.timeout;
+            return true;
+        }
+        return false;
+    }
     update(engine: Engine, delta: number) {
         super.update(engine, delta);
         if (Math.abs(Player.getInstance().x - this.x) + Math.abs(Player.getInstance().y - this.y) < this.sight) {
             let item: Entity = Player.getInstance().getInventory().getSelectedItem();
             this.actions.clearActions();
             if (!(item && this.weakness.indexOf(item.type)>-1 && item.attackPower)) {
-                if (!Player.getInstance().isIdle())
-                    this.actions.moveTo(Player.getInstance().x, Player.getInstance().y, this.speed);
+                if (!Player.getInstance().isIdle()){
+                    this.setDrawing("move");
+                    this.actions.moveTo(Player.getInstance().x, Player.getInstance().y, this.speed).asPromise().then(()=>{
+                        this.setDrawing("idle");
+                    });
+                }
             }
         }
     }
@@ -74,14 +90,17 @@ class Enemy extends Actor{
                 }
             }
             let attack = Math.floor(Math.random() * this.attackPower);
-            Player.getInstance().health.change(-attack);
+            if (this.canAttack())
+                Player.getInstance().health.change(-attack);
         }
     }
 
     onInitialize() {
         this.sprite = Resources.getInstance().getSprite(this.spriteName)
         if (this.sprite) {
-            this.addDrawing(this.sprite);
+            this.addDrawing("move", Resources.getInstance().getAnimation(this.type));
+            this.addDrawing("idle", this.sprite);
+            this.setDrawing("idle");
             this.setWidth(this.sprite.width);
             this.setHeight(this.sprite.height);
             this.on("collisionstart", this.collisionStart);

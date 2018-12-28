@@ -6,6 +6,7 @@ import { TiledResource } from "./lib/tiled";
 import Chest from "./chest";
 import Door from "./door.js";
 import Enemy from "./enemy.js";
+import * as animations from "../resources/map/animation.json";
 class Resources {
     textures: any = {};
     animations: any = {};
@@ -110,6 +111,11 @@ class Resources {
         for (let key in graphics.animations) {
             let a = graphics.animations[key]
             this.animations[key] = new SpriteSheet(this.getTexture(a[0]), a[1], a[2], a[3], a[4]).getAnimationForAll(engine, this.frameSpeed);
+        }
+
+        for (let key in animations) {
+            let a = animations[key]
+            this.animations[key] = new SpriteSheet(this.getTexture("animation"), a.columns, a.row + 1, a.width, a.height).getAnimationBetween(engine, a.index, a.indexEnd + 1, this.frameSpeed);
         }
 
         for (let key in graphics.sprites) {

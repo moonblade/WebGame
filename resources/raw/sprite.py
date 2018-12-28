@@ -14,9 +14,17 @@ os.mkdir(temp)
 jsonData = {}
 
 row = 0
-index = 0
+maxColumns = 0
+firstFiles = []
+def correctJson():
+    global jsonData
+    for key in jsonData:
+        jsonData[key]["columns"] = maxColumns
+        jsonData[key]["index"] = jsonData[key]["row"] * maxColumns
+        jsonData[key]["indexEnd"] = jsonData[key]["row"] * maxColumns + maxColumns - 1
+
 def addJson(root, files):
-    global row, index
+    global row, maxColumns
     columns = len(files)
     files = [{
         "file": f,
@@ -26,11 +34,12 @@ def addJson(root, files):
     jsonData[root] = {
         "files": files,
         "row": row,
+        "width": width,
+        "height": height,
         "columns": columns,
-        "index": index,
-        "indexEnd": index + columns
     }
-    index+=columns
+    if (columns > maxColumns):
+        maxColumns = columns
     row+=1
 
 for root, dirs, files in os.walk('.'):
@@ -40,13 +49,14 @@ for root, dirs, files in os.walk('.'):
         outfile = temp + root + ".png"
         spacedFiles = " ".join(files)
         command = "convert " + spacedFiles + " +append " + outfile
+        firstFiles.append(outfile)
         os.system(command)
         addJson(root, files)
 
-for root, dirs, files in os.walk(temp):
-    files = [temp + f for f in files if ".png" in f]
-    spacedFiles = " ".join(files)
-    command = "convert " + spacedFiles + " -append " + animationPng
-    os.system(command)
+spacedFiles = " ".join(firstFiles)
+command = "convert " + spacedFiles + " -append " + animationPng
+os.system(command)
+
+correctJson()
 
 json.dump(jsonData, open(animationJson, "w"), indent=4)
