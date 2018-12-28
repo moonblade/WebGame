@@ -4,4 +4,4 @@ dist/*
 *.map
 src/node_modules
 test
-
+resources/map/temp

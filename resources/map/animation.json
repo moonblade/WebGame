@@ -1,0 +1,20 @@
+{
+    "spiderwalk": {
+        "files": [
+            {
+                "width": 21, 
+                "file": "spiderwalk/spider1.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "spiderwalk/spider2.png", 
+                "height": 21
+            }
+        ], 
+        "index": 0, 
+        "indexEnd": 2, 
+        "columns": 2, 
+        "row": 0
+    }
+}
