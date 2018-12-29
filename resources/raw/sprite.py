@@ -8,6 +8,7 @@ width=21
 height=21
 temp="../map/temp/"
 animationPng="../map/animation.png"
+enemies="../map/enemies.png"
 animationJson="../map/animation.json"
 shutil.rmtree(temp, ignore_errors=True)
 os.mkdir(temp)
@@ -20,9 +21,9 @@ firstFiles = []
 def correctJson():
     global jsonData
     for key in jsonData:
-        jsonData[key]["columns"] = maxColumns
         jsonData[key]["index"] = jsonData[key]["row"] * maxColumns
-        jsonData[key]["indexEnd"] = jsonData[key]["row"] * maxColumns + maxColumns - 1
+        jsonData[key]["indexEnd"] = jsonData[key]["row"] * maxColumns + jsonData[key]["columns"] - 1
+        jsonData[key]["columns"] = maxColumns
 
 def addJson(root, files):
     global row, maxColumns
@@ -51,15 +52,18 @@ entries = ((stat[ST_CTIME], path)
 entries = sorted(entries, key=lambda x: x[0])
 entries = [y for (x,y) in entries]
 
+os.system('rm ' + enemies)
 for root in entries:
     files = [x for x in os.walk(root)][0][2]
     root = root.replace("./", "")
     files = [root + "/" + f for f in files if ".png" in f]
+    idle = files[0]
     outfile = temp + root + ".png"
     spacedFiles = " ".join(files)
     command = "convert " + spacedFiles + " +append " + outfile
     firstFiles.append(outfile)
     os.system(command)
+    os.system("convert " + enemies + " " + idle + " +append " + enemies)
     addJson(root, files)
 
 spacedFiles = " ".join(firstFiles)

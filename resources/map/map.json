@@ -192,28 +192,40 @@
                  "y":651
                 }, 
                 {
-                 "gid":18,
-                 "height":21,
-                 "id":50,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":21,
-                 "x":267.99632835038,
-                 "y":693.844741673223
-                }, 
-                {
                  "gid":16,
                  "height":21,
-                 "id":51,
+                 "id":53,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":21,
-                 "x":335.528455284553,
-                 "y":670.896931549961
+                 "x":300.123262522948,
+                 "y":683.354314188303
+                }, 
+                {
+                 "gid":17,
+                 "height":21,
+                 "id":54,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":218.16679779701,
+                 "y":723.349068974561
+                }, 
+                {
+                 "gid":18,
+                 "height":21,
+                 "id":55,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":158.502491476528,
+                 "y":756.131654864936
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -222,7 +234,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":52,
+ "nextobjectid":56,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -471,15 +483,15 @@
          "tilewidth":21
         }, 
         {
-         "columns":2,
+         "columns":3,
          "firstgid":16,
-         "image":"animation.png",
-         "imageheight":42,
-         "imagewidth":42,
+         "image":"enemies.png",
+         "imageheight":21,
+         "imagewidth":63,
          "margin":0,
          "name":"enemies",
          "spacing":0,
-         "tilecount":4,
+         "tilecount":3,
          "tileheight":21,
          "tiles":[
                 {
@@ -529,10 +541,6 @@
                 }, 
                 {
                  "id":1,
-                 "type":"spider2"
-                }, 
-                {
-                 "id":2,
                  "properties":[
                         {
                          "name":"attackPower",
@@ -577,8 +585,49 @@
                  "type":"scorpion"
                 }, 
                 {
-                 "id":3,
-                 "type":"scorpion2"
+                 "id":2,
+                 "properties":[
+                        {
+                         "name":"attackPower",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"enemy"
+                        }, 
+                        {
+                         "name":"health",
+                         "type":"int",
+                         "value":20
+                        }, 
+                        {
+                         "name":"removeWeakness",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"reward",
+                         "type":"string",
+                         "value":"[\"cross\"]"
+                        }, 
+                        {
+                         "name":"sight",
+                         "type":"int",
+                         "value":50
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
+                         "name":"weakness",
+                         "type":"string",
+                         "value":"[\"sword\"]"
+                        }],
+                 "type":"snake"
                 }],
          "tilewidth":21
         }],

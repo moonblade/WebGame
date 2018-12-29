@@ -83,7 +83,8 @@ class Inventory {
         let index = this.findIndex(pickable)
         if (index > -1) {
             this.items.splice(index, 1)
-            this.selectedItem = this.items.length - 1
+            if (index == this.items.length - 1)
+                this.selectedItem = this.items.length - 1
             this.updateDisplay();
             return true;
         } else {

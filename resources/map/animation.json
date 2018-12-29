@@ -12,11 +12,11 @@
                 "height": 21
             }
         ], 
-        "index": 2, 
+        "index": 9, 
         "height": 21, 
         "width": 21, 
-        "indexEnd": 3, 
-        "columns": 2, 
+        "indexEnd": 10, 
+        "columns": 9, 
         "row": 1
     }, 
     "spider": {
@@ -36,7 +36,62 @@
         "height": 21, 
         "width": 21, 
         "indexEnd": 1, 
-        "columns": 2, 
+        "columns": 9, 
         "row": 0
+    }, 
+    "snake": {
+        "files": [
+            {
+                "width": 21, 
+                "file": "snake/snake8.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "snake/snake9.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "snake/snake7.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "snake/snake6.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "snake/snake4.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "snake/snake5.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "snake/snake1.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "snake/snake2.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "snake/snake3.png", 
+                "height": 21
+            }
+        ], 
+        "index": 18, 
+        "height": 21, 
+        "width": 21, 
+        "indexEnd": 26, 
+        "columns": 9, 
+        "row": 2
     }
 }

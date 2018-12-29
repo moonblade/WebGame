@@ -61,14 +61,14 @@ class Enemy extends Actor{
             let item: Entity = Player.getInstance().getInventory().getSelectedItem();
             this.actions.clearActions();
             // this.setDrawing("idle");
-            if (!(item && this.weakness.indexOf(item.type)>-1 && item.attackPower)) {
+            // if (!(item && this.weakness.indexOf(item.type)>-1 && item.attackPower)) {
                 if (!Player.getInstance().isIdle()){
                     this.setDrawing("move");
                     this.actions.moveTo(Player.getInstance().x, Player.getInstance().y, this.speed).asPromise().then(()=>{
                         this.setDrawing("idle");
                     });
                 }
-            }
+            // }
         }
     }
 
