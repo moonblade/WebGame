@@ -48,7 +48,7 @@ class Enemy extends Actor{
     }
 
     canAttack() {
-        this.currentWait --;
+        this.currentWait--;
         if (this.currentWait == 0) {
             this.currentWait = this.timeout;
             return true;
@@ -60,6 +60,7 @@ class Enemy extends Actor{
         if (Math.abs(Player.getInstance().x - this.x) + Math.abs(Player.getInstance().y - this.y) < this.sight) {
             let item: Entity = Player.getInstance().getInventory().getSelectedItem();
             this.actions.clearActions();
+            // this.setDrawing("idle");
             if (!(item && this.weakness.indexOf(item.type)>-1 && item.attackPower)) {
                 if (!Player.getInstance().isIdle()){
                     this.setDrawing("move");

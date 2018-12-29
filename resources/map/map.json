@@ -192,16 +192,28 @@
                  "y":651
                 }, 
                 {
-                 "gid":16,
+                 "gid":18,
                  "height":21,
-                 "id":48,
+                 "id":50,
                  "name":"",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":21,
-                 "x":335.510835913313,
-                 "y":692.97213622291
+                 "x":267.99632835038,
+                 "y":693.844741673223
+                }, 
+                {
+                 "gid":16,
+                 "height":21,
+                 "id":51,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":335.528455284553,
+                 "y":670.896931549961
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -210,7 +222,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":49,
+ "nextobjectid":52,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -251,15 +263,15 @@
          "tilewidth":21
         }, 
         {
-         "columns":14,
+         "columns":13,
          "firstgid":3,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":294,
+         "imagewidth":273,
          "margin":0,
          "name":"items",
          "spacing":0,
-         "tilecount":14,
+         "tilecount":13,
          "tileheight":21,
          "tiles":[
                 {
@@ -455,9 +467,23 @@
                          "value":"door"
                         }],
                  "type":"door"
-                }, 
+                }],
+         "tilewidth":21
+        }, 
+        {
+         "columns":2,
+         "firstgid":16,
+         "image":"animation.png",
+         "imageheight":42,
+         "imagewidth":42,
+         "margin":0,
+         "name":"enemies",
+         "spacing":0,
+         "tilecount":4,
+         "tileheight":21,
+         "tiles":[
                 {
-                 "id":13,
+                 "id":0,
                  "properties":[
                         {
                          "name":"attackPower",
@@ -500,6 +526,59 @@
                          "value":"[\"sword\"]"
                         }],
                  "type":"spider"
+                }, 
+                {
+                 "id":1,
+                 "type":"spider2"
+                }, 
+                {
+                 "id":2,
+                 "properties":[
+                        {
+                         "name":"attackPower",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"enemy"
+                        }, 
+                        {
+                         "name":"health",
+                         "type":"int",
+                         "value":20
+                        }, 
+                        {
+                         "name":"removeWeakness",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"reward",
+                         "type":"string",
+                         "value":"[\"cross\"]"
+                        }, 
+                        {
+                         "name":"sight",
+                         "type":"int",
+                         "value":50
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
+                         "name":"weakness",
+                         "type":"string",
+                         "value":"[\"sword\"]"
+                        }],
+                 "type":"scorpion"
+                }, 
+                {
+                 "id":3,
+                 "type":"scorpion2"
                 }],
          "tilewidth":21
         }],

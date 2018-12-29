@@ -2,6 +2,7 @@
 import os
 import shutil
 import json
+from stat import S_ISREG, ST_CTIME, ST_MODE
 
 width=21
 height=21
@@ -42,16 +43,24 @@ def addJson(root, files):
         maxColumns = columns
     row+=1
 
-for root, dirs, files in os.walk('.'):
-    if (root != "."):
-        root = root.replace('./','')
-        files = [root + "/" + f for f in files if ".png" in f]
-        outfile = temp + root + ".png"
-        spacedFiles = " ".join(files)
-        command = "convert " + spacedFiles + " +append " + outfile
-        firstFiles.append(outfile)
-        os.system(command)
-        addJson(root, files)
+dir_path='.'
+entries = (os.path.join(dir_path, file_name) for file_name in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, file_name)))
+entries = ((os.stat(path), path) for path in entries)
+entries = ((stat[ST_CTIME], path)
+           for stat, path in entries)
+entries = sorted(entries, key=lambda x: x[0])
+entries = [y for (x,y) in entries]
+
+for root in entries:
+    files = [x for x in os.walk(root)][0][2]
+    root = root.replace("./", "")
+    files = [root + "/" + f for f in files if ".png" in f]
+    outfile = temp + root + ".png"
+    spacedFiles = " ".join(files)
+    command = "convert " + spacedFiles + " +append " + outfile
+    firstFiles.append(outfile)
+    os.system(command)
+    addJson(root, files)
 
 spacedFiles = " ".join(firstFiles)
 command = "convert " + spacedFiles + " -append " + animationPng

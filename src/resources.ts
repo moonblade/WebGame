@@ -116,6 +116,7 @@ class Resources {
         for (let key in animations) {
             let a = animations[key]
             this.animations[key] = new SpriteSheet(this.getTexture("animation"), a.columns, a.row + 1, a.width, a.height).getAnimationBetween(engine, a.index, a.indexEnd + 1, this.frameSpeed);
+            this.sprites[key] = this.animations[key].sprites[0];
         }
 
         for (let key in graphics.sprites) {
