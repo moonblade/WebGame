@@ -1,4 +1,34 @@
 {
+    "fire": {
+        "files": [
+            {
+                "width": 21, 
+                "file": "fire/fire4.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "fire/fire2.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "fire/fire3.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "fire/fire1.png", 
+                "height": 21
+            }
+        ], 
+        "index": 27, 
+        "height": 21, 
+        "width": 21, 
+        "indexEnd": 30, 
+        "columns": 9, 
+        "row": 3
+    }, 
     "scorpion": {
         "files": [
             {

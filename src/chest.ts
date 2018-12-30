@@ -17,7 +17,7 @@ class Chest extends Actor {
         this.type = properties.type
         this.spriteName = properties.type
         this.name = properties.name || properties.type
-        this.collisionType = CollisionType.Passive;
+        this.collisionType = CollisionType.Active;
         this.key = properties.key;
         this.contents = properties.contents || [];
     }

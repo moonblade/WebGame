@@ -226,6 +226,18 @@
                  "width":21,
                  "x":158.502491476528,
                  "y":756.131654864936
+                }, 
+                {
+                 "gid":19,
+                 "height":21,
+                 "id":56,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":229.968528717545,
+                 "y":669.585628114346
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -234,7 +246,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":56,
+ "nextobjectid":57,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -483,15 +495,15 @@
          "tilewidth":21
         }, 
         {
-         "columns":3,
+         "columns":4,
          "firstgid":16,
          "image":"enemies.png",
-         "imageheight":21,
-         "imagewidth":63,
+         "imageheight":22,
+         "imagewidth":84,
          "margin":0,
          "name":"enemies",
          "spacing":0,
-         "tilecount":3,
+         "tilecount":4,
          "tileheight":21,
          "tiles":[
                 {
@@ -628,6 +640,51 @@
                          "value":"[\"sword\"]"
                         }],
                  "type":"snake"
+                }, 
+                {
+                 "id":3,
+                 "properties":[
+                        {
+                         "name":"attackPower",
+                         "type":"int",
+                         "value":5
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"enemy"
+                        }, 
+                        {
+                         "name":"health",
+                         "type":"int",
+                         "value":20
+                        }, 
+                        {
+                         "name":"removeWeakness",
+                         "type":"float",
+                         "value":0
+                        }, 
+                        {
+                         "name":"reward",
+                         "type":"string",
+                         "value":"[\"bottle\"]"
+                        }, 
+                        {
+                         "name":"sight",
+                         "type":"int",
+                         "value":50
+                        }, 
+                        {
+                         "name":"speed",
+                         "type":"int",
+                         "value":100
+                        }, 
+                        {
+                         "name":"weakness",
+                         "type":"string",
+                         "value":"[\"filledBottle\"]"
+                        }],
+                 "type":"fire"
                 }],
          "tilewidth":21
         }],
