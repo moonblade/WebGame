@@ -7,9 +7,14 @@ class HealthBar extends Actor{
     above: number = -15;
     sizeMultiplier = 1.5;
     vertHeight: number = 5;
+    noDisplay: boolean;
     
     setDimension() {
-        this.setWidth(this.health * this.sizeMultiplier)
+        if (this.noDisplay) {
+            this.setWidth(0);
+        } else {
+            this.setWidth(this.health * this.sizeMultiplier)
+        }
     }
     
     getHealth():number {
@@ -44,7 +49,7 @@ class HealthBar extends Actor{
         this.color.b = 0;
     }
     
-    constructor(health: number) {
+    constructor(health: number, noDisplay: boolean = false) {
         super()
         this.health = health;
         this.maxHealth = health;
@@ -53,6 +58,7 @@ class HealthBar extends Actor{
         this.setHeight(this.vertHeight);
         this.x = 0;
         this.y = this.above;
+        this.noDisplay = noDisplay;
     }
     
     update() {

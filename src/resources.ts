@@ -19,7 +19,7 @@ class Resources {
     enemies: any = {};
     static instance: Resources = null;
     initialized: boolean = false;
-    frameSpeed: number = 100;
+    frameSpeed: number = 150;
     scale: Vector;
     spriteTileSets: string[];
 

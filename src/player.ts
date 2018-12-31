@@ -124,6 +124,7 @@ class Player extends Actor {
         super.update(engine, delta);
         if (this.health.empty()) {
             //end game and restart
+            location.reload();
         }
         for (let direction in Direction) {
             let dir: Direction = Direction[direction] as Direction;

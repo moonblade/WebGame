@@ -13,6 +13,7 @@ class Entity extends Actor implements Pickable{
     canPick: boolean;
     // while drawing inventory item, the rectangle is drawn with padding
     padding: number;
+    animation: string;
     // is inventory item
     inventory: boolean;
     // is item selected in invetory
@@ -33,6 +34,7 @@ class Entity extends Actor implements Pickable{
         this.padding = defaults.item.padding;
         this.craft = properties.craft;
         this.attackPower = properties.attackPower || 0;
+        this.animation = properties.animation;
     }
     
     restoreCollision() {
@@ -84,6 +86,10 @@ class Entity extends Actor implements Pickable{
             this.addDrawing(this.sprite);
             this.setWidth(this.sprite.width);
             this.setHeight(this.sprite.height);
+            if (this.animation) {
+                this.addDrawing("move", Resources.getInstance().getAnimation(this.animation));
+                this.setDrawing("move");
+            }
             this.on("collisionstart", this.collisionStart);
         }
     }

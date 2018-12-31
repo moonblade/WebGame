@@ -29,6 +29,36 @@
         "columns": 9, 
         "row": 3
     }, 
+    "vampire": {
+        "files": [
+            {
+                "width": 21, 
+                "file": "vampire/vampire2.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "vampire/vampire3.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "vampire/vampire4.png", 
+                "height": 21
+            }, 
+            {
+                "width": 21, 
+                "file": "vampire/vampire.png", 
+                "height": 21
+            }
+        ], 
+        "index": 36, 
+        "height": 21, 
+        "width": 21, 
+        "indexEnd": 39, 
+        "columns": 9, 
+        "row": 4
+    }, 
     "scorpion": {
         "files": [
             {

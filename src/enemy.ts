@@ -17,10 +17,12 @@ class Enemy extends Actor{
     removeWeakness: number;
     reward: string[];
     weakness: string[];
+    itemWeakness: string[];
     speed: number;
     sight: number;
     timeout: number;
     currentWait: number;
+    noMove: boolean;
 
     constructor(properties: any) {
         super(properties);
@@ -30,14 +32,16 @@ class Enemy extends Actor{
         this.collisionType = CollisionType.Active;
         this.attackPower = properties.attackPower;
         this.maxHealth = properties.health;
-        this.health = new HealthBar(this.maxHealth);
+        this.health = new HealthBar(this.maxHealth, properties.noHealthDisplay);
         this.removeWeakness = properties.removeWeakness || false;
         this.reward = properties.reward || [];
-        this.weakness = properties.weakness;
+        this.weakness = properties.weakness || [];
+        this.itemWeakness = properties.itemWeakness || [];
         this.speed = properties.speed || defaults.enemy.speed;
         this.sight = properties.sight || defaults.enemy.sight;
         this.timeout = properties.timeout || defaults.enemy.timeout;
         this.currentWait = this.timeout;
+        this.noMove = properties.noMove || false;
     }
 
     static initialize(properties: any, addToGame: boolean) {
@@ -62,7 +66,7 @@ class Enemy extends Actor{
             this.actions.clearActions();
             // this.setDrawing("idle");
             // if (!(item && this.weakness.indexOf(item.type)>-1 && item.attackPower)) {
-                if (!Player.getInstance().isIdle()){
+                if (!Player.getInstance().isIdle() && !this.noMove) {
                     this.setDrawing("move");
                     this.actions.moveTo(Player.getInstance().x, Player.getInstance().y, this.speed).asPromise().then(()=>{
                         this.setDrawing("idle");
@@ -72,6 +76,12 @@ class Enemy extends Actor{
         }
     }
 
+    giveReward() {
+        for (let item of this.reward) {
+            let entity: Entity = Resources.getInstance().getItem(item);
+            entity.drop();
+        }
+    }
     collisionStart(event:CollisionStartEvent):void{
         if (event.other == Player.getInstance()) {
             let item: Entity = Player.getInstance().getInventory().getSelectedItem();
@@ -80,10 +90,7 @@ class Enemy extends Actor{
                 this.health.change(-damage);
                 if (this.health.empty()) {
                     Game.getInstance().remove(this);
-                    for (let item of this.reward) {
-                        let entity: Entity = Resources.getInstance().getItem(item);
-                        entity.drop();
-                    }
+                    this.giveReward();
                 }
                 if (Math.random() < this.removeWeakness) {
                     item.drop();
@@ -93,6 +100,16 @@ class Enemy extends Actor{
             let attack = Math.floor(Math.random() * this.attackPower);
             if (this.canAttack())
                 Player.getInstance().health.change(-attack);
+        } else if (event.other instanceof Entity) {
+            let item:Entity = event.other;
+            if (item && this.itemWeakness.indexOf(item.type) > -1) {
+                Game.getInstance().remove(this);
+                this.giveReward();
+                if (Math.random() < this.removeWeakness) {
+                    item.drop();
+                    item.remove();
+                }
+            }
         }
     }
 
@@ -102,6 +119,9 @@ class Enemy extends Actor{
             this.addDrawing("move", Resources.getInstance().getAnimation(this.type));
             this.addDrawing("idle", this.sprite);
             this.setDrawing("idle");
+            if (this.noMove) {
+                this.setDrawing("move");
+            }
             this.setWidth(this.sprite.width);
             this.setHeight(this.sprite.height);
             this.on("collisionstart", this.collisionStart);

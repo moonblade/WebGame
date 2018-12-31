@@ -33,13 +33,13 @@ class Chest extends Actor {
         if (event.other == Player.getInstance()) {
             let key:Entity = Player.getInstance().getInventory().getSelectedItem();
             if (key && key.name == this.key) {
+                key.place();
+                key.remove();
+                Game.getInstance().remove(this);
                 for (let content of this.contents) {
                     let entity:Entity = Resources.getInstance().getItem(content);
                     entity && entity.pick();
                 }
-                key.place();
-                key.remove();
-                Game.getInstance().remove(this);
             }
         }
     }
