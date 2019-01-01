@@ -55,11 +55,12 @@ class Enemy extends Actor{
     canAttack(writeChanges: boolean = true) {
         this.currentWait--;
         if (this.currentWait == 0) {
-            this.currentWait = this.timeout;
+            if (!writeChanges)
+                this.currentWait++;
+            else
+                this.currentWait = this.timeout;
             return true;
         }
-        if (!writeChanges)
-            this.currentWait++;
         return false;
     }
     update(engine: Engine, delta: number) {

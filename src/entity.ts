@@ -24,6 +24,7 @@ class Entity extends Actor implements Pickable{
     attackPower: number;
     // whether to expend on crafting
     expend: boolean;
+    damage: number;
     collisionTypeSaved: CollisionType;
     
     constructor(properties: any = {}, collisionType:CollisionType = CollisionType.Passive) {
@@ -39,6 +40,7 @@ class Entity extends Actor implements Pickable{
         this.attackPower = properties.attackPower || 0;
         this.animation = properties.animation;
         this.expend = properties.expend || false;
+        this.damage = properties.damage;
     }
     
     restoreCollision() {
@@ -121,6 +123,9 @@ class Entity extends Actor implements Pickable{
                 return true;
             }
             return false;
+        } else if (this.damage) {
+            Player.getInstance().health.change(-this.damage);
+            this.remove();
         }
         return false;
     }
