@@ -44,6 +44,11 @@ class Chest extends Actor {
         }
     }
 
+    dropBy(actor: Actor) {
+        this.pos.x = actor.x;
+        this.pos.y = actor.y + this.getHeight();
+    }
+
     onInitialize() {
         this.sprite = Resources.getInstance().getSprite(this.spriteName)
         if (this.sprite) {

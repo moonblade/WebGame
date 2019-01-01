@@ -4,6 +4,7 @@ import Game from "./game";
 import Pickable from "./interface/pickable";
 import Player from "./player";
 import Resources from "./resources";
+import Enemy from "./enemy";
 
 class Entity extends Actor implements Pickable{
     spriteName: string;
@@ -21,6 +22,8 @@ class Entity extends Actor implements Pickable{
     // crafting
     craft: any;
     attackPower: number;
+    // whether to expend on crafting
+    expend: boolean;
     collisionTypeSaved: CollisionType;
     
     constructor(properties: any = {}, collisionType:CollisionType = CollisionType.Passive) {
@@ -35,6 +38,7 @@ class Entity extends Actor implements Pickable{
         this.craft = properties.craft;
         this.attackPower = properties.attackPower || 0;
         this.animation = properties.animation;
+        this.expend = properties.expend || false;
     }
     
     restoreCollision() {
@@ -48,15 +52,22 @@ class Entity extends Actor implements Pickable{
                     Game.getInstance().remove(event.other);
                     Game.getInstance().remove(event.target);
                     let crafted: Entity = Resources.getInstance().getItem(event.target.craft[event.other.type]);
-                    crafted.pick();
-                    crafted.place();
+                    crafted.drop();
                 } else if (event.target.canPick){
                     // other is non movable
+                    if (event.other.expend) {
+                        Game.getInstance().remove(event.other);
+                    }
                     Game.getInstance().remove(event.target);
                     let crafted: Entity = Resources.getInstance().getItem(event.target.craft[event.other.type]);
-                    crafted.pick();
-                    crafted.place();
+                    crafted.drop();
                 }
+            }
+        } else if(event.target instanceof Entity && event.other instanceof Enemy) {
+            if (event.target.craft && event.target.craft[event.other.type]) {
+                Game.getInstance().remove(event.target);
+                let crafted: Entity = Resources.getInstance().getItem(event.target.craft[event.other.type]);
+                crafted.drop();
             }
         }
     }
@@ -100,8 +111,8 @@ class Entity extends Actor implements Pickable{
     
     // Pickable interface implementation
 
-    pick():boolean {
-        if (this.canPick) {
+    pick(force:boolean = false):boolean {
+        if (this.canPick || force) {
             if (Player.getInstance().getInventory().add(this)) {
                 this.collisionType = CollisionType.PreventCollision;
                 Game.getInstance().remove(this);
@@ -127,7 +138,7 @@ class Entity extends Actor implements Pickable{
     }
 
     drop() {
-        this.pick();
+        this.pick(true);
         this.place();
     }
 

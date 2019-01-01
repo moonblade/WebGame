@@ -5,6 +5,7 @@ import Game from "./game";
 import HealthBar from "./healthbar";
 import Entity from "./entity";
 import * as defaults from "./defaults.json";
+import Chest from "./chest";
 
 class Enemy extends Actor{
     type: string;
@@ -15,7 +16,7 @@ class Enemy extends Actor{
     maxHealth: number;
     health: HealthBar;
     removeWeakness: number;
-    reward: string[];
+    reward: any;
     weakness: string[];
     itemWeakness: string[];
     speed: number;
@@ -34,7 +35,7 @@ class Enemy extends Actor{
         this.maxHealth = properties.health;
         this.health = new HealthBar(this.maxHealth, properties.noHealthDisplay);
         this.removeWeakness = properties.removeWeakness || false;
-        this.reward = properties.reward || [];
+        this.reward = properties.reward || {};
         this.weakness = properties.weakness || [];
         this.itemWeakness = properties.itemWeakness || [];
         this.speed = properties.speed || defaults.enemy.speed;
@@ -51,12 +52,14 @@ class Enemy extends Actor{
             Game.getInstance().add(door);
     }
 
-    canAttack() {
+    canAttack(writeChanges: boolean = true) {
         this.currentWait--;
         if (this.currentWait == 0) {
             this.currentWait = this.timeout;
             return true;
         }
+        if (!writeChanges)
+            this.currentWait++;
         return false;
     }
     update(engine: Engine, delta: number) {
@@ -77,9 +80,16 @@ class Enemy extends Actor{
     }
 
     giveReward() {
-        for (let item of this.reward) {
-            let entity: Entity = Resources.getInstance().getItem(item);
-            entity.drop();
+        if (this.reward && this.reward.entity) {
+            for (let item of this.reward.entity) {
+                let entity: Entity = Resources.getInstance().getItem(item);
+                entity.drop();
+            }
+        } if (this.reward && this.reward.chest) {
+            for (let key of this.reward.chest) {
+                let chest: Chest = Resources.getInstance().getChest(key);
+                chest.dropBy(this);
+            }
         }
     }
     collisionStart(event:CollisionStartEvent):void{
@@ -92,14 +102,15 @@ class Enemy extends Actor{
                     Game.getInstance().remove(this);
                     this.giveReward();
                 }
-                if (Math.random() < this.removeWeakness) {
+                if (this.canAttack(false) && Math.random() < this.removeWeakness) {
                     item.drop();
                     item.remove();
                 }
             }
             let attack = Math.floor(Math.random() * this.attackPower);
-            if (this.canAttack())
+            if (this.canAttack()) {
                 Player.getInstance().health.change(-attack);
+            }
         } else if (event.other instanceof Entity) {
             let item:Entity = event.other;
             if (item && this.itemWeakness.indexOf(item.type) > -1) {
