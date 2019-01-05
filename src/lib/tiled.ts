@@ -296,6 +296,7 @@ export class TiledResource extends Resource<ITiledMap> {
          for (let tileset of this.data.tilesets) {
             if (tileset.tiles && tileset.tiles.length) {
                for (let tile of tileset.tiles) {
+                  tile.firstgid = tileset.firstgid;
                   this.tilesDict[tile.type] = tile;
                }
             }
@@ -328,6 +329,30 @@ export class TiledResource extends Resource<ITiledMap> {
             return ts.tiles[tile];
       }
 
+      spawnStuff(gid:number, layer:any, i:number) {
+         if (this.autoSpawns[gid]) {
+            for (let autoSpawn of this.autoSpawns[gid]) {
+               let dir1 = autoSpawn.nearCardinalTile(i, layer.height, layer.width);
+               let dir2 = autoSpawn.nearCardinalTile(i, layer.height, layer.width, true);
+               let comb = autoSpawn.nearTile(i, layer.height, layer.width);
+               if (dir1) {
+                  let t = this.getTile(<number>layer.data[dir1])
+                  if (dir2) {
+                     let u = this.getTile(<number>layer.data[dir2]);
+                     if (!autoSpawn.shouldSpawn(u) && !autoSpawn.shouldSpawn(t)) {
+                        let v = this.getTile(<number>layer.data[comb]);
+                        autoSpawn.spawn(this.data.layers, i, v);
+                     }
+                  } else {
+                     autoSpawn.spawn(this.data.layers, i, t);
+                  }
+               }else {
+                  autoSpawn.spawn(this.data.layers, i);
+               }
+
+            }
+         }
+      }
       public setTileMap(): void {
          var map = new TileMap(0, 0, this.data.tilewidth, this.data.tileheight, this.data.height, this.data.width);
          
@@ -355,18 +380,7 @@ export class TiledResource extends Resource<ITiledMap> {
                            map.data[i][property] = map.data[i][property] || ts.tiles[tile][property];
                         }
                      }
-                     if (this.autoSpawns[gid]) {
-                        for (let autoSpawn of this.autoSpawns[gid]) {
-                           let j = autoSpawn.nearTile(i, layer.height, layer.width);
-                           if (j) {
-                              let t = this.getTile(<number>layer.data[j])
-                              autoSpawn.spawn(this.data.layers, i, t);
-                           } else {
-                              autoSpawn.spawn(this.data.layers, i);
-                           }
-
-                        }
-                     }
+                     this.spawnStuff(gid, layer, i);
                      map.data[i].sprites.push(new TileSprite(ts.firstgid.toString(), gid - ts.firstgid))
                   }
                }
@@ -377,6 +391,8 @@ export class TiledResource extends Resource<ITiledMap> {
                   let gid = object.gid;
                   if (gid !== 0) {
                      var ts = this.getTilesetForTile(gid);
+                     if (layer.name == "auto")
+                        console.log("Asdf")
                      let tile = gid - ts.firstgid;
                      if (ts.tiles && ts.tiles[tile]) {
                         for (let property in ts.tiles[tile]) {
