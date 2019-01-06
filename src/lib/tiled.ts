@@ -391,8 +391,6 @@ export class TiledResource extends Resource<ITiledMap> {
                   let gid = object.gid;
                   if (gid !== 0) {
                      var ts = this.getTilesetForTile(gid);
-                     if (layer.name == "auto")
-                        console.log("Asdf")
                      let tile = gid - ts.firstgid;
                      if (ts.tiles && ts.tiles[tile]) {
                         for (let property in ts.tiles[tile]) {
