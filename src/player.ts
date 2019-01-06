@@ -158,6 +158,9 @@ class Player extends Actor {
         this.setDrawing('idleDown');
         this.setWidth(Resources.getInstance().getSprite('playerIdleUp').width);
         this.setHeight(Resources.getInstance().getSprite('playerIdleUp').height);
+        // hack to fix collision on mobile
+        this.setWidth(21)
+        this.setHeight(21)
         this.add(this.health);
         
         // add drop button
