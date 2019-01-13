@@ -57,16 +57,8 @@ class Enemy extends Actor{
             Game.getInstance().add(door);
     }
 
-    canAttack(writeChanges: boolean = true) {
-        this.currentWait--;
-        if (this.currentWait == 0) {
-            if (!writeChanges)
-                this.currentWait++;
-            else
-                this.currentWait = this.timeout;
-            return true;
-        }
-        return false;
+    canAttack():boolean {
+        return Helper.distance(this, Player.getInstance()) < this.strikingDistance;
     }
 
     async moveToPlayer() {
@@ -134,7 +126,7 @@ class Enemy extends Actor{
     }
 
     attack(player:Player, noDamage: boolean = false) {
-        if (Helper.distance(this, Player.getInstance()) < this.strikingDistance) {
+        if (this.canAttack()) {
             let attack = Math.floor(Math.random() * this.attackPower);
             player.health.change(-attack);
         }
@@ -159,7 +151,9 @@ class Enemy extends Actor{
 
     async clicked() {
         Player.getInstance().stopPointerDown = true;
-        await Player.getInstance().moveTo(this.pos, true, true);
+        if (!this.canAttack()) {
+            await Player.getInstance().moveTo(this.pos, true, true);
+        }
         this.attack(Player.getInstance());
     }
 

@@ -23,6 +23,7 @@ class Player extends Actor {
     keyboardSpeed: Vector;
     inventory: Inventory;
     currentDirection: Direction;
+    lastDirection: Direction;
     dropButton: DropButton;
 
     idle: boolean;
@@ -54,6 +55,7 @@ class Player extends Actor {
         if (this.currentDirection != direction) {
             this.setDrawing('walk' + direction);
             this.currentDirection = direction;
+            this.lastDirection = direction;
         }
         return this.actions.moveTo(coordinate.x, coordinate.y, this.speed).asPromise().then(()=>{
             if (setIdle) {
@@ -132,7 +134,7 @@ class Player extends Actor {
         super.update(engine, delta);
         if (this.health.empty()) {
             //end game and restart
-            // location.reload();
+            location.reload();
         }
         for (let direction in Direction) {
             let dir: Direction = Direction[direction] as Direction;
@@ -194,6 +196,11 @@ class Player extends Actor {
 
         // handle collisions
         this.on("collisionstart", this.collisionStart);
+    }
+
+    setIdle() {
+        this.actions.clearActions();
+        this.setDrawing('idle' + this.lastDirection);
     }
 
     place(pickable: Pickable): boolean {

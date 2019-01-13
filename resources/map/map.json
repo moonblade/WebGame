@@ -712,24 +712,6 @@
                  "width":21,
                  "x":1218,
                  "y":1491
-                }, 
-                {
-                 "gid":41,
-                 "height":21,
-                 "id":146,
-                 "name":"",
-                 "properties":[
-                        {
-                         "name":"sight",
-                         "type":"int",
-                         "value":100
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":21,
-                 "x":63,
-                 "y":819
                 }],
          "opacity":1,
          "type":"objectgroup",
