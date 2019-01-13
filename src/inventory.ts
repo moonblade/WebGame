@@ -69,7 +69,7 @@ class Inventory {
 
     get(item: string) {
         for(let i=0;i<this.items.length; ++i) {
-            if (this.items[i].type == item) {
+            if (this.items[i].name == item) {
                 return this.items[i];
             }
         }
