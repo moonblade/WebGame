@@ -67,6 +67,21 @@ class Inventory {
         }
     }
 
+    get(item: string) {
+        for(let i=0;i<this.items.length; ++i) {
+            if (this.items[i].type == item) {
+                return this.items[i];
+            }
+        }
+        return null;
+    }
+
+    hasAny(items: string[]) {
+        for (let item of items) {
+            return this.get(item);
+        }
+    }
+
     hasItem(pickable: Pickable): boolean {
         return this.findIndex(pickable) > -1;
     }

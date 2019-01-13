@@ -11,6 +11,8 @@ import Entity from './entity';
 import { TiledResource } from './lib/tiled';
 import Resources from './resources';
 import DropButton from './dropButton';
+import * as defaults from './defaults.json';
+import Enemy from './enemy';
 
 class Player extends Actor {
     health: HealthBar;
@@ -23,11 +25,11 @@ class Player extends Actor {
     currentDirection: Direction;
     dropButton: DropButton;
 
-    // binary counter for de duplicating keydown
-    flipper: boolean = false;
     idle: boolean;
 
     static instance: Player = null;
+    stopPointerDown: boolean;
+    maxAttackPower: number;
     
     static getInstance() {
         if (Player.instance == null)
@@ -45,6 +47,7 @@ class Player extends Actor {
         this.health = new HealthBar(this.maxHealth);
         this.inventory = new Inventory();
         this.dropButton = new DropButton();
+        this.maxAttackPower = defaults.player.attack;
     }
 
     moveInDirection(coordinate:Vector, direction: Direction, setIdle: boolean = true) {
@@ -73,6 +76,10 @@ class Player extends Actor {
         }
     }
 
+    attackPower() {
+        return Math.floor(Math.random() * this.maxAttackPower);
+    }
+
     setPosition(pos: any) {
         if (pos)
             this.pos = new Vector(pos.x, pos.y);
@@ -82,7 +89,7 @@ class Player extends Actor {
         return this.inventory;
     }
 
-    async moveTo(coordinate:any, pathFind:boolean = true) {
+    async moveTo(coordinate:any, pathFind:boolean = true, removeLast: boolean = false) {
         let cell:Cell = this.tiledResource.getTileMap().getCellByPoint(coordinate.x, coordinate.y)
         if(!cell || (cell && cell.solid && !pathFind)) {
             return;
@@ -92,7 +99,7 @@ class Player extends Actor {
             this.pos.x = coordinate.x;
             this.pos.y = coordinate.y;
         } else {
-            let path:Vector[] = this.tiledResource.findPath(this.pos, coordinate);
+            let path:Vector[] = this.tiledResource.findPath(this.pos, coordinate, removeLast);
             if (path.length) {
                 this.actions.clearActions();
                 for(let key in path) {
@@ -101,6 +108,7 @@ class Player extends Actor {
             }
         }
         this.idle = true;
+        return Promise.resolve();
     }
     
     clicked(coordinate:any) {
@@ -124,7 +132,7 @@ class Player extends Actor {
         super.update(engine, delta);
         if (this.health.empty()) {
             //end game and restart
-            location.reload();
+            // location.reload();
         }
         for (let direction in Direction) {
             let dir: Direction = Direction[direction] as Direction;
@@ -167,9 +175,12 @@ class Player extends Actor {
         this.add(this.dropButton);
         
         // respond to click events
-        Game.getInstance().input.pointers.primary.on("down", (event: PointerDownEvent)=>{
-            this.flipper = !this.flipper;
-            if (this.flipper) {
+        engine.input.pointers.primary.on("down", (event: PointerDownEvent)=>{
+            setTimeout(()=>{
+                if (this.stopPointerDown) {
+                    this.stopPointerDown = false;
+                    return;
+                }
                 let pickable: Pickable = this.inventory.findItem(event.pos);
                 if (pickable) {
                     this.inventory.selectItem(pickable);
@@ -178,7 +189,7 @@ class Player extends Actor {
                 } else {
                     this.clicked(event.pos);
                 }
-            }
+            },10);
         });
 
         // handle collisions

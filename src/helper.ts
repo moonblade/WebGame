@@ -3,6 +3,7 @@ import Player from "./player";
 import Chest from "./chest";
 import Door from "./door";
 import Enemy from "./enemy";
+import { Actor } from "excalibur";
 
 class Helper {
     static initObject(object: any = {}, addToGame: boolean = true) {
@@ -33,6 +34,10 @@ class Helper {
         if (object.x)
             object.x = object.x + 10.5
             object.y = object.y - 10.5
+    }
+
+    static distance(a: Actor, b: Actor) {
+        return Math.abs(a.x-b.x) + Math.abs(a.y-b.y);
     }
 }
 

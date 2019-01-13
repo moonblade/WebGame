@@ -180,10 +180,10 @@ export class TiledResource extends Resource<ITiledMap> {
       
    }
    
-   public findPath(source: Vector, destination: Vector) {
+   public findPath(source: Vector, destination: Vector, removeLast:boolean = false) {
       let sourceCell:Cell = this.tileMap.getCellByPoint(source.x, source.y);
       let destCell:Cell = this.tileMap.getCellByPoint(destination.x, destination.y);
-      return this.aStar.findPath(sourceCell, destCell);
+      return this.aStar.findPath(sourceCell, destCell, removeLast);
    }
    
    public loadProperties(tileset: any) {

@@ -18,7 +18,7 @@ class AStar {
         this.n = n;
     }
 
-    findPath(start: Cell,end: Cell): Vector[] {
+    findPath(start: Cell,end: Cell,removeLast:boolean=false): Vector[] {
         let startIdx: number = start.index;
         let endIdx: number = end.index;
         this.count = {};
@@ -34,7 +34,7 @@ class AStar {
         for (let i=0; i<queue.length; ++i) {
             // console.log(queue.length)
             if (queue[i] == startIdx)
-                return this.computePath(startIdx, endIdx);
+                return this.computePath(startIdx, endIdx, removeLast);
             queue = queue.concat(this.gen(queue[i]));
         }
         return [];
@@ -84,7 +84,7 @@ class AStar {
         return path.map(x=>this.idxArray[x].getCenter());
     }
 
-    computePath(startIdx: number, endIdx: number): Vector[] {
+    computePath(startIdx: number, endIdx: number, removeLast:boolean=false): Vector[] {
         let path = [startIdx];
         while (path[path.length - 1] != endIdx) {
             if (this.parent[path[path.length - 1]])
@@ -92,6 +92,8 @@ class AStar {
             else 
                 return [];
         }
+        if (removeLast)
+            path = path.slice(0, path.length-1);
         return this.toVector(this.decrease(path));
     }
 }

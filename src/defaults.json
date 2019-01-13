@@ -5,6 +5,10 @@
     "enemy": {
         "sight": 100,
         "speed": 100,
-        "timeout": 3
+        "timeout": 3,
+        "strikingDistance": 30
+    },
+    "player": {
+        "attack": 5
     }
 }

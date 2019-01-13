@@ -1,4 +1,4 @@
-import { Actor, CollisionStartEvent, Sprite, CollisionType, Engine } from "excalibur";
+import { Actor, CollisionStartEvent, Sprite, CollisionType, Engine, Vector } from "excalibur";
 import Resources from "./resources";
 import Player from "./player";
 import Game from "./game";
@@ -6,6 +6,8 @@ import HealthBar from "./healthbar";
 import Entity from "./entity";
 import * as defaults from "./defaults.json";
 import Chest from "./chest";
+import { PointerDownEvent } from "excalibur/dist/Input";
+import Helper from "./helper";
 
 class Enemy extends Actor{
     type: string;
@@ -24,6 +26,8 @@ class Enemy extends Actor{
     timeout: number;
     currentWait: number;
     noMove: boolean;
+    moving: any;
+    strikingDistance: any;
 
     constructor(properties: any) {
         super(properties);
@@ -43,6 +47,7 @@ class Enemy extends Actor{
         this.timeout = properties.timeout || defaults.enemy.timeout;
         this.currentWait = this.timeout;
         this.noMove = properties.noMove || false;
+        this.strikingDistance = properties.strikingDistance || defaults.enemy.strikingDistance;
     }
 
     static initialize(properties: any, addToGame: boolean) {
@@ -63,20 +68,38 @@ class Enemy extends Actor{
         }
         return false;
     }
+
+    async moveToPlayer() {
+        if (!this.moving) {
+            this.moving = true;
+            this.setDrawing("idle");
+            if (!Player.getInstance().isIdle() && !this.noMove) {
+                this.setDrawing("move");
+                let path:Vector[] = Player.getInstance().tiledResource.findPath(this.pos, Player.getInstance().pos, true);
+                if (path.length) {
+                    this.actions.clearActions();
+                    for(let key in path) {
+                        await this.actions.moveTo(path[key].x, path[key].y, this.speed).asPromise();
+                    }
+                    this.attack(Player.getInstance(), true);
+                }
+            }
+            this.moving = false;
+        }
+    }
+
+    idle() {
+        this.actions.clearActions();
+        this.setDrawing("idle");
+        this.moving = false;
+    }
+
     update(engine: Engine, delta: number) {
         super.update(engine, delta);
         if (Math.abs(Player.getInstance().x - this.x) + Math.abs(Player.getInstance().y - this.y) < this.sight) {
-            let item: Entity = Player.getInstance().getInventory().getSelectedItem();
-            this.actions.clearActions();
-            // this.setDrawing("idle");
-            // if (!(item && this.weakness.indexOf(item.type)>-1 && item.attackPower)) {
-                if (!Player.getInstance().isIdle() && !this.noMove) {
-                    this.setDrawing("move");
-                    this.actions.moveTo(Player.getInstance().x, Player.getInstance().y, this.speed).asPromise().then(()=>{
-                        this.setDrawing("idle");
-                    });
-                }
-            // }
+            this.moveToPlayer();
+        } else {
+            this.idle()
         }
     }
 
@@ -93,26 +116,9 @@ class Enemy extends Actor{
             }
         }
     }
+
     collisionStart(event:CollisionStartEvent):void{
-        if (event.other == Player.getInstance()) {
-            let item: Entity = Player.getInstance().getInventory().getSelectedItem();
-            if (item && this.weakness.indexOf(item.type)>-1 && item.attackPower) {
-                let damage = Math.floor(Math.random() * item.attackPower);
-                this.health.change(-damage);
-                if (this.health.empty()) {
-                    Game.getInstance().remove(this);
-                    this.giveReward();
-                }
-                if (this.canAttack(false) && Math.random() < this.removeWeakness) {
-                    item.drop();
-                    item.remove();
-                }
-            }
-            let attack = Math.floor(Math.random() * this.attackPower);
-            if (this.canAttack()) {
-                Player.getInstance().health.change(-attack);
-            }
-        } else if (event.other instanceof Entity) {
+        if (event.other instanceof Entity) {
             let item:Entity = event.other;
             if (item && this.itemWeakness.indexOf(item.type) > -1) {
                 Game.getInstance().remove(this);
@@ -122,7 +128,43 @@ class Enemy extends Actor{
                     item.remove();
                 }
             }
+        } else if (event.other instanceof Player) {
+            this.idle();
         }
+    }
+
+    attack(player:Player, noDamage: boolean = false) {
+        if (Helper.distance(this, Player.getInstance()) < this.strikingDistance) {
+            let attack = Math.floor(Math.random() * this.attackPower);
+            player.health.change(-attack);
+        }
+
+        if (!noDamage) {
+            let weakness = Player.getInstance().getInventory().hasAny(this.weakness)
+            let damage = Player.getInstance().attackPower();
+            if (weakness) {
+                damage = Math.floor(Math.random() * weakness.attackPower);
+            }
+            this.health.change(-damage);
+            if (Math.random() < this.removeWeakness) {
+                Player.getInstance().getInventory().remove(weakness);
+            }
+            
+            if (this.health.empty()) {
+                Game.getInstance().remove(this);
+                this.giveReward();
+            }
+        }
+    }
+
+    async clicked() {
+        Player.getInstance().stopPointerDown = true;
+        await Player.getInstance().moveTo(this.pos, true, true);
+        this.attack(Player.getInstance());
+    }
+
+    pointerDown = function(event:PointerDownEvent) {
+        this.clicked();
     }
 
     onInitialize() {
@@ -136,6 +178,7 @@ class Enemy extends Actor{
             }
             this.setWidth(this.sprite.width);
             this.setHeight(this.sprite.height);
+            this.on("pointerdown", this.pointerDown)
             this.on("collisionstart", this.collisionStart);
             this.add(this.health);
         }        
