@@ -3,6 +3,7 @@ import Resources from "./resources";
 import Game from "./game";
 import Player from "./player";
 import Entity from "./entity";
+import Enemy from "./enemy";
 
 class Door extends Actor{
     type: string;
@@ -31,7 +32,7 @@ class Door extends Actor{
     }
 
     collisionStart(event:CollisionStartEvent):void{
-        if (event.other == Player.getInstance()) {
+        if (event.other == Player.getInstance() || event.other instanceof Entity || event.other instanceof Enemy) {
             if (this.locked) {
                 let key:Entity = Player.getInstance().getInventory().getSelectedItem();
                 if (key && key.name == this.key) {
