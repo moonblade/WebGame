@@ -31,7 +31,7 @@ class Chest extends Actor {
 
     collisionStart(event:CollisionStartEvent):void{
         if (event.other == Player.getInstance()) {
-            let key:Entity = Player.getInstance().getInventory().getSelectedItem();
+            let key:Entity = Player.getInstance().getInventory().get(this.key)
             if (key && key.name == this.key) {
                 key.place();
                 key.remove();

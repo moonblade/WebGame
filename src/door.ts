@@ -34,7 +34,7 @@ class Door extends Actor{
     collisionStart(event:CollisionStartEvent):void{
         if (event.other == Player.getInstance() || event.other instanceof Entity || event.other instanceof Enemy) {
             if (this.locked) {
-                let key:Entity = Player.getInstance().getInventory().getSelectedItem();
+                let key:Entity = Player.getInstance().getInventory().get(this.key);
                 if (key && key.name == this.key) {
                     this.locked = false;
                     key.place();
