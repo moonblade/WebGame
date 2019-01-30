@@ -16,6 +16,10 @@ class Game extends Engine{
         return Game.instance;
     }
 
+    win() {
+        console.log("won");
+    }
+
     constructor() {
         super();
         this.initializeRooms();

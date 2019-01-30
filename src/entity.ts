@@ -143,8 +143,12 @@ class Entity extends Actor implements Pickable{
     }
 
     drop() {
-        this.pick(true);
-        this.place();
+        if (this.name == 'win')
+            Game.getInstance().win();
+        else {
+            this.pick(true);
+            this.place();
+        }
     }
 
     setInventory(inventory: boolean) {

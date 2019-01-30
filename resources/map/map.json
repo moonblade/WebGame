@@ -415,7 +415,7 @@
                  "y":2435.81689726229
                 }, 
                 {
-                 "gid":43,
+                 "gid":45,
                  "height":21,
                  "id":80,
                  "name":"fire",
@@ -451,7 +451,7 @@
                  "y":2435.64907729765
                 }, 
                 {
-                 "gid":41,
+                 "gid":43,
                  "height":21,
                  "id":88,
                  "name":"scorpion",
@@ -528,7 +528,7 @@
                  "y":861
                 }, 
                 {
-                 "gid":40,
+                 "gid":42,
                  "height":21,
                  "id":98,
                  "name":"spider",
@@ -582,7 +582,7 @@
                  "y":105
                 }, 
                 {
-                 "gid":42,
+                 "gid":44,
                  "height":21,
                  "id":110,
                  "name":"snake",
@@ -666,10 +666,21 @@
                  "y":1281
                 }, 
                 {
-                 "gid":44,
+                 "gid":46,
                  "height":21,
                  "id":121,
                  "name":"vampire",
+                 "properties":[
+                        {
+                         "name":"health",
+                         "type":"int",
+                         "value":1
+                        }, 
+                        {
+                         "name":"sight",
+                         "type":"int",
+                         "value":0
+                        }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -712,6 +723,60 @@
                  "width":21,
                  "x":1218,
                  "y":1491
+                }, 
+                {
+                 "gid":21,
+                 "height":21,
+                 "id":148,
+                 "name":"spawn",
+                 "properties":[
+                        {
+                         "name":"content",
+                         "type":"string",
+                         "value":""
+                        }],
+                 "rotation":0,
+                 "type":"spawn",
+                 "visible":true,
+                 "width":21,
+                 "x":945,
+                 "y":1596
+                }, 
+                {
+                 "gid":41,
+                 "height":21,
+                 "id":149,
+                 "name":"pedestal",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":1029,
+                 "y":1596
+                }, 
+                {
+                 "gid":40,
+                 "height":21,
+                 "id":150,
+                 "name":"trophy",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":966,
+                 "y":1617
+                }, 
+                {
+                 "gid":38,
+                 "height":21,
+                 "id":151,
+                 "name":"win",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":21,
+                 "x":2079,
+                 "y":2436
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -731,7 +796,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":147,
+ "nextobjectid":152,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.1",
@@ -1215,15 +1280,15 @@
          "tilewidth":21
         }, 
         {
-         "columns":20,
+         "columns":22,
          "firstgid":20,
          "image":"items.png",
          "imageheight":21,
-         "imagewidth":420,
+         "imagewidth":462,
          "margin":0,
          "name":"items",
          "spacing":0,
-         "tilecount":20,
+         "tilecount":22,
          "tileheight":21,
          "tiles":[
                 {
@@ -1588,12 +1653,42 @@
                 {
                  "id":19,
                  "type":"doorLocked"
+                }, 
+                {
+                 "id":20,
+                 "properties":[
+                        {
+                         "name":"canPick",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"entity"
+                        }, 
+                        {
+                         "name":"craft",
+                         "type":"string",
+                         "value":"{\"pedestal\":\"win\"}"
+                        }],
+                 "type":"trophy"
+                }, 
+                {
+                 "id":21,
+                 "properties":[
+                        {
+                         "name":"class",
+                         "type":"string",
+                         "value":"entity"
+                        }],
+                 "type":"pedestal"
                 }],
          "tilewidth":21
         }, 
         {
          "columns":5,
-         "firstgid":40,
+         "firstgid":42,
          "image":"enemies.png",
          "imageheight":21,
          "imagewidth":105,
@@ -1809,7 +1904,7 @@
                         {
                          "name":"reward",
                          "type":"string",
-                         "value":"{}"
+                         "value":"{\"entity\":[\"trophy\"]}"
                         }, 
                         {
                          "name":"sight",
