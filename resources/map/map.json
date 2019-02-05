@@ -725,24 +725,6 @@
                  "y":1491
                 }, 
                 {
-                 "gid":21,
-                 "height":21,
-                 "id":148,
-                 "name":"spawn",
-                 "properties":[
-                        {
-                         "name":"content",
-                         "type":"string",
-                         "value":""
-                        }],
-                 "rotation":0,
-                 "type":"spawn",
-                 "visible":true,
-                 "width":21,
-                 "x":945,
-                 "y":1596
-                }, 
-                {
                  "gid":41,
                  "height":21,
                  "id":149,
@@ -751,20 +733,8 @@
                  "type":"",
                  "visible":true,
                  "width":21,
-                 "x":1029,
-                 "y":1596
-                }, 
-                {
-                 "gid":40,
-                 "height":21,
-                 "id":150,
-                 "name":"trophy",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":21,
-                 "x":966,
-                 "y":1617
+                 "x":777,
+                 "y":693
                 }, 
                 {
                  "gid":38,

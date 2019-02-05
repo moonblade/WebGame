@@ -16,7 +16,7 @@
   },
   "scripts": {
     "test": "test",
-    "start": "webpack --watch --config webpack.config.js"
+    "start": "webpack --watch --config webpack.config.js & livereload & python -m SimpleHTTPServer"
   },
   "repository": {
     "type": "git",

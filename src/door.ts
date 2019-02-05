@@ -28,7 +28,7 @@ class Door extends Actor{
         let door = new Door(properties);
         Resources.getInstance().addDoor(door);
         if (addToGame)
-            Game.getInstance().add(door);
+            Game.getInstance().level.add(door);
     }
 
     collisionStart(event:CollisionStartEvent):void{

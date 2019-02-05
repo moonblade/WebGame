@@ -51,23 +51,23 @@ class Entity extends Actor implements Pickable{
         if (event.other instanceof Entity && event.target instanceof Entity) {
             if (event.target.craft && event.target.craft[event.other.type]) {
                 if (event.target.canPick && event.other.canPick) {
-                    Game.getInstance().remove(event.other);
-                    Game.getInstance().remove(event.target);
+                    Game.getInstance().level.remove(event.other);
+                    Game.getInstance().level.remove(event.target);
                     let crafted: Entity = Resources.getInstance().getItem(event.target.craft[event.other.type]);
                     crafted.drop();
                 } else if (event.target.canPick){
                     // other is non movable
                     if (event.other.expend) {
-                        Game.getInstance().remove(event.other);
+                        Game.getInstance().level.remove(event.other);
                     }
-                    Game.getInstance().remove(event.target);
+                    Game.getInstance().level.remove(event.target);
                     let crafted: Entity = Resources.getInstance().getItem(event.target.craft[event.other.type]);
                     crafted.drop();
                 }
             }
         } else if(event.target instanceof Entity && event.other instanceof Enemy) {
             if (event.target.craft && event.target.craft[event.other.type]) {
-                Game.getInstance().remove(event.target);
+                Game.getInstance().level.remove(event.target);
                 let crafted: Entity = Resources.getInstance().getItem(event.target.craft[event.other.type]);
                 crafted.drop();
             }
@@ -78,7 +78,7 @@ class Entity extends Actor implements Pickable{
         let item:Entity = new Entity(properties, collisionType);
         Resources.getInstance().addItem(item);
         if (addToGame)
-            Game.getInstance().add(item);
+            Game.getInstance().level.add(item);
     }
     
     draw(ctx: CanvasRenderingContext2D, delta: number) {
@@ -108,7 +108,7 @@ class Entity extends Actor implements Pickable{
     }
     
     remove() {
-        Game.getInstance().remove(this);
+        Game.getInstance().level.remove(this);
     }
     
     // Pickable interface implementation
@@ -117,7 +117,7 @@ class Entity extends Actor implements Pickable{
         if (this.canPick || force) {
             if (Player.getInstance().getInventory().add(this)) {
                 this.collisionType = CollisionType.PreventCollision;
-                Game.getInstance().remove(this);
+                Game.getInstance().level.remove(this);
                 Player.getInstance().add(this);
                 this.setInventory(true);
                 return true;
@@ -135,7 +135,7 @@ class Entity extends Actor implements Pickable{
             this.pos = Player.getInstance().getPos().add(new Vector(0, this.getHeight() + 2 * this.padding));
             this.restoreCollision();
             Player.getInstance().remove(this);
-            Game.getInstance().add(this);
+            Game.getInstance().level.add(this);
             this.setInventory(false);
             return true;
         }

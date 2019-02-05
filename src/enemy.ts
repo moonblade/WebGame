@@ -54,7 +54,7 @@ class Enemy extends Actor{
         let door = new Enemy(properties);
         Resources.getInstance().addEnemy(door);
         if (addToGame)
-            Game.getInstance().add(door);
+            Game.getInstance().level.add(door);
     }
 
     canAttack():boolean {
@@ -113,7 +113,7 @@ class Enemy extends Actor{
         if (event.other instanceof Entity) {
             let item:Entity = event.other;
             if (item && this.itemWeakness.indexOf(item.type) > -1) {
-                Game.getInstance().remove(this);
+                Game.getInstance().level.remove(this);
                 this.giveReward();
                 if (Math.random() < this.removeWeakness) {
                     item.drop();
@@ -143,7 +143,7 @@ class Enemy extends Actor{
             }
             
             if (this.health.empty()) {
-                Game.getInstance().remove(this);
+                Game.getInstance().level.remove(this);
                 this.giveReward();
             }
         }

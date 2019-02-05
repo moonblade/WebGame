@@ -26,7 +26,7 @@ class Chest extends Actor {
         let chest = new Chest(properties);
         Resources.getInstance().addChest(chest);
         if (addToGame)
-            Game.getInstance().add(chest);
+            Game.getInstance().level.add(chest);
     }
 
     collisionStart(event:CollisionStartEvent):void{
@@ -35,7 +35,7 @@ class Chest extends Actor {
             if (key && key.name == this.key) {
                 key.place();
                 key.remove();
-                Game.getInstance().remove(this);
+                Game.getInstance().level.remove(this);
                 for (let content of this.contents) {
                     let entity:Entity = Resources.getInstance().getItem(content);
                     entity && entity.pick();
