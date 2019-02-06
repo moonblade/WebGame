@@ -674,12 +674,12 @@
                         {
                          "name":"health",
                          "type":"int",
-                         "value":1
+                         "value":50
                         }, 
                         {
                          "name":"sight",
                          "type":"int",
-                         "value":0
+                         "value":200
                         }],
                  "rotation":0,
                  "type":"",
